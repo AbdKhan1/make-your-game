@@ -1,54 +1,35 @@
+import { moveBall } from "./ball.js";
+import { movePaddle } from "./paddle.js";
+
+// const FPS = 60;
+// let lastTimestamp = 0;
 
 
-const ballStart = [300, 50]
-let ballCurrentPosition = ballStart
-
-let xDirection = -2 //45
-let yDirection = 2
-
-//draw Ball
-function drawBall() {
-    ball.style.left = ballCurrentPosition[0] + 'px'
-    ball.style.bottom = ballCurrentPosition[1] + 'px'
-  }
+// function update(timestamp) {
+//   requestAnimationFrame(update);
+//   if (timestamp - lastTimestamp < 1000 / FPS) return;
 
 
-const grid = document.querySelector('.grid')
-const ball = document.createElement("div")
-ball.classList.add("ball")
-grid.appendChild(ball)
-drawBall()
+//    /* <<< PUT YOUR CODE HERE >>>  */
+//    moveBall()
+//    movePaddle()
 
-
-//move ball
-function moveBall() {
-    if (ballCurrentPosition[0]<=0||ballCurrentPosition[0]>=(600-15)){
-        xDirection=-xDirection
-    }
-    if (ballCurrentPosition[1]<=0||ballCurrentPosition[1]>=(window.innerHeight-15)){
-        yDirection=-yDirection
-    }
-    ballCurrentPosition[0] += xDirection
-    ballCurrentPosition[1] += yDirection
-    console.log(ballCurrentPosition)
-    drawBall()
-    // checkForCollisions()
-    
-}
-// timerId = setInterval(moveBall, 30) 
-
-// for (let i=0;i<1000;i++){
-  
-//     moveBall()
+//   lastTimestamp = timestamp;
 // }
 
+
+// update();
+
+
+//https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
 
 var stop = false;
 var frameCount = 0;
 // var $results = $("#results");
 var fps, fpsInterval, startTime, now, then, elapsed;
 
-startAnimating(60);
+fps = 60
+startAnimating(fps);
 
 function startAnimating(fps) {
     fpsInterval = 1000 / fps;
@@ -84,7 +65,9 @@ function animate(newtime) {
         then = now - (elapsed % fpsInterval);
 
         // draw stuff here
+       
         moveBall()
+        movePaddle()
 
 
         // TESTING...Report #seconds since start and achieved fps.
@@ -94,3 +77,29 @@ function animate(newtime) {
 
     }
 }
+
+
+
+
+// function checkCollision() {
+
+//     //ball and paddle
+//     let ball = document.querySelector('.ball').getBoundingClientRect()
+//     let paddle = document.querySelector('.paddle').getBoundingClientRect()
+
+
+//     // console.log(ball, paddle.width)
+//     if (ball.x > paddle.x + paddle.width ||
+//         ball.x + ball.width < paddle.x ||
+//         ball.y > paddle.y + paddle.height ||
+//         ball.y + ball.height < paddle.y) {
+//         // no collision
+//         return false
+//     } else {
+//         // collision
+//         // console.log("collision!!")
+//         return true
+//     }
+
+
+// }

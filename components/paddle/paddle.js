@@ -37,7 +37,7 @@ function keyUpHandler(e) {
     }
 }
 
-let velocityX= 5
+let velocityX= 7
 function movePaddle(){
     if (rightPressed){
     paddleCurrentPos[0]+=velocityX
