@@ -2,8 +2,10 @@ const grid = document.querySelector('.grid')
 const paddle=document.createElement('div')
 paddle.classList.add('paddle')
 grid.appendChild(paddle)
-
-let paddleCurrentPos=[275,50]
+const gameWidth=grid.offsetWidth
+const paddleWidth=paddle.offsetWidth
+const borderWidth=10
+let paddleCurrentPos=[(gameWidth/2-paddleWidth/2),50]
 
 
 function drawPaddle(){
@@ -41,18 +43,21 @@ let velocityX= 7
 export function movePaddle(){
     if (rightPressed){
     paddleCurrentPos[0]+=velocityX
-}
-if (leftPressed){
-    paddleCurrentPos[0]+=-velocityX
-}
-if (paddleCurrentPos[0]<=0){
-       paddleCurrentPos[0]=0 
-    }
-    if(paddleCurrentPos[0]>=530){
-        paddleCurrentPos[0]=530
     }
 
-drawPaddle()
+    if (leftPressed){
+        paddleCurrentPos[0]+=-velocityX
+    }
+
+    if (paddleCurrentPos[0]<=0){
+        paddleCurrentPos[0]=0 
+    }
+
+    if(paddleCurrentPos[0]>=grid.offsetWidth-(paddleWidth)-(borderWidth*2)){
+        paddleCurrentPos[0]=grid.offsetWidth-(paddleWidth)-(borderWidth*2)
+    }
+
+    drawPaddle()
 }
 
 
