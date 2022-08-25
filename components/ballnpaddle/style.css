@@ -23,7 +23,7 @@
 
 .paddle{
     position: absolute;
-    width: 50px;
+    width: 100px;
     height: 15px;
     background-color: darkorange;
 }
