@@ -35,9 +35,11 @@ export function moveBall() {
     for (let i=0;i<brickArr.length;i++){
         let brick=brickArr[i].getBoundingClientRect()
         if(checkCollision(ballSizeAndPos,brick)){
-            
             basicChangeDirection()
+            brickArr[i].style.backgroundColor="white"
+            setTimeout(function(){
             brickArr[i].remove()
+            },100)
             collided = true
         }
         if (collided){
