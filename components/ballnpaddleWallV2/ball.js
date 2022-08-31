@@ -11,6 +11,8 @@ const ball = document.createElement("div");
 ball.classList.add("ball");
 grid.appendChild(ball);
 const ballStart = [(grid.offsetWidth / 2 - ball.offsetWidth / 2), 70];
+console.log(ballStart)
+
 let ballCurrentPosition = ballStart;
 drawBall();
 
@@ -45,10 +47,10 @@ export function moveBall() {
 
     if (collided) {
         brickArr[bricknum].style.backgroundColor = "white"
+        brickArr[bricknum].remove()
         basicChangeDirection()
-        setTimeout(function () {
-            brickArr[bricknum].remove()
-        }, 100)
+        // setTimeout(function () {
+        // }, 100)
     }
 
     if (ballCurrentPosition[0] <= 0 || ballCurrentPosition[0] >= 600 - 35) {
@@ -57,13 +59,24 @@ export function moveBall() {
     //when cleaning the code, removing the 'ballCurrentPosition[1] <= 0', as the ball 
     //would be below the grid and therefore off screen.
     if (
-        ballCurrentPosition[1] <= 0 ||
         ballCurrentPosition[1] >= window.innerHeight - 25
     ) {
         yDirection = -yDirection;
     }
+
+    if (ballCurrentPosition[1] <= 0) {
+        ballCurrentPosition[0] = (grid.offsetWidth / 2 - ball.offsetWidth / 2)
+        ballCurrentPosition[1] = 70
+        xDirection = -ballSpeed;
+        yDirection = ballSpeed;
+        drawBall()
+        return
+
+    }
+
     ballCurrentPosition[0] += xDirection;
     ballCurrentPosition[1] += yDirection;
+
     drawBall();
 }
 
