@@ -1,7 +1,7 @@
 import { checkCollision } from "./collision.js";
 const grid = document.querySelector(".grid");
-let brickArr = document.getElementsByClassName("brick");
-console.log(brickArr)
+
+
 let ballSpeed = 3;
 
 let xDirection = -ballSpeed;
@@ -31,7 +31,7 @@ export function moveBall() {
         changeDirection(ballSizeAndPos, paddleSizeAndPos);
     }
 
-
+    let brickArr = document.getElementsByClassName("brick");
 
     let collided = false
     let bricknum = 0
@@ -47,10 +47,14 @@ export function moveBall() {
 
     if (collided) {
         brickArr[bricknum].style.backgroundColor = "white"
-        brickArr[bricknum].remove()
+        
         basicChangeDirection()
-        // setTimeout(function () {
-        // }, 100)
+        // the sweet time seems to be 10ms
+        // otherwise bricks sometimes dont get removed and sometimes too many 
+        // get removed
+        setTimeout(function () {
+            brickArr[bricknum].remove()
+        }, 10)
     }
 
     if (ballCurrentPosition[0] <= 0 || ballCurrentPosition[0] >= 600 - 35) {
@@ -92,16 +96,19 @@ function basicChangeDirection() {
             console.log("brick case2")
             // alert(`${xDirection}, ${yDirection}, ${ballSpeed}`)
             xDirection = -ballSpeed;
+            yDirection = -ballSpeed
             break
 
         case xDirection < 0 && yDirection > 0:
             console.log("brick case3")
-            xDirection = -ballSpeed;
+            // xDirection = ballSpeed;
+
             yDirection = -ballSpeed
             break
 
         case xDirection < 0 && yDirection < 0:
             console.log("brick case4")
+            // xDirection = -ballSpeed;
             yDirection = ballSpeed;
             break
 
@@ -114,42 +121,42 @@ function changeDirection(b, p) {
     switch (true) {
         //if the ball hits the first quarter of the paddle
         case ((b.x >= p.x && b.x <= p.x + pws) && b.y <= p.y):
-            console.log("case1")
+            // console.log("case1")
             xDirection = -ballSpeed;
             yDirection = ballSpeed;
             break
 
         //if the ball hits the second quarter of the paddle
         case (b.x > (p.x + pws) && b.x <= (p.x + (2 * pws))):
-            console.log("case2")
+            // console.log("case2")
             xDirection = -Math.ceil(ballSpeed / 2);
             yDirection = ballSpeed;
             break
 
         //if the ball hits the third quarter of the paddle
         case (b.x > (p.x + (2 * pws)) && b.x <= (p.x + (3 * pws))):
-            console.log("case3")
+            // console.log("case3")
             xDirection = Math.ceil(ballSpeed / 2);
             yDirection = ballSpeed;
             break
 
         //if the ball hits the fourth quarter of the paddle
         case ((b.x > (p.x + (3 * pws))) && (b.x <= p.x + p.width) && b.y <= p.y):
-            console.log("case4")
+            // console.log("case4")
             xDirection = ballSpeed
             yDirection = ballSpeed;
             break
 
         //if the ball hits the left edge quarter of the paddle
         case (((b.x + b.width > p.x && b.x <= p.x + pws)) && (b.y > p.y && b.y <= p.y + p.height)):
-            console.log("case5")
+            // console.log("case5")
             xDirection = -ballSpeed - Math.ceil(ballSpeed / 2);
             yDirection = ballSpeed - Math.ceil(ballSpeed / 2);
             break
 
         //if the ball hits the right edge quarter of the paddle
         case ((b.x > p.x + (3 * pws) && b.x <= p.x + (4 * pws)) && (b.y > p.y && b.y < p.y + p.height)):
-            console.log("case6")
+            // console.log("case6")
             xDirection = ballSpeed + Math.ceil(ballSpeed / 2);
             yDirection = ballSpeed + Math.ceil(ballSpeed / 2);
             break
