@@ -2,9 +2,9 @@ import { checkCollision } from "./collision.js";
 const grid = document.querySelector(".grid");
 
 
-let ballSpeed = 3;
+let ballSpeed = 4;
 
-let xDirection = -ballSpeed;
+let xDirection = ballSpeed;
 let yDirection = ballSpeed;
 
 const ball = document.createElement("div");
@@ -47,8 +47,7 @@ export function moveBall() {
 
     if (collided) {
         brickArr[bricknum].style.backgroundColor = "white"
-        
-        basicChangeDirection()
+        basicChangeDirection(ballSizeAndPos, brickArr[bricknum].getBoundingClientRect())
         // the sweet time seems to be 10ms
         // otherwise bricks sometimes dont get removed and sometimes too many 
         // get removed
@@ -60,17 +59,13 @@ export function moveBall() {
     if (ballCurrentPosition[0] <= 0 || ballCurrentPosition[0] >= 600 - 35) {
         xDirection = -xDirection;
     }
-    //when cleaning the code, removing the 'ballCurrentPosition[1] <= 0', as the ball 
-    //would be below the grid and therefore off screen.
-    if (
-        ballCurrentPosition[1] >= window.innerHeight - 25
-    ) {
+
+    if (ballCurrentPosition[1] >= window.innerHeight - 25) {
         yDirection = -yDirection;
     }
 
     if (ballCurrentPosition[1] <= 0) {
-        ballCurrentPosition[0] = (grid.offsetWidth / 2 - ball.offsetWidth / 2)
-        ballCurrentPosition[1] = 70
+        ballCurrentPosition = [(grid.offsetWidth / 2 - ball.offsetWidth / 2),70]
         xDirection = -ballSpeed;
         yDirection = ballSpeed;
         drawBall()
@@ -84,34 +79,58 @@ export function moveBall() {
     drawBall();
 }
 
-function basicChangeDirection() {
+function basicChangeDirection(ball, brick) {
     switch (true) {
-        case xDirection > 0 && yDirection > 0:
-            console.log("brick case1")
-            // alert(`${xDirection}, ${yDirection}, ${ballSpeed}`)
-            yDirection = -ballSpeed;
+        //bottom right corner
+        case ball.y + ball.height > brick.y + brick.height && ball.x + ball.width >= brick.x + brick.width:
+            console.log('brick case 1')
+            // xDirection=-xDirection
+            yDirection = -yDirection
             break
 
-        case xDirection > 0 && yDirection < 0:
-            console.log("brick case2")
-            // alert(`${xDirection}, ${yDirection}, ${ballSpeed}`)
-            xDirection = -ballSpeed;
-            yDirection = -ballSpeed
+        //top right corner
+        case ball.y < brick.y && ball.x + ball.width >= brick.x + brick.width:
+            console.log('brick case 2')
+            // xDirection=-xDirection
+            yDirection = -yDirection
             break
 
-        case xDirection < 0 && yDirection > 0:
-            console.log("brick case3")
-            // xDirection = ballSpeed;
-
-            yDirection = -ballSpeed
+        //bottom left corner
+        case ball.y + ball.height > brick.y + brick.height && ball.x < brick.x:
+            console.log('brick case 3')
+            // xDirection=-xDirection
+            yDirection = -yDirection
             break
 
-        case xDirection < 0 && yDirection < 0:
-            console.log("brick case4")
-            // xDirection = -ballSpeed;
-            yDirection = ballSpeed;
+        //top left corner
+        case ball.y < brick.y && ball.x < brick.x:
+            console.log('brick case 4')
+            // xDirection=-xDirection
+            yDirection = -yDirection
             break
 
+        // //bottom of the brick
+        case ball.y + ball.height > brick.y + brick.height:
+            console.log('brick case 5')
+            yDirection = -yDirection
+            break
+
+        //top of brick
+        case ball.y < brick.y:
+            console.log('brick case 6')
+            yDirection = -yDirection
+            break
+        // left-side of the brick
+        case ball.x < brick.x:
+            console.log('brick case 7')
+            xDirection = -xDirection
+            break
+        // right-side of the brick
+        case ball.x + ball.width >= brick.x + brick.width:
+            console.log('brick case 8')
+            // console.log('brick',brick)
+            xDirection = -xDirection
+            break
     }
 }
 
@@ -158,7 +177,7 @@ function changeDirection(b, p) {
         case ((b.x > p.x + (3 * pws) && b.x <= p.x + (4 * pws)) && (b.y > p.y && b.y < p.y + p.height)):
             // console.log("case6")
             xDirection = ballSpeed + Math.ceil(ballSpeed / 2);
-            yDirection = ballSpeed + Math.ceil(ballSpeed / 2);
+            yDirection = ballSpeed - Math.ceil(ballSpeed / 2);
             break
     }
 
