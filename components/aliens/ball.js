@@ -46,7 +46,7 @@ export function moveBall() {
 
     if (brickCollision) {
         brickArr[bricknum].style.backgroundColor = "white"
-       brickChangeDirection(ballSizeAndPos, brickArr[bricknum].getBoundingClientRect())
+        brickChangeDirection(ballSizeAndPos, brickArr[bricknum].getBoundingClientRect())
         // the sweet time seems to be 10ms
         // otherwise bricks sometimes dont get removed and sometimes too many 
         // get removed
@@ -84,7 +84,7 @@ export function moveBall() {
     }
 
     if (ballCurrentPosition[1] <= 0) {
-        ballCurrentPosition = [(grid.offsetWidth / 2 - ball.offsetWidth / 2),70]
+        ballCurrentPosition = [(grid.offsetWidth / 2 - ball.offsetWidth / 2), 70]
         xDirection = -ballSpeed;
         yDirection = ballSpeed;
         drawBall()

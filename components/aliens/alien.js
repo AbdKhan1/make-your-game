@@ -1,15 +1,15 @@
 const grid = document.querySelector(".grid")
 const ball = document.querySelector(".ball")
-const brickHeightAndSeparation=20+5
-const brickNumberOfRows=5
-const paddlePos=70
+const brickHeightAndSeparation = 20 + 5
+const brickNumberOfRows = 5
+const paddlePos = 70
 const alienWidth = 60
 const alienHeight = 50
 const numberOfRows = 1
 const numberOfAliens = 3
 const space = (grid.offsetWidth - (numberOfAliens * alienWidth)) / numberOfAliens
 const AlienStartX = space / 2
-const AlienStartY= (ball.offsetWidth*4)+(brickHeightAndSeparation*brickNumberOfRows)+5
+const AlienStartY = (ball.offsetWidth * 4) + (brickHeightAndSeparation * brickNumberOfRows) + 5
 const drop = 10
 
 let alienCoords = []
@@ -73,18 +73,18 @@ export function moveAliens() {
     if (invaders.length === 0) {
         return
     }
-        closestToEdges()
+    closestToEdges()
 
-        if (closestLeft.style.left.replace('px', '') <= 0 || furthestRight.style.left.replace('px', '') >= (grid.offsetWidth - alienWidth - 20)) {
-            for (let i = 0; i < invaders.length; i++) {
-                alienCoords[i][1] += drop
-            }
-            velocity = -velocity
+    if (closestLeft.style.left.replace('px', '') <= 0 || furthestRight.style.left.replace('px', '') >= (grid.offsetWidth - alienWidth - 20)) {
+        for (let i = 0; i < invaders.length; i++) {
+            alienCoords[i][1] += drop
         }
+        velocity = -velocity
+    }
     for (let i = 0; i < invaders.length; i++) {
-        if(alienCoords[i][1]>=(grid.offsetHeight-paddlePos-alienHeight)){
+        if (alienCoords[i][1] >= (grid.offsetHeight - paddlePos - alienHeight)) {
             //gameover
-            alienCoords[i][1]=AlienStartY
+            alienCoords[i][1] = AlienStartY
         }
         alienCoords[i][0] = alienCoords[i][0] + velocity
     }

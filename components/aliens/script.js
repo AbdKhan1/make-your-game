@@ -1,7 +1,7 @@
 import { moveBall } from "./ball.js";
 import { movePaddle } from "./paddle.js";
-import {createBricks} from "./bricks.js";
-import {createAliens, moveAliens} from "./alien.js";
+import { createBricks } from "./bricks.js";
+import { createAliens, moveAliens } from "./alien.js";
 
 
 createBricks()
@@ -51,8 +51,8 @@ function animate(newtime) {
         then = now - (elapsed % fpsInterval);
 
         // draw stuff here
-       moveAliens()
-       moveBall()
-       movePaddle()
+        moveAliens()
+        moveBall()
+        movePaddle()
     }
 }
