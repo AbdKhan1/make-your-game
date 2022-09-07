@@ -1,11 +1,14 @@
 import { moveBall } from "./ball.js";
 import { movePaddle } from "./paddle.js";
 import { createBricks } from "./bricks.js";
-import { createAliens, moveAliens } from "./alien.js";
+import { createAliens, moveAliens,updateLasers,moveLasers } from "./alien.js";
 
+export let startMoveBall = false
+let laser
 
 createBricks()
 createAliens()
+//createLasers()
 //https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
 
 var stop = false;
@@ -25,6 +28,11 @@ function startAnimating(fps) {
     animate();
 }
 
+addEventListener('keydown', (e) => {
+    if (e.key === ' ') {
+        startMoveBall = true
+    }
+})
 
 function animate(newtime) {
 
@@ -49,10 +57,13 @@ function animate(newtime) {
         // Get ready for next frame by setting then=now, but...
         // Also, adjust for fpsInterval not being multiple of 16.67
         then = now - (elapsed % fpsInterval);
-
         // draw stuff here
         moveAliens()
-        moveBall()
+        if (startMoveBall) {
+            moveBall()
+        }
+        updateLasers()
+        moveLasers()
         movePaddle()
     }
 }
