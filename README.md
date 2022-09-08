@@ -1,8 +1,12 @@
 To do:
 
 - components
-    - ~~space invader aliens~~
-    - ~~"" shooting~~
+    - ~~game area~~ ✅
+    - ~~ball~~ ✅
+    - ~~paddle~~ ✅
+    ` ~~brick wall~~ ✅
+    - ~~space invader aliens~~ ✅
+    - ~~"" shooting~~ ✅
 
 
 - state :
