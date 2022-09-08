@@ -1,12 +1,19 @@
 To do:
 
 - game :
+- components
+    - ~~game area~~ ✅
+    - ~~ball~~ ✅
+    - ~~paddle~~ ✅
+    - ~~brick wall~~ ✅
+    - ~~space invader aliens~~ ✅
+    - ~~"" shooting~~ ✅
 
 - state :
-    - score
+    - ~~score~~ ✅
     - lives
-    - timer
-    - pause
+    - ~~timer~~ ✅
+    - ~~pause~~ ✅
 
 
 - views:
