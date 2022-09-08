@@ -1,3 +1,13 @@
+.time, .lives, .score, .currentLevel{
+    display: flex;
+}
+.scoreboard{
+    display: flex;
+    justify-content: space-around;
+    margin-left: 50%;
+    width: 600px;
+}
+
 .grid{
     position: absolute;
     width:600px;
