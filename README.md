@@ -1,10 +1,9 @@
 To do:
 
-- game :
-  - components left :
-        - ~~space invader aliens~~
-        - ~~"" shooting~~
-        - 
+- components
+    - ~~space invader aliens~~
+    - ~~"" shooting~~
+
 
 - state :
     - score
