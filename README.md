@@ -4,7 +4,7 @@ To do:
     - ~~game area~~ ✅
     - ~~ball~~ ✅
     - ~~paddle~~ ✅
-    ` ~~brick wall~~ ✅
+    - ~~brick wall~~ ✅
     - ~~space invader aliens~~ ✅
     - ~~"" shooting~~ ✅
 
@@ -22,6 +22,8 @@ To do:
     - gameover
     - about
 
+- audio:
+    - split audio file and extract clips
 
 
 - extra :
