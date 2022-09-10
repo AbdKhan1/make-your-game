@@ -1,7 +1,12 @@
 import { checkCollision } from "./collision.js";
 import { alienCoords } from "./alien.js";
+import { startMoveBall } from "./script.js";
 const grid = document.querySelector(".grid");
-
+const score=document.querySelector('#score')
+let points=0
+let pointsCombo=0
+let comboCount = 0
+let multiplier = 1
 
 let ballSpeed = 4;
 
@@ -28,12 +33,19 @@ export function moveBall() {
     let paddleSizeAndPos = document.querySelector('.paddle').getBoundingClientRect();
 
     if (checkCollision(ballSizeAndPos, paddleSizeAndPos)) {
+        pointsCombo=0
+        multiplier = 1
+        comboCount=0
         ballChangeDirection(ballSizeAndPos, paddleSizeAndPos);
     }
 
     let brickArr = document.getElementsByClassName("brick");
     let brickCollision = false
     let bricknum = 0
+
+    let alienArr = document.getElementsByClassName("alien");
+    let alienCollision = false
+    let alienNum = 0
 
     for (let i = 0; i < brickArr.length; i++) {
         let brickSizeandPos = brickArr[i].getBoundingClientRect()
@@ -45,6 +57,19 @@ export function moveBall() {
     }
 
     if (brickCollision) {
+        comboCount++
+        if (comboCount%5==0){
+            multiplier++
+        }
+        if (alienArr.length!=0){
+            points+=(100*alienArr.length)
+        }else{
+            points+=50
+        }
+        points+=pointsCombo
+        pointsCombo+=10*multiplier
+        
+        score.innerHTML=points
         brickArr[bricknum].style.backgroundColor = "white"
         brickChangeDirection(ballSizeAndPos, brickArr[bricknum].getBoundingClientRect())
         // the sweet time seems to be 10ms
@@ -54,9 +79,7 @@ export function moveBall() {
             brickArr[bricknum].remove()
         }, 10)
     }
-    let alienArr = document.getElementsByClassName("alien");
-    let alienCollision = false
-    let alienNum = 0
+
 
     for (let i = 0; i < alienArr.length; i++) {
         let alienSizeAndPos = alienArr[i].getBoundingClientRect()
@@ -68,6 +91,8 @@ export function moveBall() {
     }
 
     if (alienCollision) {
+        points+=150
+        score.innerHTML=points
         alienChangeDirection(ballSizeAndPos, alienArr[alienNum].getBoundingClientRect())
         alienArr[alienNum].style.filter = 'hue-rotate(260deg)'
         setTimeout(function () {

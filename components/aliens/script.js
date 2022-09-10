@@ -1,24 +1,24 @@
 import { moveBall } from "./ball.js";
 import { movePaddle } from "./paddle.js";
 import { createBricks } from "./bricks.js";
-import { createAliens, moveAliens,updateLasers,moveLasers } from "./alien.js";
+import { createAliens, moveAliens, updateLasers, moveLasers } from "./alien.js";
 
 export let startMoveBall = false
-let laser
 
 createBricks()
 createAliens()
-//createLasers()
+
 //https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
 
-var stop = false;
-var frameCount = 0;
-// var $results = $("#results");
-var fps, fpsInterval, startTime, now, then, elapsed;
+let stop = false;
+let frameCount = 0;
+let fps, fpsInterval, startTime, now, then, elapsed;
 
 fps = 60
 
+
 startAnimating(fps);
+
 
 function startAnimating(fps) {
     fpsInterval = 1000 / fps;
@@ -32,7 +32,35 @@ addEventListener('keydown', (e) => {
     if (e.key === ' ') {
         startMoveBall = true
     }
+    if (e.keyCode === 16) {
+        console.log(stop)
+        if (stop) {
+            stop = false
+            startAnimating(60)
+        } else if(!stop) {
+            stop = true
+        }
+
+    }
 })
+
+const time=document.querySelector('#time')
+
+let totalSeconds = 0;
+let counterSec = 0
+function countUpTimer() {
+  if (stop) {
+    return
+  }
+  ++totalSeconds;
+  if (totalSeconds % 60 === 0) {
+    counterSec = totalSeconds / 60
+    let hour = Math.floor(counterSec / 3600);
+    let minute = Math.floor((counterSec - hour * 3600) / 60);
+    let seconds = (counterSec - (hour * 3600 + minute * 60));
+    time.innerHTML = hour + "hr" + ":" + minute + "m" + ":" + seconds + "s";
+  }
+}
 
 function animate(newtime) {
 
@@ -65,5 +93,6 @@ function animate(newtime) {
         updateLasers()
         moveLasers()
         movePaddle()
+        countUpTimer()
     }
 }
