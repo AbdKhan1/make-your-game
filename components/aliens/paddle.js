@@ -6,10 +6,10 @@ const gameWidth = grid.offsetWidth
 const paddleWidth = paddle.offsetWidth
 const borderWidth = 10
 const ballWidth = 15
-let paddleCurrentPos = [(gameWidth / 2 - paddleWidth / 2), 50]
+export let paddleCurrentPos = [(gameWidth / 2 - paddleWidth / 2), 50]
 
 
-function drawPaddle() {
+export function drawPaddle() {
     paddle.style.left = paddleCurrentPos[0] + 'px'
     paddle.style.bottom = paddleCurrentPos[1] + 'px'
 }

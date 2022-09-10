@@ -1,19 +1,24 @@
 const grid = document.querySelector(".grid")
+const center = (window.innerWidth / 2) - (grid.offsetWidth / 2)
+grid.style.marginLeft = center + 'px'
+const scoreboard = document.querySelector(".scoreboard")
+scoreboard.style.marginLeft = center + 'px'
+grid.style.height = (window.innerHeight - scoreboard.getBoundingClientRect().height) + 'px'
 const ball = document.querySelector(".ball")
 const brickHeightAndSeparation = 20 + 5
 const brickNumberOfRows = 5
 const paddlePos = 70
-const alienWidth = 60
-const alienHeight = 50
+const alienWidth = 30
+const alienHeight = 25
 const numberOfRows = 1
-const numberOfAliens = 6
+export const numberOfAliens = 6
 const space = (grid.offsetWidth - (numberOfAliens * alienWidth)) / numberOfAliens
 const AlienStartX = space / 2
 const AlienStartY = (15 * 4) + (brickHeightAndSeparation * brickNumberOfRows) + 5
 const drop = 10
-const laserWidth = 20
-const laserHeight = 20
-const laserSpeed = 1
+const laserWidth = 30
+const laserHeight = 25
+const laserSpeed = 4
 
 export let alienCoords = []
 let alienStart = [AlienStartX, AlienStartY]
@@ -123,15 +128,16 @@ export function createLasers() {
             grid.appendChild(laser)
             laser.style.width = laserWidth + 'px'
             laser.style.height = laserHeight + 'px'
-            laserCoords[0] = Number(alien.getBoundingClientRect().left) + (Number(alien.getBoundingClientRect().width / 2) - (laserWidth / 2))
+            laserCoords[0] = Number(alien.style.left.replace('px', '')) + (Number(alien.getBoundingClientRect().width / 2) - (laserWidth / 2))
             laserCoords[1] = Number(alien.getBoundingClientRect().top) + Number(alien.getBoundingClientRect().height)
             lasers.push([laserCoords[0], laserCoords[1]])
+
+
         }
     }
-    drawLasers()
 }
 
-let lives = 3
+export let lives = 3
 
 import { checkCollision } from "./collision.js"
 export function moveLasers() {
@@ -151,6 +157,8 @@ export function moveLasers() {
         let laserSizeAndPos = laserArr[i].getBoundingClientRect()
         if (checkCollision(laserSizeAndPos, paddleSizeAndPos)) {
             lives--
+            const numberOfLives = document.querySelector('#lives')
+            numberOfLives.innerHTML = lives
             if (lives === 2) {
                 paddle.style.backgroundColor = 'purple'
             } else if (lives === 1) {
@@ -160,8 +168,6 @@ export function moveLasers() {
             lasers.splice(i, 1)
         }
     }
-
-
     drawLasers()
 }
 
@@ -172,5 +178,5 @@ export function updateLasers() {
         laser_cooldown = Math.floor(Math.random() * 100)
         return
     }
-    laser_cooldown -= 0.25
+    laser_cooldown -= 0.5
 }
