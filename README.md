@@ -1,16 +1,19 @@
 To do:
 
-- game :
-    - components left :
-        - space invader aliens
-        - "" shooting
-        - 
+- components
+    - ~~game area~~ ✅
+    - ~~ball~~ ✅
+    - ~~paddle~~ ✅
+    - ~~brick wall~~ ✅
+    - ~~space invader aliens~~ ✅
+    - ~~"" shooting~~ ✅
+
 
 - state :
-    - score
+    - ~~score~~ ✅
     - lives
-    - timer
-    - pause
+    - ~~timer~~ ✅
+    - ~~pause~~ ✅
 
 
 - views:
@@ -19,6 +22,8 @@ To do:
     - gameover
     - about
 
+- audio:
+    - split audio file and extract clips
 
 
 - extra :
