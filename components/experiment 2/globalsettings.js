@@ -8,7 +8,7 @@ import { setupGameView } from "./gamearea.js"
 ////////////////////////////////////////////////
 export const gameViewSettings = {
     gameViewWidth: 600,
-    gameViewHeight: 900,
+    gameViewHeight: innerHeight > 680 ? 680 : innerHeight < 200 ? innerHeight : 680, //takes up the full height or 680px
     gameViewColor: "black",
     borderWidth: 10,      // px - side borderwidth 
     borderColor: "gray",          
@@ -22,10 +22,10 @@ export const gameViewSettings = {
 /* ball */
 ////////////////////////////////////////////////
 export const ballSettings = {
-    ballSize: 15,
-    ballSpeed: 4,
-    ballCount: 1,
-    ballColor: 'hotpink'
+    size: 15,
+    speed: 4,
+    balls: 1,
+    color: 'hotpink'
 }
 
 
@@ -36,7 +36,10 @@ export const ballSettings = {
 /* paddle */
 ////////////////////////////////////////////////
 export const paddleSettings = {
-    paddleVelocity: 7
+    velocity: 6,
+    width: 100,
+    height: 15,
+    color: "white" //'darkorange' 
 }
 
 

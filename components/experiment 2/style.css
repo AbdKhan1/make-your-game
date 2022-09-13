@@ -18,10 +18,10 @@
 }
 
 .paddle{
-    position: absolute;
+    /* position: absolute;
     width: 100px;
     height: 15px;
-    background-color: darkorange;
+    background-color: darkorange; */
 }
 
 .brick{
