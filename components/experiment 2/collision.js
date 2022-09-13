@@ -18,23 +18,27 @@ export function checkCollision(ball,object) {
 
 }
 
-export function checkWallCollision(ball) {
+export function checkWallCollision(object) {
 
     // check collision with walls
     // with left wall
     let leftW = document.querySelector(".leftWall")
-    if (checkCollision(ball,leftW.getBoundingClientRect())) {
+    if (checkCollision(object,leftW.getBoundingClientRect())) {
         return "left"
     }
     // with right wall
     let rightW = document.querySelector(".rightWall")
-    if (checkCollision(ball,rightW.getBoundingClientRect())) {
+    if (checkCollision(object,rightW.getBoundingClientRect())) {
         return "right"
     }
     // with top wall
     let topW = document.querySelector(".topWall")
-    if (checkCollision(ball,topW.getBoundingClientRect())) {
+    if (checkCollision(object,topW.getBoundingClientRect())) {
         return "top"
+    }
+    // with bottom wall
+    if (object.y + object.height > gameViewSettings.gameViewHeight) {
+        return "bottom"
     }
 
     return "none"

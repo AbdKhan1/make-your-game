@@ -1,9 +1,11 @@
 import { BallMovement } from "./ball.js";
+import { PaddleMovement } from "./paddle.js";
+import { startBallMovement } from "./input.js";
+import { createBricks } from "./bricks.js"
 
 
 
-
-// createBricks();
+createBricks(0);
 
 //https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
 
@@ -47,7 +49,10 @@ function animate(newtime) {
 
     // draw stuff here
 
-    BallMovement();
+    if (startBallMovement) {
+      BallMovement();
+    }
+    PaddleMovement()
 
   }
 }
