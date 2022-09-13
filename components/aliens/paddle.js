@@ -2,6 +2,7 @@ const grid = document.querySelector('.grid')
 const paddle = document.createElement('div')
 paddle.classList.add('paddle')
 grid.appendChild(paddle)
+
 const gameWidth = grid.offsetWidth
 const paddleWidth = paddle.offsetWidth
 const borderWidth = 10

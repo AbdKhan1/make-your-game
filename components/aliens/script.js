@@ -5,6 +5,19 @@ import { createAliens, moveAliens, updateLasers, moveLasers } from "./alien.js";
 
 export let startMoveBall = false
 let numberOfLives = document.querySelector('#lives')
+let grid = document.querySelector('.grid')
+
+let red = 150
+let green = 0
+let blue = 0
+let colorRotation = 0
+
+function disco() {
+    let newRGB = "rgb(" + red + "," + " " + green + "," + " " + blue + ")"
+    grid.style.borderRightColor = newRGB
+    grid.style.borderLeftColor = newRGB
+    grid.style.borderTopColor = newRGB
+}
 
 createBricks()
 createAliens()
@@ -12,7 +25,6 @@ createAliens()
 //https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
 
 let stop = false;
-let frameCount = 0;
 let fps, fpsInterval, startTime, now, then, elapsed;
 let pauseBox = document.querySelector(".pause")
 
@@ -26,7 +38,7 @@ function startAnimating(fps) {
     fpsInterval = 1000 / fps;
     then = window.performance.now();
     startTime = then;
-    //console.log(startTime);
+
     animate();
 }
 
@@ -45,6 +57,12 @@ addEventListener('keydown', (e) => {
         }
 
     }
+})
+
+document.querySelector('#continue').addEventListener('click',(e)=>{
+    stop = false 
+    pauseBox.style.display = "none";
+    startAnimating(60)
 })
 
 const time = document.querySelector('#time')
@@ -66,6 +84,25 @@ function countUpTimer() {
 }
 
 function animate(newtime) {
+    if (colorRotation === 1) {
+        red = 50
+        blue = 50
+        green = 150
+        colorRotation=0
+    }
+    if (red !== 255) {
+        red++
+    } else if (red === 255 && green !== 255) {
+        green++
+    } else if (red === 255 && green === 255 && blue !== 255) {
+        blue++
+    } else if (red === 255 && green === 255 && blue === 255) {
+        red = 50
+        blue = 150
+        green = 50
+        colorRotation++
+    }
+
 
     // stop
     if (stop) {
@@ -97,6 +134,8 @@ function animate(newtime) {
             stop = true
             let aliens = document.querySelectorAll('.alien')
             let lasers = document.querySelectorAll('.laser')
+            let ball = document.querySelector('.ball')
+            ball.remove()
             for (let i = 0; i < aliens.length; i++) {
                 aliens[i].remove()
             }
@@ -117,5 +156,6 @@ function animate(newtime) {
         if (paddleMoved || startMoveBall) {
             countUpTimer()
         }
+        disco()
     }
 }

@@ -2,10 +2,10 @@ import { checkCollision } from "./collision.js";
 import { alienCoords } from "./alien.js";
 import { startMoveBall } from "./script.js";
 const grid = document.querySelector(".grid");
-const score=document.querySelector('#score')
-let numberOfLives = document.querySelector('#lives')    
-let points=0
-let pointsCombo=0
+const score = document.querySelector('#score')
+let numberOfLives = document.querySelector('#lives')
+let points = 0
+let pointsCombo = 0
 let comboCount = 0
 let multiplier = 1
 
@@ -34,9 +34,9 @@ export function moveBall() {
     let paddleSizeAndPos = document.querySelector('.paddle').getBoundingClientRect();
 
     if (checkCollision(ballSizeAndPos, paddleSizeAndPos)) {
-        pointsCombo=0
+        pointsCombo = 0
         multiplier = 1
-        comboCount=0
+        comboCount = 0
         ballChangeDirection(ballSizeAndPos, paddleSizeAndPos);
     }
 
@@ -59,18 +59,18 @@ export function moveBall() {
 
     if (brickCollision) {
         comboCount++
-        if (comboCount%5==0){
+        if (comboCount % 5 == 0) {
             multiplier++
         }
-        if (alienArr.length!=0){
-            points+=(100*alienArr.length)
-        }else{
-            points+=50
+        if (alienArr.length != 0) {
+            points += (100 * alienArr.length)
+        } else {
+            points += 50
         }
-        points+=pointsCombo
-        pointsCombo+=10*multiplier
-        
-        score.innerHTML=points
+        points += pointsCombo
+        pointsCombo += 10 * multiplier
+
+        score.innerHTML = points
         brickArr[bricknum].style.backgroundColor = "white"
         brickChangeDirection(ballSizeAndPos, brickArr[bricknum].getBoundingClientRect())
         // the sweet time seems to be 10ms
@@ -92,27 +92,31 @@ export function moveBall() {
     }
 
     if (alienCollision) {
-        points+=150
-        score.innerHTML=points
+        points += 150
+        score.innerHTML = points
         alienChangeDirection(ballSizeAndPos, alienArr[alienNum].getBoundingClientRect())
         alienArr[alienNum].style.filter = 'hue-rotate(260deg)'
         setTimeout(function () {
             alienArr[alienNum].remove()
             alienCoords.splice(alienNum, 1)
-            console.log(alienCoords)
         }, 10)
     }
 
-    if (ballCurrentPosition[0] <= 0 || ballCurrentPosition[0] >= 600 - 35) {
+    if (ballCurrentPosition[0] <= 0 || ballCurrentPosition[0] >= 600 - 35) {   
+        let borderHit = "rgb(" + 255 + "," + " " + 255 + "," + " " + 255 + ")"
+        grid.style.borderRightColor = borderHit
+        grid.style.borderLeftColor = borderHit
+        grid.style.borderTopColor = borderHit
         xDirection = -xDirection;
+
     }
 
     if (ballCurrentPosition[1] >= window.innerHeight - 25) {
         yDirection = -yDirection;
     }
-    
 
-    if (ballCurrentPosition[1] <= 0) {    
+
+    if (ballCurrentPosition[1] <= 0) {
         let paddle = document.querySelector('.paddle')
         numberOfLives.innerText--
         if (numberOfLives.innerText == 2) {
