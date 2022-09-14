@@ -1,30 +1,30 @@
-import { gameViewSettings } from "./globalsettings.js"
+import { gameViewSettings, paddleSettings } from "./globalsettings.js"
 import { startBallMovement, rightPressed, leftPressed } from "./input.js";
 import { moveBall } from "./ball.js";
-    
+
 const gameView = document.querySelector('.gameView')
-const paddle = document.createElement('div')
+let paddle = document.createElement('div')
+let paddleCurrentPos = [(gameViewSettings.gameViewWidth / 2 - paddleSettings.width / 2), 50]
 
+function createPaddle() {
 
-paddle.classList.add('paddle')
-gameView.appendChild(paddle)
+    paddle.classList.add('paddle')
+    paddle.style.width = paddleSettings.width + 'px'
+    paddle.style.height = paddleSettings.height + 'px'
+    paddle.style.backgroundColor = paddleSettings.color
+    paddle.style.position = 'absolute'
 
-const gameWidth = gameView.offsetWidth
-const paddleWidth = paddle.offsetWidth
-const borderWidth = 10
+    paddle.style.left = paddleCurrentPos[0] + 'px'
+    paddle.style.bottom = paddleCurrentPos[1] + 'px'
+    gameView.appendChild(paddle)
+}
 
-export let paddleCurrentPos = [(gameWidth / 2 - paddleWidth / 2), 50]
-
+createPaddle()
 
 export function movePaddle() {
     paddle.style.left = paddleCurrentPos[0] + 'px'
     paddle.style.bottom = paddleCurrentPos[1] + 'px'
 }
-
-movePaddle()
-
-let velocityX = 7
-console.log(startBallMovement)
 
 export function PaddleMovement() {
 
@@ -32,47 +32,46 @@ export function PaddleMovement() {
         stickyPaddleMovement()
         return
     }
-    
-    if (leftPressed) {        
-        paddleCurrentPos[0] -= velocityX
+
+    if (leftPressed) {
+        paddleCurrentPos[0] -= paddleSettings.velocity
     }
 
     if (rightPressed) {
-        paddleCurrentPos[0] += velocityX
+        paddleCurrentPos[0] += paddleSettings.velocity
     }
-        
+
     if (paddleCurrentPos[0] <= gameViewSettings.borderWidth) {
         paddleCurrentPos[0] = gameViewSettings.borderWidth
     }
-    if (paddleCurrentPos[0] >= gameViewSettings.gameViewWidth - (paddleWidth) - (borderWidth)) {
-        paddleCurrentPos[0] = gameViewSettings.gameViewWidth - (paddleWidth) - (borderWidth)
+    if (paddleCurrentPos[0] >= gameViewSettings.gameViewWidth - (paddleSettings.width) - (gameViewSettings.borderWidth)) {
+        paddleCurrentPos[0] = gameViewSettings.gameViewWidth - (paddleSettings.width) - (gameViewSettings.borderWidth)
     }
-        
-    
+
 
     movePaddle()
 }
 
 
 function stickyPaddleMovement() {
-    
-    if (leftPressed && paddleCurrentPos[0] > gameViewSettings.borderWidth ) {
-        paddleCurrentPos[0] -= velocityX
-        moveBall(0, -1, 0, velocityX)        
+
+    if (leftPressed && paddleCurrentPos[0] > gameViewSettings.borderWidth) {
+        paddleCurrentPos[0] -= paddleSettings.velocity
+        moveBall(0, -paddleSettings.velocity, 0)
     }
 
-    if (rightPressed && (paddleCurrentPos[0]  < gameViewSettings.gameViewWidth - (paddleWidth) - (borderWidth)))  {
-        paddleCurrentPos[0] += velocityX
-        moveBall(0, 1, 0, velocityX)        
+    if (rightPressed && (paddleCurrentPos[0] < gameViewSettings.gameViewWidth - (paddleSettings.width) - (gameViewSettings.borderWidth))) {
+        paddleCurrentPos[0] += paddleSettings.velocity
+        moveBall(0, paddleSettings.velocity, 0)
     }
 
     if (paddleCurrentPos[0] <= gameViewSettings.borderWidth) {
-        paddleCurrentPos[0] = gameViewSettings.borderWidth        
+        paddleCurrentPos[0] = gameViewSettings.borderWidth
 
     }
-    if (paddleCurrentPos[0] >= gameViewSettings.gameViewWidth - (paddleWidth) - (borderWidth)) {
-        paddleCurrentPos[0] = gameViewSettings.gameViewWidth - (paddleWidth) - (borderWidth)
+    if (paddleCurrentPos[0] >= gameViewSettings.gameViewWidth - (paddleSettings.width) - (gameViewSettings.borderWidth)) {
+        paddleCurrentPos[0] = gameViewSettings.gameViewWidth - (paddleSettings.width) - (gameViewSettings.borderWidth)
     }
-        
+
     movePaddle()
 }

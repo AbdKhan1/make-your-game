@@ -1,13 +1,16 @@
 import { gameViewSettings } from "./globalsettings.js"
+import { removeBrick } from "./bricks.js"
 
-// https://youtu.be/r0sy-Cr6WHY?t=327
 
-export function checkCollision(ball,object) {
+// DOMRect describes the size and position of a rectangle.
 
-    if (ball.x > object.x + object.width ||
-        ball.x + ball.width < object.x ||
-        ball.y > object.y + object.height ||
-        ball.y + ball.height < object.y) {
+export function checkCollision(ball, objectDOMRect) {
+    // https://youtu.be/r0sy-Cr6WHY?t=327
+
+    if (ball.x > objectDOMRect.x + objectDOMRect.width ||
+        ball.x + ball.width < objectDOMRect.x ||
+        ball.y > objectDOMRect.y + objectDOMRect.height ||
+        ball.y + ball.height < objectDOMRect.y) {
         // no collision
         return false
     } else {
@@ -15,32 +18,54 @@ export function checkCollision(ball,object) {
         return true
     }
 
-
 }
 
-export function checkWallCollision(object) {
+export function checkPaddleCollision(ballDOMRect) {
+    let paddleDOMRect = document.querySelector(".paddle").getBoundingClientRect()
+    return checkCollision(ballDOMRect, paddleDOMRect)
+}
+
+export function checkWallCollision(ballDOMRect) {
 
     // check collision with walls
     // with left wall
     let leftW = document.querySelector(".leftWall")
-    if (checkCollision(object,leftW.getBoundingClientRect())) {
+    if (checkCollision(ballDOMRect, leftW.getBoundingClientRect())) {
         return "left"
     }
     // with right wall
     let rightW = document.querySelector(".rightWall")
-    if (checkCollision(object,rightW.getBoundingClientRect())) {
+    if (checkCollision(ballDOMRect, rightW.getBoundingClientRect())) {
         return "right"
     }
     // with top wall
     let topW = document.querySelector(".topWall")
-    if (checkCollision(object,topW.getBoundingClientRect())) {
+    if (checkCollision(ballDOMRect, topW.getBoundingClientRect())) {
         return "top"
     }
     // with bottom wall
-    if (object.y + object.height > gameViewSettings.gameViewHeight) {
+    if (ballDOMRect.y + ballDOMRect.height > gameViewSettings.gameViewHeight) {
         return "bottom"
     }
 
     return "none"
+
+}
+
+export function checkBrickCollision(ballDOMRect) {
+
+    let bricks = document.querySelectorAll(".brick")
+    // console.log(bricks)
+
+
+    for (let i = 0; i < bricks.length; i++) {
+        let brickDOMRect = bricks[i].getBoundingClientRect()
+        if (checkCollision(ballDOMRect, brickDOMRect)) {
+            // removeBrick(i) 
+            return i
+        }
+    }
+
+
 
 }

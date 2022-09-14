@@ -1,27 +1,16 @@
 .gameView{
-    position: absolute;
-    
-    /* border-top:solid gray 10px;
-    border-left: solid gray 10px;
-    border-right:solid gray 10px; */
+    position: absolute;    
 }
 
 *{
-    margin: 0;
-    box-sizing: border-box;
+    /* margin: 0; */
+    /* box-sizing: border-box; */
+    background-color: rgba(133, 125, 125, 0.089);
 }
 
 .ball{
     position:absolute;
-    border-radius: 50px; /* Turns a square into a circle   */
-    
-}
-
-.paddle{
-    position: absolute;
-    width: 100px;
-    height: 15px;
-    background-color: darkorange;
+    border-radius: 50px; /*Turns a square into a circle     */
 }
 
 .brick{

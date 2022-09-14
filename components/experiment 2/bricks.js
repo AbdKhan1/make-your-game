@@ -13,7 +13,7 @@ export function createBricks(level) {
     
     console.log("number of bricks", numberOfBricksPerRow)
 
-    const brickStartY = ballSettings.ballSize * 4
+    const brickStartY = ballSettings.size * 4
     console.log(brickStartY)
 
     const brickStartX = (Math.floor((gameView.offsetWidth
@@ -44,4 +44,10 @@ export function createBricks(level) {
     }
 
 
+}
+
+export function removeBrick(id) {
+    let bricks = document.querySelectorAll(".brick")
+    bricks[id].remove()
+    
 }
