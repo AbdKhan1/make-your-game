@@ -1,5 +1,5 @@
 import { levels } from "./levels.js";
-import { ballSettings } from "./globalsettings.js"
+
 
 
 let gameView = document.querySelector(".gameView");
@@ -13,7 +13,7 @@ export function createBricks(level) {
     
     console.log("number of bricks", numberOfBricksPerRow)
 
-    const brickStartY = ballSettings.size * 4
+    const brickStartY =  levels[level].bricks.gapFromTop  // The gap for the ball to bounce between the //top and the starting row of bricks
     console.log(brickStartY)
 
     const brickStartX = (Math.floor((gameView.offsetWidth
