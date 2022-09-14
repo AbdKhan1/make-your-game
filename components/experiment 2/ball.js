@@ -86,7 +86,10 @@ function bounce(ballDOMRect, x, y) {
 
         // check if the ball is hitting the paddle in different areas
         // and return the new direction accordingly
-        return (calculatePaddleBounce(ballDOMRect))
+        
+        let newDirection = calculatePaddleBounce(ballDOMRect)
+        return newDirection || [x, y]   // catching any undefined values before returning
+
         // y = -y;
         // return [x, y]
     }
@@ -149,6 +152,16 @@ function calculatePaddleBounce(b) {
         case b.x < p.x:
             return [(-bspeed - Math.ceil(bspeed / 2)), (bspeed - Math.ceil(bspeed / 2))];
 
+        // if the ball hits the bottom right of the paddle
+        case  b.y + b.height > p.y + p.height && b.x + b.width >= p.x + p.width:
+            return [bspeed, -bspeed]
+
+        //if the ball hits the bottom left
+        case b.y + b.height > p.y + p.height && b.x < p.x:
+            return [bspeed, -bspeed]
+
+            
+        //bottom of the paddle
         case b.y + b.height > p.y + p.height:
             return [bspeed, -bspeed]
 

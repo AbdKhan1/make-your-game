@@ -1,8 +1,11 @@
+import { ballSettings } from "./globalsettings.js"
+
 // object with all the levels
 export let levels = {
     // for development
     0: {
         bricks: {
+            gapFromTop: ballSettings.size * 4,
             numberOfRows: 3,
             brickWidth: 60,
             brickHeight: 20,
@@ -10,6 +13,13 @@ export let levels = {
             padding: 1,
             brickRowColors: ["#fff", "#fff", "#fff", "#fff", "#fff"]
 
+        },
+        aliens: {
+            gapFromTop: ballSettings.size * 2,
+            numberOfAliens: 4,
+            numberOfRows: 1,
+            drop:10, //speed of the aliens moving down
+            velocity:1
         }
     },
     1: {
@@ -21,6 +31,10 @@ export let levels = {
             padding: 5,
             brickRowColors: ["#c44a4a", "#c36c40", "#a3a040", "#4d9e49", "#4350c5"]
 
+        },
+        aliens:{
+            numberOfAliens: 3,
+            numberOfRows: 2,
         }
     },
     5: {
