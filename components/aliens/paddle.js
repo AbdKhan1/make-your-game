@@ -41,9 +41,15 @@ function keyUpHandler(e) {
 }
 
 import { startMoveBall } from "./script.js"
-import { drawBall, ballCurrentPosition } from "./ball.js"
+import { drawBall, ballCurrentPosition, movingBall } from "./ball.js"
 let velocityX = 7
 export function movePaddle() {
+    if (!movingBall){
+        paddleCurrentPos = [(gameWidth / 2 - paddleWidth / 2), 50]
+        ballCurrentPosition[0]= grid.offsetWidth / 2 - (15 / 2)
+        ballCurrentPosition[1]= 70
+        
+    }
     if (rightPressed) {
         paddleCurrentPos[0] += velocityX
         if (!startMoveBall) {

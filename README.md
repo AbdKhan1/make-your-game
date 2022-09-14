@@ -1,6 +1,5 @@
 To do:
 
-- game :
 - components
     - ~~game area~~ ✅
     - ~~ball~~ ✅
@@ -22,6 +21,8 @@ To do:
     - gameover
     - about
 
+- audio:
+    - split audio file and extract clips
 
 
 - extra :
