@@ -1,4 +1,4 @@
-import { moveBall } from "./ball.js";
+import { moveBall, movingBall, changeValue } from "./ball.js";
 import { movePaddle } from "./paddle.js";
 import { createBricks } from "./bricks.js";
 import { createAliens, moveAliens, updateLasers, moveLasers } from "./alien.js";
@@ -31,6 +31,7 @@ function startAnimating(fps) {
 addEventListener('keydown', (e) => {
     if (e.key === ' ') {
         startMoveBall = true
+        changeValue()
     }
     if (e.keyCode === 16) {
         console.log(stop)
@@ -64,6 +65,7 @@ function countUpTimer() {
 
 function animate(newtime) {
 
+
     // stop
     if (stop) {
         return;
@@ -87,6 +89,9 @@ function animate(newtime) {
         then = now - (elapsed % fpsInterval);
         // draw stuff here
         moveAliens()
+        if (!movingBall){
+            startMoveBall=false
+        }
         if (startMoveBall) {
             moveBall()
         }

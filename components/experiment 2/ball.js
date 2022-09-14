@@ -6,7 +6,7 @@ let gameView = document.querySelector(".gameView");
 
 let balls = [],
     ballsDirection = []
-    
+
 
 // initialize and setup the ball(s)
 function initBall() {
@@ -41,7 +41,7 @@ function createBall(x, y) {
     ball.style.bottom = ballStartPosition[1] + "px";
     gameView.appendChild(ball);
     balls.push(ball)
-    ballsDirection.push([x, y])    
+    ballsDirection.push([x, y])
 }
 
 
@@ -49,7 +49,7 @@ export function moveBall(id, xDirection, yDirection) {
     let currentLeft = parseInt(balls[id].style.left),
         currentBottom = parseInt(balls[id].style.bottom),
         newLeft = currentLeft + xDirection,
-        newBottom = currentBottom + yDirection   
+        newBottom = currentBottom + yDirection
 
     balls[id].style.left = newLeft + "px";
     balls[id].style.bottom = newBottom + "px";
@@ -63,6 +63,7 @@ export function BallMovement() {
     for (let i = 0; i < balls.length; i++) {
 
         // leaving this for readability
+        // console.log(ballsDirection[i])
         let xDirection = ballsDirection[i][0], yDirection = ballsDirection[i][1];
 
         let ballDOMRect = balls[i].getBoundingClientRect();
@@ -70,7 +71,7 @@ export function BallMovement() {
         // retrieving the new direction and updating the direction of the ball for the next frame
         ballsDirection[i] = bounce(ballDOMRect, xDirection, yDirection);
 
-    
+
         moveBall(i, ballsDirection[i][0], ballsDirection[i][1]);
     }
 
@@ -81,11 +82,11 @@ export function BallMovement() {
 function bounce(ballDOMRect, x, y) {
 
     if (checkPaddleCollision(ballDOMRect)) {
-        console.log("paddle collision") 
-        
+        console.log("paddle collision")
+
         // check if the ball is hitting the paddle in different areas
         // and return the new direction accordingly
-        return (calculatePaddleBounce(ballDOMRect))                
+        return (calculatePaddleBounce(ballDOMRect))
         // y = -y;
         // return [x, y]
     }
@@ -106,7 +107,7 @@ function bounce(ballDOMRect, x, y) {
     let brickID = checkBrickCollision(ballDOMRect);
     if (typeof brickID !== 'undefined') {
         // alert("brick collision " + brickID)        
-        return  (calculateBrickBounce(ballDOMRect, brickID, x, y)) 
+        return (calculateBrickBounce(ballDOMRect, brickID, x, y))
     }
 
     // no collision
@@ -117,33 +118,46 @@ function calculatePaddleBounce(b) {
     let p = document.querySelector(".paddle").getBoundingClientRect(),
         pws = p.width / 4,
         bspeed = ballSettings.speed
-    
-        
+
     switch (true) {
         //if the ball hits the first quarter of the paddle
         case ((b.x >= p.x && b.x <= p.x + pws) && b.y <= p.y):
-            return [-bspeed, bspeed]      
-            
+            return [-bspeed, bspeed]
+
         //if the ball hits the second quarter of the paddle
         case (b.x > (p.x + pws) && b.x <= (p.x + (2 * pws))):
-            return [-Math.ceil(bspeed / 2), bspeed]            
+            return [-Math.ceil(bspeed / 2), bspeed]
 
         //if the ball hits the third quarter of the paddle
         case (b.x > (p.x + (2 * pws)) && b.x <= (p.x + (3 * pws))):
-            return [Math.ceil(bspeed / 2), bspeed] 
+            return [Math.ceil(bspeed / 2), bspeed]
 
         //if the ball hits the fourth quarter of the paddle
         case ((b.x > (p.x + (3 * pws))) && (b.x <= p.x + p.width) && b.y <= p.y):
-            return [bspeed, bspeed]  
+            return [bspeed, bspeed]
+
+        //if the ball hits the top left corner of the paddle
+        case b.y < p.y && b.x < p.x:
+            return [-bspeed, bspeed];
+
+        // if the ball hits the top right corner of the paddle
+        case b.y < p.y && b.x + b.width >= p.x + p.width:
+            return [bspeed, bspeed]
+
 
         //if the ball hits the left edge quarter of the paddle
-        case (((b.x + b.width > p.x && b.x <= p.x + pws)) && (b.y > p.y && b.y <= p.y + p.height)):
-            return [-bspeed - Math.ceil(bspeed / 2), bspeed - Math.ceil(bspeed / 2)];            
+        case b.x < p.x:
+            return [(-bspeed - Math.ceil(bspeed / 2)), (bspeed - Math.ceil(bspeed / 2))];
+
+        case b.y + b.height > p.y + p.height:
+            return [bspeed, -bspeed]
+
 
         //if the ball hits the right edge quarter of the paddle
         case ((b.x > p.x + (3 * pws) && b.x <= p.x + (4 * pws)) && (b.y > p.y && b.y < p.y + p.height)):
             return [bspeed + Math.ceil(bspeed / 2), bspeed - Math.ceil(bspeed / 2)]
-            
+
+
     }
 
 }
@@ -151,42 +165,50 @@ function calculatePaddleBounce(b) {
 function calculateBrickBounce(ball, brickID, xDirection, yDirection) {
     let bricks = document.querySelectorAll(".brick"),
         brick = bricks[brickID].getBoundingClientRect()
-    
-    removeBrick(brickID)
+
+
 
     switch (true) {
         //bottom right corner
         case ball.y + ball.height > brick.y + brick.height && ball.x + ball.width >= brick.x + brick.width:
-            return [xDirection, -yDirection]           
+            removeBrick(brickID)
+            return [xDirection, -yDirection]
+
 
         //top right corner
         case ball.y < brick.y && ball.x + ball.width >= brick.x + brick.width:
-            return [xDirection, -yDirection]    
-            
+            removeBrick(brickID)
+            return [xDirection, -yDirection]
+
         //bottom left corner
         case ball.y + ball.height > brick.y + brick.height && ball.x < brick.x:
-            yDirection = -yDirection
-            return [xDirection, -yDirection]    
+            removeBrick(brickID)
+            return [xDirection, -yDirection]
 
         //top left corner
         case ball.y < brick.y && ball.x < brick.x:
-            return [xDirection, -yDirection]    
+            removeBrick(brickID)
+            return [xDirection, -yDirection]
 
         // //bottom of the brick
         case ball.y + ball.height > brick.y + brick.height:
-            return [xDirection, -yDirection]    
+            removeBrick(brickID)
+            return [xDirection, -yDirection]
 
         //top of brick
         case ball.y < brick.y:
-            return [xDirection, -yDirection]    
+            removeBrick(brickID)
+            return [xDirection, -yDirection]
 
         // left-side of the brick
         case ball.x < brick.x:
-            return [-xDirection, yDirection]    
+            removeBrick(brickID)
+            return [-xDirection, yDirection]
 
         // right-side of the brick
         case ball.x + ball.width > brick.x + brick.width:
-            return [-xDirection, yDirection] 
+            removeBrick(brickID)
+            return [-xDirection, yDirection]
     }
 }
 

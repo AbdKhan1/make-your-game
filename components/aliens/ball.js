@@ -7,9 +7,9 @@ let points=0
 let pointsCombo=0
 let comboCount = 0
 let multiplier = 1
+export let movingBall=true
 
 let ballSpeed = 4;
-
 let xDirection = ballSpeed;
 let yDirection = ballSpeed;
 
@@ -21,6 +21,14 @@ const ballStart = [(grid.offsetWidth / 2 - ball.offsetWidth / 2), 70];
 export let ballCurrentPosition = ballStart;
 drawBall();
 
+export function changeValue(){
+    if (startMoveBall){
+        movingBall=true
+    }else{
+        movingball=false
+    }
+}
+
 //draw Ball
 export function drawBall() {
     ball.style.left = ballCurrentPosition[0] + "px";
@@ -28,6 +36,7 @@ export function drawBall() {
 }
 //move ball
 export function moveBall() {
+
     //ball and paddle
     let ballSizeAndPos = ball.getBoundingClientRect();
     let paddleSizeAndPos = document.querySelector('.paddle').getBoundingClientRect();
@@ -112,11 +121,10 @@ export function moveBall() {
 
     if (ballCurrentPosition[1] <= 0) {
         ballCurrentPosition = [(grid.offsetWidth / 2 - ball.offsetWidth / 2), 70]
-        xDirection = -ballSpeed;
-        yDirection = ballSpeed;
+        let resetPaddle=[(grid.offsetWidth / 2 - paddleSizeAndPos.width / 2), 50]
+        movingBall=false
         drawBall()
-        return
-
+        console.log(resetPaddle)
     }
 
     ballCurrentPosition[0] += xDirection;
