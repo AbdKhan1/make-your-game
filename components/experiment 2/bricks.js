@@ -45,3 +45,9 @@ export function createBricks(level) {
 
 
 }
+
+export function removeBrick(id) {
+    let bricks = document.querySelectorAll(".brick")
+    bricks[id].remove()
+    
+}

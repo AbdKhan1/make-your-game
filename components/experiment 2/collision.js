@@ -1,13 +1,16 @@
 import { gameViewSettings } from "./globalsettings.js"
+import { removeBrick } from "./bricks.js"
 
-// https://youtu.be/r0sy-Cr6WHY?t=327
 
-export function checkCollision(ball,ballDOMRect) {
+// DOMRect describes the size and position of a rectangle.
 
-    if (ball.x > ballDOMRect.x + ballDOMRect.width ||
-        ball.x + ball.width < ballDOMRect.x ||
-        ball.y > ballDOMRect.y + ballDOMRect.height ||
-        ball.y + ball.height < ballDOMRect.y) {
+export function checkCollision(ball,objectDOMRect) {
+    // https://youtu.be/r0sy-Cr6WHY?t=327
+    
+    if (ball.x > objectDOMRect.x + objectDOMRect.width ||
+        ball.x + ball.width < objectDOMRect.x ||
+        ball.y > objectDOMRect.y + objectDOMRect.height ||
+        ball.y + ball.height < objectDOMRect.y) {
         // no collision
         return false
     } else {
@@ -15,7 +18,11 @@ export function checkCollision(ball,ballDOMRect) {
         return true
     }
 
+}
 
+export function checkPaddleCollision(ballDOMRect) {
+    let paddleDOMRect = document.querySelector(".paddle").getBoundingClientRect()
+    return checkCollision(ballDOMRect,paddleDOMRect)
 }
 
 export function checkWallCollision(ballDOMRect) {
@@ -47,13 +54,14 @@ export function checkWallCollision(ballDOMRect) {
 
 export function checkBrickCollision(ballDOMRect) {
 
-    let bricks = document.getElementsByClassName(".brick")
+    let bricks = document.querySelectorAll(".brick")
+    // console.log(bricks)
 
 
     for (let i = 0; i < bricks.length; i++) {
         let brickDOMRect = bricks[i].getBoundingClientRect()
-        if (checkCollision(ballDOMRect, brickDOMRect)) {
-            
+        if (checkCollision(ballDOMRect, brickDOMRect)) {     
+            // removeBrick(i) 
             return i
         }
     }

@@ -57,12 +57,12 @@ function stickyPaddleMovement() {
 
     if (leftPressed && paddleCurrentPos[0] > gameViewSettings.borderWidth) {
         paddleCurrentPos[0] -= paddleSettings.velocity
-        moveBall(0, -1, 0, paddleSettings.velocity)
+        moveBall(0, -paddleSettings.velocity, 0)
     }
 
     if (rightPressed && (paddleCurrentPos[0] < gameViewSettings.gameViewWidth - (paddleSettings.width) - (gameViewSettings.borderWidth))) {
         paddleCurrentPos[0] += paddleSettings.velocity
-        moveBall(0, 1, 0, paddleSettings.velocity)
+        moveBall(0, paddleSettings.velocity, 0)
     }
 
     if (paddleCurrentPos[0] <= gameViewSettings.borderWidth) {
