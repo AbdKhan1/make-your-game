@@ -1,6 +1,7 @@
 import { ballSettings } from "./globalsettings.js"
-import { checkBrickCollision, checkWallCollision, checkPaddleCollision } from "./collision.js";
+import { checkBrickCollision, checkWallCollision, checkPaddleCollision, checkAlienCollision } from "./collision.js";
 import { removeBrick } from "./bricks.js"
+import { removeAlien } from "./invaders.js"
 
 let gameView = document.querySelector(".gameView");
 
@@ -86,7 +87,7 @@ function bounce(ballDOMRect, x, y) {
 
         // check if the ball is hitting the paddle in different areas
         // and return the new direction accordingly
-        
+
         let newDirection = calculatePaddleBounce(ballDOMRect)
         return newDirection || [x, y]   // catching any undefined values before returning
 
@@ -111,6 +112,12 @@ function bounce(ballDOMRect, x, y) {
     if (typeof brickID !== 'undefined') {
         // alert("brick collision " + brickID)        
         return (calculateBrickBounce(ballDOMRect, brickID, x, y))
+    }
+
+    let alienID = checkAlienCollision(ballDOMRect);
+    if (typeof alienID !== 'undefined') {
+        //alert("alien collision " + alienID)        
+        return (calculateAlienBounce(ballDOMRect, alienID, x, y))
     }
 
     // no collision
@@ -153,14 +160,14 @@ function calculatePaddleBounce(b) {
             return [(-bspeed - Math.ceil(bspeed / 2)), (bspeed - Math.ceil(bspeed / 2))];
 
         // if the ball hits the bottom right of the paddle
-        case  b.y + b.height > p.y + p.height && b.x + b.width >= p.x + p.width:
+        case b.y + b.height > p.y + p.height && b.x + b.width >= p.x + p.width:
             return [bspeed, -bspeed]
 
         //if the ball hits the bottom left
         case b.y + b.height > p.y + p.height && b.x < p.x:
             return [bspeed, -bspeed]
 
-            
+
         //bottom of the paddle
         case b.y + b.height > p.y + p.height:
             return [bspeed, -bspeed]
@@ -226,3 +233,53 @@ function calculateBrickBounce(ball, brickID, xDirection, yDirection) {
 }
 
 // alien collision
+function calculateAlienBounce(ball, alienID, xDirection, yDirection) {
+    console.log('alien ID', alienID)
+    let aliens = document.querySelectorAll(".alien"),
+        alien = aliens[alienID].getBoundingClientRect()
+
+
+
+    switch (true) {
+        //bottom right corner
+        case ball.y + ball.height > alien.y + alien.height && ball.x + ball.width >= alien.x + alien.width:
+            removeAlien(alienID)
+            return [xDirection, -yDirection]
+
+
+        //top right corner
+        case ball.y < alien.y && ball.x + ball.width >= alien.x + alien.width:
+            //removeAlien(alienID)
+            return [xDirection, -yDirection]
+
+        //bottom left corner
+        case ball.y + ball.height > alien.y + alien.height && ball.x < alien.x:
+            removeAlien(alienID)
+            return [xDirection, -yDirection]
+
+        //top left corner
+        case ball.y < alien.y && ball.x < alien.x:
+            //removeAlien(alienID)
+            return [xDirection, -yDirection]
+
+        // //bottom of the alien
+        case ball.y + ball.height > alien.y + alien.height:
+            removeAlien(alienID)
+            return [xDirection, -yDirection]
+
+        //top of alien
+        case ball.y < alien.y:
+            //removeAlien(alienID)
+            return [xDirection, -yDirection]
+
+        // left-side of the alien
+        case ball.x < alien.x:
+            removeAlien(alienID)
+            return [-xDirection, yDirection]
+
+        // right-side of the alien
+        case ball.x + ball.width > alien.x + alien.width:
+            removeAlien(alienID)
+            return [-xDirection, yDirection]
+    }
+}
