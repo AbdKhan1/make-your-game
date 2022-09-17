@@ -127,3 +127,10 @@ function closestToEdges() {
     }
     return [furthestRight, closestLeft]
 }
+
+export function removeAlien(id) {
+    //console.log('remove alienID',id)
+    let aliens = document.querySelectorAll(".alien")
+    aliens[id].remove()
+    
+}
