@@ -79,4 +79,3 @@ export function setupGameView() {
 
     document.querySelector("body").appendChild(gameView);
 }
-
