@@ -23,7 +23,6 @@ function startAnimating(fps) {
   fpsInterval = 1000 / fps;
   then = window.performance.now();
   startTime = then;
-  //console.log(startTime);
   animate();
 }
 

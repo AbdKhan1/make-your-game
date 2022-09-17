@@ -259,7 +259,6 @@ function calculateAlienBounce(ball, alienID, xDirection, yDirection) {
         // //bottom of the alien
         case ball.y + ball.height > alien.y + alien.height:
             removeAlien(alienID)
-            
             return [xDirection, -yDirection]
 
         //top of alien
