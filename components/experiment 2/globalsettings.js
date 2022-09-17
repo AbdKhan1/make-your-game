@@ -11,7 +11,7 @@ export const gameViewSettings = {
     gameViewHeight: innerHeight > 680 ? 680 : innerHeight < 200 ? innerHeight : 680, //takes up the full height or 680px
     gameViewColor: "black",
     borderWidth: 10,      // px - side borderwidth 
-    borderColor: "gray",          
+    borderColor: "gray",
     gapTop: 15 * 3  //     
 }
 
@@ -66,6 +66,19 @@ export const invaderSettings = {
     width: 35,
     height: 35,
     image: "./alien.gif", //path of file    
+}
+
+
+
+////////////////////////////////////////////////
+
+////////////////////////////////////////////////
+/* Lasers */
+////////////////////////////////////////////////
+export const laserSettings = {
+    width: 30,
+    height: 25,
+    image:"./laser.png",
 }
 
 

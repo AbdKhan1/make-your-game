@@ -79,6 +79,8 @@ export function BallMovement() {
 
 }
 
+
+
 // Returns the new direction the ball should be bouncing
 function bounce(ballDOMRect, x, y) {
 
@@ -116,8 +118,11 @@ function bounce(ballDOMRect, x, y) {
 
     let alienID = checkAlienCollision(ballDOMRect);
     if (typeof alienID !== 'undefined') {
-        //alert("alien collision " + alienID)        
-        return (calculateAlienBounce(ballDOMRect, alienID, x, y))
+        //alert("alien collision " + alienID)  
+        let ballAlienRebound=[]
+        ballAlienRebound= (calculateAlienBounce(ballDOMRect, alienID, x, y))
+        //console.log('ball Rebound',ballAlienRebound)
+        return ballAlienRebound
     }
 
     // no collision
@@ -244,23 +249,49 @@ function calculateAlienBounce(ball, alienID, xDirection, yDirection) {
         //bottom right corner
         case ball.y + ball.height > alien.y + alien.height && ball.x + ball.width >= alien.x + alien.width:
             removeAlien(alienID)
-            return [xDirection, -yDirection]
+            if(xDirection<0&&yDirection<0){
+                return [-xDirection,yDirection]
+            }else if(xDirection<0&&yDirection>0){
+                return [-xDirection, -yDirection]
+            }else{
+              return  [xDirection, -yDirection]
+            }
+             
 
 
         //top right corner
         case ball.y < alien.y && ball.x + ball.width >= alien.x + alien.width:
-            //removeAlien(alienID)
-            return [xDirection, -yDirection]
+            if(xDirection<0&&yDirection>0){
+                return [-xDirection,yDirection]
+            }else if(xDirection<0 && yDirection<0){
+                return [-xDirection,-yDirection]
+            }else{
+              return  [xDirection, -yDirection]
+            }
+            //return [xDirection, -yDirection]
 
         //bottom left corner
         case ball.y + ball.height > alien.y + alien.height && ball.x < alien.x:
             removeAlien(alienID)
-            return [xDirection, -yDirection]
+            if(xDirection>0&&yDirection<0){
+                return [-xDirection,yDirection]
+            }else if(xDirection>0 && yDirection>0){
+                return [-xDirection,-yDirection]
+            }else{
+              return  [xDirection, -yDirection]
+            }
+            //return [xDirection, -yDirection]
 
         //top left corner
         case ball.y < alien.y && ball.x < alien.x:
-            //removeAlien(alienID)
-            return [xDirection, -yDirection]
+            if(xDirection<0&&yDirection>0){
+                return [-xDirection,yDirection]
+            }else if(xDirection>0 && yDirection<0){
+                return [-xDirection,-yDirection]
+            }else{
+              return  [xDirection, -yDirection]
+            }
+            //return [xDirection, -yDirection]
 
         // //bottom of the alien
         case ball.y + ball.height > alien.y + alien.height:
@@ -269,7 +300,6 @@ function calculateAlienBounce(ball, alienID, xDirection, yDirection) {
 
         //top of alien
         case ball.y < alien.y:
-            //removeAlien(alienID)
             return [xDirection, -yDirection]
 
         // left-side of the alien

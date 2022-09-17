@@ -3,6 +3,7 @@ import { PaddleMovement } from "./paddle.js";
 import { startBallMovement } from "./input.js";
 import { createBricks } from "./bricks.js"
 import { createAliens, alienMovement } from "./invaders.js";
+import { LaserMovement, updateLasers } from "./laser.js";
 
 
 
@@ -54,8 +55,11 @@ function animate(newtime) {
     if (startBallMovement) {
       BallMovement();
     }
+    updateLasers(0)
+    LaserMovement(0)
     alienMovement(0)
     PaddleMovement()
+    
 
   }
 }
