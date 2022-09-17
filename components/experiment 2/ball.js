@@ -12,7 +12,6 @@ let balls = [],
 // initialize and setup the ball(s)
 function initBall() {
     for (let i = 0; i < ballSettings.balls; i++) {
-        console.log("creating ball")
         createBall(ballSettings.speed, ballSettings.speed);
         console.log("ball created")
     }
@@ -63,8 +62,6 @@ export function BallMovement() {
     // move all the balls
     for (let i = 0; i < balls.length; i++) {
 
-        // leaving this for readability
-        // console.log(ballsDirection[i])
         let xDirection = ballsDirection[i][0], yDirection = ballsDirection[i][1];
 
         let ballDOMRect = balls[i].getBoundingClientRect();
@@ -106,7 +103,6 @@ function bounce(ballDOMRect, x, y) {
             return [x, -y];
     }
 
-    // console.log("ball moving")
 
     let brickID = checkBrickCollision(ballDOMRect);
     if (typeof brickID !== 'undefined') {
@@ -249,7 +245,6 @@ function calculateAlienBounce(ball, alienID, xDirection, yDirection) {
 
         //top right corner
         case ball.y < alien.y && ball.x + ball.width >= alien.x + alien.width:
-            //removeAlien(alienID)
             return [xDirection, -yDirection]
 
         //bottom left corner
@@ -259,17 +254,16 @@ function calculateAlienBounce(ball, alienID, xDirection, yDirection) {
 
         //top left corner
         case ball.y < alien.y && ball.x < alien.x:
-            //removeAlien(alienID)
             return [xDirection, -yDirection]
 
         // //bottom of the alien
         case ball.y + ball.height > alien.y + alien.height:
             removeAlien(alienID)
+            
             return [xDirection, -yDirection]
 
         //top of alien
         case ball.y < alien.y:
-            //removeAlien(alienID)
             return [xDirection, -yDirection]
 
         // left-side of the alien

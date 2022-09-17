@@ -132,5 +132,6 @@ export function removeAlien(id) {
     //console.log('remove alienID',id)
     let aliens = document.querySelectorAll(".alien")
     aliens[id].remove()
-    
+    alienPositions.splice(id,1)
+    console.log(alienPositions, 'aliens')
 }
