@@ -1,35 +1,14 @@
-import {laserSettings, gameViewSettings} from "./globalsettings.js"
-import { checkCollision } from "./collision.js";
-import {levels,currentLevel} from "./levels.js"
+import { gameViewSettings, laserSettings } from "./globalsettings.js"
+import { levels } from "./levels.js";
+import { checkCollision } from "./collision.js"
 
 let gameView = document.querySelector(".gameView");
 
-let laserStartingPosition = [],
- laserPositions = [], 
- laser_cooldown =  Math.floor(Math.random() * 100)
+let laserPositions = []
+let laser_cooldown = Math.floor(Math.random() * 100)
+let laserCoords = [0, 0]
 
-function createLasers() {
-    let aliens = document.querySelectorAll('.alien')
-    let random = Math.floor(Math.random() * aliens.length)
-    for (let i = 0; i < aliens.length; i++) {
-        if (i === random) {
-            let alien = aliens[i]
-            const laser = document.createElement('img')
-            laser.classList.add('laser')
-            laser.src = laserSettings.image
-            gameView.appendChild(laser)
-            laser.style.width = laserSettings.width + 'px'
-            laser.style.height = laserSettings.height + 'px'
-            laser.style.position = 'absolute'
-            laserStartingPosition[0] = parseInt(alien.style.left) + (alien.getBoundingClientRect().width / 2)
-            - (laserSettings.width / 2)
-            laserStartingPosition[1] = alien.getBoundingClientRect().top+  alien.getBoundingClientRect().height
-            laserPositions.push([laserStartingPosition[0], laserStartingPosition[1]])
-        }
-    }
-}
-
-function drawLasers() {
+function moveLasers() {
     let laser = document.querySelectorAll('.laser')
     for (let i = 0; i < laser.length; i++) {
         laser[i].style.left = laserPositions[i][0] + 'px'
@@ -37,37 +16,64 @@ function drawLasers() {
     }
 }
 
-export function laserMovement() {
-    //remove lasers when they are at the bottom of game view
-    let laserArr = document.querySelectorAll('.laser')
-    for (let i = 0; i < laserPositions.length; i++) {
-        laserPositions[i][1] += levels[currentLevel].aliens.laserSpeed
-        if (laserPositions[i][1] >= gameViewSettings.gameViewHeight - (laserSettings.height - gameViewSettings.borderWidth)) {
-            laserArr[i].remove()
-            laserPositions.splice(i, 1)
+function createLasers() {
+    let aliens = document.querySelectorAll('.alien')
+    let randomAlien = Math.floor(Math.random() * aliens.length)
+    for (let i = 0; i < aliens.length; i++) {
+        if (i === randomAlien) {
+            const alien = aliens[i]
+            const laser = document.createElement('img')
+            laser.classList.add('laser')
+            laser.src = laserSettings.image
+            gameView.appendChild(laser)
+            laser.style.position = 'absolute'
+            laser.style.width = laserSettings.width + 'px'
+            laser.style.height = laserSettings.height + 'px'
+            laserCoords[0] = parseInt(alien.style.left) + (Number(alien.getBoundingClientRect().width / 2) - (laserSettings.width / 2))
+            laserCoords[1] = Number(alien.getBoundingClientRect().top) + Number(alien.getBoundingClientRect().height)
+            laserPositions.push([laserCoords[0], laserCoords[1]])
         }
     }
+    console.log(laserPositions)
+}
 
-    //collision of lasers
-    let paddleSizeAndPos = document.querySelector('.paddle').getBoundingClientRect()
-    for (let i = 0; i < laserArr.length; i++) {
-        let laserSizeAndPos = laserArr[i].getBoundingClientRect()
-        if (checkCollision(laserSizeAndPos, paddleSizeAndPos)) {
-            laserArr[i].remove()
-            laserPositions.splice(i, 1)
+export function laserMovement(level) {
+    let lasers = document.querySelectorAll('.laser')
+    let paddle = document.querySelector('.paddle')
+
+    for (let i = 0; i < lasers.length; i++) {
+        let laserSizeAndPos = lasers[i].getBoundingClientRect()
+
+        laserPositions[i][1] += levels[level].lasers.speed
+
+        //remove lasers when they are at the bottom of game view
+        if (laserPositions[i][1] >= gameViewSettings.gameViewHeight - laserSettings.height - gameViewSettings.borderWidth) {
+            removeLaser(i)
+        }
+
+        //collision of lasers with paddle
+        if (checkCollision(laserSizeAndPos, paddle.getBoundingClientRect())) {
+            removeLaser(i)
+            console.log('life lost')
         }
     }
-    drawLasers()
-    updateLasers()
+    moveLasers()
+    updateLasers(level)
 }
 
 //the frequency of lasers shot by invaders
-function updateLasers() {
+export function updateLasers(level) {
     if (laser_cooldown === 0) {
         createLasers()
-        drawLasers()
+        moveLasers()
         laser_cooldown = Math.floor(Math.random() * 100)
         return
     }
-    laser_cooldown -= 0.5
+    laser_cooldown -= levels[level].lasers.cooldown
+}
+
+function removeLaser(id) {
+    let lasers = document.querySelectorAll('.laser')
+    lasers[id].remove()
+    laserPositions.splice(id, 1)
 }

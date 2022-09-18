@@ -3,7 +3,7 @@ import { PaddleMovement } from "./paddle.js";
 import { startBallMovement } from "./input.js";
 import { createBricks } from "./bricks.js"
 import { createAliens, alienMovement} from "./invaders.js";
-import { laserMovement } from "./laser.js";
+import { laserMovement } from "./lasers.js";
 import {currentLevel} from "./levels.js"
 
 createBricks(currentLevel);
@@ -12,7 +12,6 @@ createAliens(currentLevel);
 //https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
 
 let stop = false;
-let frameCount = 0;
 let fps, fpsInterval, startTime, now, then, elapsed;
 
 fps = 60;

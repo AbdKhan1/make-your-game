@@ -131,5 +131,5 @@ function closestToEdges() {
 export function removeAlien(id) {
     let aliens = document.querySelectorAll(".alien")
     aliens[id].remove()
-    alienPositions.splice(id,1)
+    alienPositions.splice(id, 1)
 }
