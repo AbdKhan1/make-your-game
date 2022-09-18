@@ -52,11 +52,10 @@ function animate(newtime) {
     if (startBallMovement) {
       BallMovement();
     }
-   // updateLasers(currentLevel)
     
     alienMovement(currentLevel)
     PaddleMovement()
-    laserMovement(currentLevel)
+    laserMovement()
 
   }
 }
