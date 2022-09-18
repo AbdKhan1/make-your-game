@@ -1,7 +1,8 @@
 import { ballSettings } from "./globalsettings.js"
-import { checkBrickCollision, checkWallCollision, checkPaddleCollision, checkAlienCollision } from "./collision.js";
+import { checkBrickCollision, checkWallCollision, checkPaddleCollision, checkAlienCollision, checkLaserCollision } from "./collision.js";
 import { removeBrick } from "./bricks.js"
 import { removeAlien } from "./invaders.js"
+import { removeLaser } from "./lasers.js"
 
 let gameView = document.querySelector(".gameView");
 
@@ -64,7 +65,7 @@ export function BallMovement() {
 
         let xDirection = ballsDirection[i][0], yDirection = ballsDirection[i][1];
 
-        let ballDOMRect = balls[i].getBoundingClientRect();
+        let ballDOMRect = balls[i].getBoundingClientRect();        
 
         // retrieving the new direction and updating the direction of the ball for the next frame
         ballsDirection[i] = bounce(ballDOMRect, xDirection, yDirection);
@@ -78,6 +79,8 @@ export function BallMovement() {
 
 // Returns the new direction the ball should be bouncing
 function bounce(ballDOMRect, x, y) {
+
+    laserBounce(ballDOMRect)
 
     if (checkPaddleCollision(ballDOMRect)) {
         console.log("paddle collision")
@@ -128,6 +131,11 @@ function alienBounce(alienID, x, y) {
 
     return ([x, -y])
 
+}
+
+function laserBounce(ballDOMRect) {
+    let laserID = checkLaserCollision(ballDOMRect);
+    if (typeof laserID !== 'undefined') { removeLaser(laserID) }
 }
 
 function calculatePaddleBounce(b) {

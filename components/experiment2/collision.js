@@ -85,3 +85,18 @@ export function checkAlienCollision(ballDOMRect) {
 
 
 }
+export function checkLaserCollision(objectDOMRect) {
+
+    let lasers = document.querySelectorAll(".laser")
+
+    for (let i = 0; i < lasers.length; i++) {
+        let laserDOMRect = lasers[i].getBoundingClientRect()
+        if (checkCollision(objectDOMRect, laserDOMRect)) {
+            return i
+        }
+    }
+
+
+
+}
+

@@ -1,5 +1,5 @@
 import { laserSettings, gameViewSettings } from "./globalsettings.js"
-import { checkCollision } from "./collision.js";
+import { checkLaserCollision } from "./collision.js";
 import { levels, currentLevel } from "./levels.js"
 
 let gameView = document.querySelector(".gameView");
@@ -50,13 +50,9 @@ export function laserMovement() {
 
     //collision of lasers
     let paddleSizeAndPos = document.querySelector('.paddle').getBoundingClientRect()
-    for (let i = 0; i < laserArr.length; i++) {
-        let laserSizeAndPos = laserArr[i].getBoundingClientRect()
-        if (checkCollision(laserSizeAndPos, paddleSizeAndPos)) {
-            laserArr[i].remove()
-            laserPositions.splice(i, 1)
-        }
-    }
+    let laserID = checkLaserCollision(paddleSizeAndPos);
+    if (typeof laserID !== 'undefined') { removeLaser(laserID) }
+
     drawLasers()
     updateLasers()
 }
@@ -70,4 +66,10 @@ function updateLasers() {
         return
     }
     laser_cooldown -= 0.5
+}
+
+export function removeLaser(id) {
+    let lasers = document.querySelectorAll(".laser")
+    lasers[id].remove()
+    laserPositions.splice(id, 1)
 }
