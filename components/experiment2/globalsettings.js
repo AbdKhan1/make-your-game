@@ -74,13 +74,33 @@ export const invaderSettings = {
 /* Lasers */
 ////////////////////////////////////////////////
 export const laserSettings = {
-    width: 30,
+    width: 25,
     height: 25,
-    image:"./laser.png",
+    image: "./laser.png"
 }
 
 
 
 ////////////////////////////////////////////////
+
+
+export const sounds = {
+    launchBall: new Audio("../../sounds/launch.mp3"),
+    bouncePaddle: new Audio("../../sounds/bounce-paddle.mp3"),
+    bounceBrick: new Audio("../../sounds/bounce-brick.mp3"),
+    bounceWallLeft: new Audio("../../sounds/bounce-wall-left.mp3"),
+    bounceWallRight: new Audio("../../sounds/bounce-wall.mp3"),
+    bounceWallLTop: new Audio("../../sounds/bounce-wall.mp3"),
+    loseLife: new Audio("../../sounds/lose-life.mp3"),
+    invadersMusic: new Audio("../../sounds/spaceInvaders.mp3"),
+
+    bounceLaser: new Audio("../../sounds/cover_explosion.wav"),
+
+    alienExplode: new Audio("../../sounds/alien-explosion-sfx.wav"),
+    alienShoot: new Audio("../../sounds/alien-bullet-sfx.wav"),
+    alienShieldBounce: new Audio("../../sounds/invader_hurt.wav"),
+    alienpaddleHit: new Audio("../../sounds/player_explosion.wav"),
+
+}
 
 setupGameView()

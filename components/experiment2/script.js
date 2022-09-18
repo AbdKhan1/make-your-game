@@ -2,9 +2,10 @@ import { BallMovement } from "./ball.js";
 import { PaddleMovement } from "./paddle.js";
 import { startBallMovement } from "./input.js";
 import { createBricks } from "./bricks.js"
-import { createAliens, alienMovement} from "./invaders.js";
+import { createAliens, alienMovement } from "./invaders.js";
 import { laserMovement } from "./lasers.js";
-import {currentLevel} from "./levels.js"
+import { currentLevel } from "./levels.js"
+
 
 createBricks(currentLevel);
 createAliens(currentLevel);
@@ -52,7 +53,6 @@ function animate(newtime) {
     if (startBallMovement) {
       BallMovement();
     }
-    
     alienMovement(currentLevel)
     PaddleMovement()
     laserMovement()

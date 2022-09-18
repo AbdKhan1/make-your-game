@@ -1,12 +1,15 @@
-import { ballSettings } from "./globalsettings.js"
-import { checkBrickCollision, checkWallCollision, checkPaddleCollision, checkAlienCollision } from "./collision.js";
+import { ballSettings, sounds } from "./globalsettings.js"
+import { checkBrickCollision, checkWallCollision, checkPaddleCollision, checkAlienCollision, checkLaserCollision } from "./collision.js";
 import { removeBrick } from "./bricks.js"
 import { removeAlien } from "./invaders.js"
+import { removeLaser } from "./lasers.js"
 
 let gameView = document.querySelector(".gameView");
 
 let balls = [],
     ballsDirection = []
+
+// let AudioContect = new()
 
 
 // initialize and setup the ball(s)
@@ -66,7 +69,7 @@ export function BallMovement() {
 
         let ballDOMRect = balls[i].getBoundingClientRect();
 
-        // retrieving the new direction and updating the direction of the ball for the next frame
+        // retrieving the new           direction and updating the direction of the ball for the next frame
         ballsDirection[i] = bounce(ballDOMRect, xDirection, yDirection);
 
 
@@ -81,7 +84,10 @@ export function BallMovement() {
 // Returns the new direction the ball should be bouncing
 function bounce(ballDOMRect, x, y) {
 
+    laserBounce(ballDOMRect)
+
     if (checkPaddleCollision(ballDOMRect)) {
+        sounds.bouncePaddle.play()
         console.log("paddle collision")
 
         // check if the ball is hitting the paddle in different areas
@@ -96,33 +102,56 @@ function bounce(ballDOMRect, x, y) {
 
     switch (checkWallCollision(ballDOMRect)) {
         case "left":
+            sounds.bounceWallLeft.play()
             return [-x, y];
         case "right":
+            sounds.bounceWallRight.play()
             return [-x, y];
         case "top":
+            console.log("top")
+            sounds.bounceWallLTop.play()
             return [x, -y];
         case "bottom":
+            // sounds.loseLife.play()
             return [x, -y];
     }
 
 
     let brickID = checkBrickCollision(ballDOMRect);
     if (typeof brickID !== 'undefined') {
+        sounds.bounceBrick.play()
         // alert("brick collision " + brickID)        
         return (calculateBrickBounce(ballDOMRect, brickID, x, y))
     }
 
     let alienID = checkAlienCollision(ballDOMRect);
     if (typeof alienID !== 'undefined') {
-        //alert("alien collision " + alienID)  
-        let ballAlienRebound = []
-        ballAlienRebound = (calculateAlienBounce(ballDOMRect, alienID, x, y))
-        //console.log('ball Rebound',ballAlienRebound)
-        return ballAlienRebound
+        return alienBounce(alienID, x, y)
     }
 
     // no collision
     return [x, y];
+}
+
+function alienBounce(alienID, x, y) {
+    // if there is a collision from the alien   
+    // remove alien if the ball moving upwards
+    if (y > 0) {
+        removeAlien(alienID)
+    } else {
+        sounds.alienShieldBounce.play()
+    }
+
+    return ([x, -y])
+
+}
+
+function laserBounce(ballDOMRect) {
+    let laserID = checkLaserCollision(ballDOMRect);
+    if (typeof laserID !== 'undefined') {
+        sounds.bounceLaser.play()
+        removeLaser(laserID)
+    }
 }
 
 function calculatePaddleBounce(b) {
@@ -224,77 +253,6 @@ function calculateBrickBounce(ball, brickID, xDirection, yDirection) {
         // right-side of the brick
         case ball.x + ball.width > brick.x + brick.width:
             removeBrick(brickID)
-            return [-xDirection, yDirection]
-    }
-}
-
-// alien collision
-function calculateAlienBounce(ball, alienID, xDirection, yDirection) {
-    let aliens = document.querySelectorAll(".alien"),
-        alien = aliens[alienID].getBoundingClientRect()
-
-
-
-    switch (true) {
-        //bottom right corner
-        case ball.y + ball.height > alien.y + alien.height && ball.x + ball.width >= alien.x + alien.width:
-            removeAlien(alienID)
-            if (xDirection < 0 && yDirection < 0) {
-                return [-xDirection, yDirection]
-            } else if (xDirection < 0 && yDirection > 0) {
-                return [-xDirection, -yDirection]
-            } else {
-                return [xDirection, -yDirection]
-            }
-
-        //top right corner
-        case ball.y < alien.y && ball.x + ball.width >= alien.x + alien.width:
-            if (xDirection < 0 && yDirection > 0) {
-                return [-xDirection, yDirection]
-            } else if (xDirection < 0 && yDirection < 0) {
-                return [-xDirection, -yDirection]
-            } else {
-                return [xDirection, -yDirection]
-            }
-
-        //bottom left corner
-        case ball.y + ball.height > alien.y + alien.height && ball.x < alien.x:
-            removeAlien(alienID)
-            if (xDirection > 0 && yDirection < 0) {
-                return [-xDirection, yDirection]
-            } else if (xDirection > 0 && yDirection > 0) {
-                return [-xDirection, -yDirection]
-            } else {
-                return [xDirection, -yDirection]
-            }
-
-        //top left corner
-        case ball.y < alien.y && ball.x < alien.x:
-            if (xDirection < 0 && yDirection > 0) {
-                return [-xDirection, yDirection]
-            } else if (xDirection > 0 && yDirection < 0) {
-                return [-xDirection, -yDirection]
-            } else {
-                return [xDirection, -yDirection]
-            }
-
-        // //bottom of the alien
-        case ball.y + ball.height > alien.y + alien.height:
-            removeAlien(alienID)
-            return [xDirection, -yDirection]
-
-        //top of alien
-        case ball.y < alien.y:
-            return [xDirection, -yDirection]
-
-        // left-side of the alien
-        case ball.x < alien.x:
-            removeAlien(alienID)
-            return [-xDirection, yDirection]
-
-        // right-side of the alien
-        case ball.x + ball.width > alien.x + alien.width:
-            removeAlien(alienID)
             return [-xDirection, yDirection]
     }
 }
