@@ -112,12 +112,22 @@ function bounce(ballDOMRect, x, y) {
 
     let alienID = checkAlienCollision(ballDOMRect);
     if (typeof alienID !== 'undefined') {
-        //alert("alien collision " + alienID)        
-        return (calculateAlienBounce(ballDOMRect, alienID, x, y))
+        return alienBounce(alienID, x, y)
     }
 
     // no collision
     return [x, y];
+}
+
+function alienBounce(alienID, x, y) {
+    // if there is a collision from the alien   
+    // remove alien if the ball is NOT moving from the top towards the bottom
+    if (!((x > 0 && y < 0) || (x < 0 && y < 0))) {
+        removeAlien(alienID)
+    }
+
+    return ([x, -y])
+
 }
 
 function calculatePaddleBounce(b) {
@@ -224,55 +234,6 @@ function calculateBrickBounce(ball, brickID, xDirection, yDirection) {
         // right-side of the brick
         case ball.x + ball.width > brick.x + brick.width:
             removeBrick(brickID)
-            return [-xDirection, yDirection]
-    }
-}
-
-// alien collision
-function calculateAlienBounce(ball, alienID, xDirection, yDirection) {
-    console.log('alien ID', alienID)
-    let aliens = document.querySelectorAll(".alien"),
-        alien = aliens[alienID].getBoundingClientRect()
-
-
-
-    switch (true) {
-        //bottom right corner
-        case ball.y + ball.height > alien.y + alien.height && ball.x + ball.width >= alien.x + alien.width:
-            removeAlien(alienID)
-            return [xDirection, -yDirection]
-
-
-        //top right corner
-        case ball.y < alien.y && ball.x + ball.width >= alien.x + alien.width:
-            return [xDirection, -yDirection]
-
-        //bottom left corner
-        case ball.y + ball.height > alien.y + alien.height && ball.x < alien.x:
-            removeAlien(alienID)
-            return [xDirection, -yDirection]
-
-        //top left corner
-        case ball.y < alien.y && ball.x < alien.x:
-            return [xDirection, -yDirection]
-
-        // //bottom of the alien
-        case ball.y + ball.height > alien.y + alien.height:
-            removeAlien(alienID)
-            return [xDirection, -yDirection]
-
-        //top of alien
-        case ball.y < alien.y:
-            return [xDirection, -yDirection]
-
-        // left-side of the alien
-        case ball.x < alien.x:
-            removeAlien(alienID)
-            return [-xDirection, yDirection]
-
-        // right-side of the alien
-        case ball.x + ball.width > alien.x + alien.width:
-            removeAlien(alienID)
             return [-xDirection, yDirection]
     }
 }

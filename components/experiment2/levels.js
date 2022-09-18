@@ -1,6 +1,6 @@
 import { ballSettings } from "./globalsettings.js"
 
-export let currentLevel = 1
+export let currentLevel = 0
 // object with all the levels
 export let levels = {
     // for development
