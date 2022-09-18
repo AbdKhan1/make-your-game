@@ -65,9 +65,9 @@ export function BallMovement() {
 
         let xDirection = ballsDirection[i][0], yDirection = ballsDirection[i][1];
 
-        let ballDOMRect = balls[i].getBoundingClientRect();        
+        let ballDOMRect = balls[i].getBoundingClientRect();
 
-        // retrieving the new direction and updating the direction of the ball for the next frame
+        // retrieving the new           direction and updating the direction of the ball for the next frame
         ballsDirection[i] = bounce(ballDOMRect, xDirection, yDirection);
 
 
@@ -124,8 +124,8 @@ function bounce(ballDOMRect, x, y) {
 
 function alienBounce(alienID, x, y) {
     // if there is a collision from the alien   
-    // remove alien if the ball is NOT moving from the top towards the bottom
-    if (!((x > 0 && y < 0) || (x < 0 && y < 0))) {
+    // remove alien if the ball moving upwards
+    if ((x > 0 && y > 0) || (x < 0 && y > 0)) {
         removeAlien(alienID)
     }
 
