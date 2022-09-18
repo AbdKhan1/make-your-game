@@ -28,21 +28,21 @@ function createLasers() {
             laser.style.position='absolute'
             laser.style.width = laserSettings.width + 'px'
             laser.style.height = laserSettings.height + 'px'
-            laserCoords[0] = Number(alien.style.left.replace('px', '')) + (Number(alien.getBoundingClientRect().width / 2) - (laserSettings.width / 2))
+            laserCoords[0] = parseInt(alien.style.left) + (Number(alien.getBoundingClientRect().width / 2) - (laserSettings.width / 2))
             laserCoords[1] = Number(alien.getBoundingClientRect().top) + Number(alien.getBoundingClientRect().height)
             laserPositions.push([laserCoords[0], laserCoords[1]])
         }
     }
 }
 
-export function LaserMovement(level) {
+export function laserMovement(level) {
     let lasers = document.querySelectorAll('.laser')
     let paddle = document.querySelector('.paddle')
 
     for (let i = 0; i < lasers.length; i++) {
         let laserSizeAndPos = lasers[i].getBoundingClientRect()
         laserPositions[i][1] += levels[level].lasers.speed
-        
+
         if (laserPositions[i][1] >= gameViewSettings.gameViewHeight - laserSettings.height) {
             removeLaser(i)
         }
@@ -60,11 +60,13 @@ export function LaserMovement(level) {
         }
     }
     moveLasers()
+    updateLasers()
 }
 
 export function updateLasers(level) {
     if (laser_cooldown === 0) {
         createLasers()
+        moveLasers()
         laser_cooldown = Math.floor(Math.random() * 100)
         return
     }

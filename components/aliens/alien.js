@@ -131,8 +131,6 @@ export function createLasers() {
             laserCoords[0] = Number(alien.style.left.replace('px', '')) + (Number(alien.getBoundingClientRect().width / 2) - (laserWidth / 2))
             laserCoords[1] = Number(alien.getBoundingClientRect().top) + Number(alien.getBoundingClientRect().height)
             lasers.push([laserCoords[0], laserCoords[1]])
-
-
         }
     }
 }

@@ -2,13 +2,12 @@ import { BallMovement } from "./ball.js";
 import { PaddleMovement } from "./paddle.js";
 import { startBallMovement } from "./input.js";
 import { createBricks } from "./bricks.js"
-import { createAliens, alienMovement } from "./invaders.js";
-import { LaserMovement, updateLasers } from "./laser.js";
+import { createAliens, alienMovement} from "./invaders.js";
+import { laserMovement } from "./laser.js";
+import {currentLevel} from "./levels.js"
 
-
-
-createBricks(0);
-createAliens(0)
+createBricks(currentLevel);
+createAliens(currentLevel);
 
 //https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
 
@@ -24,7 +23,6 @@ function startAnimating(fps) {
   fpsInterval = 1000 / fps;
   then = window.performance.now();
   startTime = then;
-  //console.log(startTime);
   animate();
 }
 
@@ -55,11 +53,11 @@ function animate(newtime) {
     if (startBallMovement) {
       BallMovement();
     }
-    updateLasers(0)
-    LaserMovement(0)
-    alienMovement(0)
-    PaddleMovement()
+   // updateLasers(currentLevel)
     
+    alienMovement(currentLevel)
+    PaddleMovement()
+    laserMovement(currentLevel)
 
   }
 }

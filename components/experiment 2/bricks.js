@@ -5,22 +5,19 @@ import { levels } from "./levels.js";
 let gameView = document.querySelector(".gameView");
 
 export function createBricks(level) {
-    // console.log("creating bricks", levels[level])
+   
     const numberOfBricksPerRow = Math.floor(gameView.offsetWidth
         / (levels[level].bricks.brickWidth + levels[level].bricks.padding)) - 1
     // minus 1 because of the border on the right side of the gameView
-    console.log(levels[level].bricks.brickWidth)
     
     console.log("number of bricks", numberOfBricksPerRow)
 
     const brickStartY =  levels[level].bricks.gapFromTop  // The gap for the ball to bounce between the //top and the starting row of bricks
-    console.log(brickStartY)
 
     const brickStartX = (Math.floor((gameView.offsetWidth
         - (numberOfBricksPerRow * (levels[level].bricks.brickWidth + levels[level].bricks.padding))
         ) / 2)) + levels[level].bricks.padding
         
-    console.log(brickStartX)
 
     let brickPosition = [brickStartX, brickStartY]
 

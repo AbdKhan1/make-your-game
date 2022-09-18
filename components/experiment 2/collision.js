@@ -55,13 +55,12 @@ export function checkWallCollision(ballDOMRect) {
 export function checkBrickCollision(ballDOMRect) {
 
     let bricks = document.querySelectorAll(".brick")
-    // console.log(bricks)
+
 
 
     for (let i = 0; i < bricks.length; i++) {
         let brickDOMRect = bricks[i].getBoundingClientRect()
         if (checkCollision(ballDOMRect, brickDOMRect)) {
-            // removeBrick(i) 
             return i
         }
     }
@@ -73,7 +72,7 @@ export function checkBrickCollision(ballDOMRect) {
 export function checkAlienCollision(ballDOMRect) {
 
     let aliens = document.querySelectorAll(".alien")
-    //console.log(aliens)
+
 
 
     for (let i = 0; i < aliens.length; i++) {

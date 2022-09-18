@@ -1,11 +1,12 @@
-import { levels } from "./levels.js";
-import { ballSettings, invaderSettings } from "./globalsettings.js"
+import { levels, currentLevel } from "./levels.js";
+import { invaderSettings } from "./globalsettings.js"
 import { startBallMovement } from "./input.js";
 
 let gameView = document.querySelector(".gameView");
 let alienPositions = []
+
 //this is the speed at which the aliens move.
-let velocity = 1
+let velocity = levels[currentLevel].aliens.velocity
 
 
 export function createAliens(level) {
@@ -70,16 +71,11 @@ export function alienMovement(level) {
         return
     }
 
-    let aliencloseToBorder = closestToEdges(),
-        furthestRight = aliencloseToBorder[0],
-        closestLeft = aliencloseToBorder[1]
-
-    //let velocity= -levels[level].aliens.velocity
-
+    let aliencloseToBorder = closestToEdges()
 
     //when the aliens collide with the wall, add the appropriate number to their y-coordinates, making them move down
     //10 is the width of the border
-    if (closestLeft.style.left.replace('px', '') <= 10 || furthestRight.style.left.replace('px', '') >= (gameView.offsetWidth - invaderSettings.width - 10)) {
+    if (parseInt(aliencloseToBorder[1].style.left) <= 10 || parseInt(aliencloseToBorder[0].style.left) >= (gameView.offsetWidth - invaderSettings.width - 10)) {
         if (startBallMovement) {
             for (let i = 0; i < invaders.length; i++) {
                 alienPositions[i][1] += levels[level].aliens.drop
@@ -129,13 +125,11 @@ function closestToEdges() {
             furthestRight = invaders[i];
         }
     }
-
     return [furthestRight, closestLeft]
 }
 
 export function removeAlien(id) {
-    console.log('remove alienID',id)
     let aliens = document.querySelectorAll(".alien")
     aliens[id].remove()
-
+    alienPositions.splice(id,1)
 }

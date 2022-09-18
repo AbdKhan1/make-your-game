@@ -12,7 +12,6 @@ let balls = [],
 // initialize and setup the ball(s)
 function initBall() {
     for (let i = 0; i < ballSettings.balls; i++) {
-        console.log("creating ball")
         createBall(ballSettings.speed, ballSettings.speed);
         console.log("ball created")
     }
@@ -63,8 +62,6 @@ export function BallMovement() {
     // move all the balls
     for (let i = 0; i < balls.length; i++) {
 
-        // leaving this for readability
-        // console.log(ballsDirection[i])
         let xDirection = ballsDirection[i][0], yDirection = ballsDirection[i][1];
 
         let ballDOMRect = balls[i].getBoundingClientRect();
@@ -108,7 +105,6 @@ function bounce(ballDOMRect, x, y) {
             return [x, -y];
     }
 
-    // console.log("ball moving")
 
     let brickID = checkBrickCollision(ballDOMRect);
     if (typeof brickID !== 'undefined') {
