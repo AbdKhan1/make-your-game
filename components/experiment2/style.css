@@ -1,0 +1,32 @@
+.gameView {
+    position: absolute;
+}
+
+* {
+    /* margin: 0; */
+    /* box-sizing: border-box; */
+    background-color: rgba(133, 125, 125, 0.089);
+}
+
+.ball {
+    position: absolute;
+    border-radius: 50px;
+    /*Turns a square into a circle     */
+}
+
+.brick {
+    position: absolute;
+}
+
+.pause,
+.gameOver {
+    display: none;
+    text-align: center;
+    position: absolute;
+}
+
+/* add style to .btn class
+
+.btn{
+
+} */
