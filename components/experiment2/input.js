@@ -1,3 +1,5 @@
+import { sounds } from "./globalsettings.js"
+
 // For keyboard input
 
 export let startBallMovement = false
@@ -5,9 +7,10 @@ export let startBallMovement = false
 // Start the ball movement
 addEventListener('keydown', (e) => {
     if (e.key === ' ') {
+        if (startBallMovement === false) { sounds.launchBall.play() }
         startBallMovement = true
     }
-   
+
 })
 
 // For paddle movement

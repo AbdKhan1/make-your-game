@@ -1,4 +1,4 @@
-import { ballSettings } from "./globalsettings.js"
+import { ballSettings, sounds } from "./globalsettings.js"
 import { checkBrickCollision, checkWallCollision, checkPaddleCollision, checkAlienCollision, checkLaserCollision } from "./collision.js";
 import { removeBrick } from "./bricks.js"
 import { removeAlien } from "./invaders.js"
@@ -8,6 +8,8 @@ let gameView = document.querySelector(".gameView");
 
 let balls = [],
     ballsDirection = []
+
+// let AudioContect = new()
 
 
 // initialize and setup the ball(s)
@@ -73,7 +75,7 @@ export function BallMovement() {
 
         moveBall(i, ballsDirection[i][0], ballsDirection[i][1]);
     }
- 
+
 
 }
 
@@ -83,6 +85,7 @@ function bounce(ballDOMRect, x, y) {
     laserBounce(ballDOMRect)
 
     if (checkPaddleCollision(ballDOMRect)) {
+        sounds.bouncePaddle.play()
         console.log("paddle collision")
 
         // check if the ball is hitting the paddle in different areas
@@ -97,18 +100,24 @@ function bounce(ballDOMRect, x, y) {
 
     switch (checkWallCollision(ballDOMRect)) {
         case "left":
+            sounds.bounceWallLeft.play()
             return [-x, y];
         case "right":
+            sounds.bounceWallRight.play()
             return [-x, y];
         case "top":
+            console.log("top")
+            sounds.bounceWallLTop.play()
             return [x, -y];
         case "bottom":
+            // sounds.loseLife.play()
             return [x, -y];
     }
 
 
     let brickID = checkBrickCollision(ballDOMRect);
     if (typeof brickID !== 'undefined') {
+        sounds.bounceBrick.play()
         // alert("brick collision " + brickID)        
         return (calculateBrickBounce(ballDOMRect, brickID, x, y))
     }
@@ -127,6 +136,8 @@ function alienBounce(alienID, x, y) {
     // remove alien if the ball moving upwards
     if (y > 0) {
         removeAlien(alienID)
+    } else {
+        sounds.alienShieldBounce.play()
     }
 
     return ([x, -y])
@@ -135,7 +146,10 @@ function alienBounce(alienID, x, y) {
 
 function laserBounce(ballDOMRect) {
     let laserID = checkLaserCollision(ballDOMRect);
-    if (typeof laserID !== 'undefined') { removeLaser(laserID) }
+    if (typeof laserID !== 'undefined') {
+        sounds.bounceLaser.play()
+        removeLaser(laserID)
+    }
 }
 
 function calculatePaddleBounce(b) {

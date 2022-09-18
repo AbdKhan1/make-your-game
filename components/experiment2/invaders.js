@@ -1,6 +1,7 @@
 import { levels, currentLevel } from "./levels.js";
 import { invaderSettings } from "./globalsettings.js"
 import { startBallMovement } from "./input.js";
+import { sounds } from "./globalsettings.js"
 
 let gameView = document.querySelector(".gameView");
 let alienPositions = []
@@ -71,6 +72,8 @@ export function alienMovement(level) {
         return
     }
 
+    sounds.invadersMusic.play()
+
     let aliencloseToBorder = closestToEdges()
 
     //when the aliens collide with the wall, add the appropriate number to their y-coordinates, making them move down
@@ -130,6 +133,7 @@ function closestToEdges() {
 
 export function removeAlien(id) {
     let aliens = document.querySelectorAll(".alien")
+    sounds.alienExplode.play()
     aliens[id].remove()
     alienPositions.splice(id, 1)
 }

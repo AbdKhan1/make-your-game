@@ -6,6 +6,7 @@ import { createAliens, alienMovement } from "./invaders.js";
 import { laserMovement } from "./lasers.js";
 import { currentLevel } from "./levels.js"
 
+
 createBricks(currentLevel);
 createAliens(currentLevel);
 
@@ -53,6 +54,7 @@ function animate(newtime) {
     if (startBallMovement) {
       BallMovement();
     }
+
     alienMovement(currentLevel)
     PaddleMovement()
     laserMovement()

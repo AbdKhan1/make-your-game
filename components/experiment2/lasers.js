@@ -1,6 +1,7 @@
 import { laserSettings, gameViewSettings } from "./globalsettings.js"
 import { checkLaserCollision } from "./collision.js";
 import { levels, currentLevel } from "./levels.js"
+import { sounds } from "./globalsettings.js"
 
 let gameView = document.querySelector(".gameView");
 
@@ -25,6 +26,7 @@ function createLasers() {
                 - (laserSettings.width / 2)
             laserStartingPosition[1] = alien.getBoundingClientRect().top + alien.getBoundingClientRect().height
             laserPositions.push([laserStartingPosition[0], laserStartingPosition[1]])
+            sounds.alienShoot.play()
         }
     }
 }
@@ -51,7 +53,10 @@ export function laserMovement() {
     //collision of lasers
     let paddleSizeAndPos = document.querySelector('.paddle').getBoundingClientRect()
     let laserID = checkLaserCollision(paddleSizeAndPos);
-    if (typeof laserID !== 'undefined') { removeLaser(laserID) }
+    if (typeof laserID !== 'undefined') {
+        sounds.alienpaddleHit.play()
+        removeLaser(laserID)
+    }
 
     drawLasers()
     updateLasers()
