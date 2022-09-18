@@ -73,15 +73,12 @@ export function checkAlienCollision(ballDOMRect) {
 
     let aliens = document.querySelectorAll(".alien")
 
-
-
     for (let i = 0; i < aliens.length; i++) {
         let alienDOMRect = aliens[i].getBoundingClientRect()
         if (checkCollision(ballDOMRect, alienDOMRect)) {
             return i
         }
     }
-
 
 
 }

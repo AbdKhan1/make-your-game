@@ -73,7 +73,7 @@ export function BallMovement() {
 
         moveBall(i, ballsDirection[i][0], ballsDirection[i][1]);
     }
-
+ 
 
 }
 
@@ -125,7 +125,7 @@ function bounce(ballDOMRect, x, y) {
 function alienBounce(alienID, x, y) {
     // if there is a collision from the alien   
     // remove alien if the ball moving upwards
-    if ((x > 0 && y > 0) || (x < 0 && y > 0)) {
+    if (y > 0) {
         removeAlien(alienID)
     }
 
