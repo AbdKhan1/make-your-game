@@ -1,5 +1,4 @@
 import { gameViewSettings } from "./globalsettings.js"
-import { removeBrick } from "./bricks.js"
 
 
 // DOMRect describes the size and position of a rectangle.
@@ -44,7 +43,8 @@ export function checkWallCollision(ballDOMRect) {
         return "top"
     }
     // with bottom wall
-    if (ballDOMRect.y + ballDOMRect.height > gameViewSettings.gameViewHeight) {
+    let paddleDOMRect = document.querySelector(".paddle").getBoundingClientRect()
+    if (ballDOMRect.y > (paddleDOMRect.y + (2 * paddleDOMRect.height))) {
         return "bottom"
     }
 
