@@ -42,8 +42,7 @@ export function setupGameView() {
     rightColumn.style.borderBottomWidth = 0 + "px"
     rightColumn.style.borderColor = gameViewSettings.borderColor
 
-    let information = `
-    <h1>Infomation Comes Here</h1>
+    let information = `<h2>Leaderboard</h2>
     `
     rightColumn.innerHTML = information
 

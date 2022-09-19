@@ -1,11 +1,13 @@
-.gameView {
-    position: absolute;
-}
 
-* {
+body {
     /* margin: 0; */
     /* box-sizing: border-box; */
-    background-color: rgba(133, 125, 125, 0.089);
+    background-color: rgba(133, 125, 125, 0.24);
+    font-family: Atarian-Regular;
+}
+
+.gameView {
+    position: absolute;
 }
 
 .ball {
@@ -18,6 +20,15 @@
     position: absolute;
 }
 
+.time, .lives, .score, .currentLevel{
+    display: flex;
+}
+.scoreboard{
+    display: flex;
+    justify-content: space-around;    
+    width: 600px;
+}
+
 .pause,
 .gameOver {
     display: none;
@@ -25,13 +36,19 @@
     position: absolute;
 }
 
-h1 {
+h1, h2{
     text-align: center;
     color: white;
 }
 
-/* add style to .btn class
 
-.btn{
+#t1 {
+  -moz-tab-size: 4; /* Firefox */
+  tab-size: 4;
+}
 
-} */
+@font-face { font-family: PressStart2P-Regular; 
+			 src: url('../../assets/Press_Start_2P/PressStart2P-Regular.ttf'); } 
+
+@font-face { font-family: Atarian-Regular; 
+src: url('../../assets/sf-atarian-system/Atarian/SF\ Atarian\ System.ttf'); } 
