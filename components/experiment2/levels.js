@@ -17,7 +17,7 @@ export let levels = {
         },
         aliens: {
             gapFromTop: ballSettings.size * 2,
-            numberOfAliens: 4,
+            numberOfAliens: 3,
             numberOfRows: 1,
             drop: 10, //speed of the aliens moving vertically
             velocity: 1, // speed of the aliens moving horizontally

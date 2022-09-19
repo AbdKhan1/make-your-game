@@ -1,10 +1,14 @@
-import { ballSettings, sounds } from "./globalsettings.js"
+import { ballSettings, invaderSettings, sounds } from "./globalsettings.js"
 import { checkBrickCollision, checkWallCollision, checkPaddleCollision, checkAlienCollision, checkLaserCollision } from "./collision.js";
 import { removeBrick } from "./bricks.js"
 import { removeAlien } from "./invaders.js"
 import { removeLaser } from "./lasers.js"
+import { calculateScore } from "./scoreboard/score.js"
 
 let gameView = document.querySelector(".gameView");
+
+let score = 0,
+    brickHits = 0
 
 let balls = [],
     ballsDirection = []
@@ -89,6 +93,8 @@ function bounce(ballDOMRect, x, y) {
     if (checkPaddleCollision(ballDOMRect)) {
         sounds.bouncePaddle.play()
         console.log("paddle collision")
+        // reset
+        brickHits=0
 
         // check if the ball is hitting the paddle in different areas
         // and return the new direction accordingly
@@ -120,6 +126,9 @@ function bounce(ballDOMRect, x, y) {
     let brickID = checkBrickCollision(ballDOMRect);
     if (typeof brickID !== 'undefined') {
         sounds.bounceBrick.play()
+        brickHits++
+        score=calculateScore(score,brickHits,"brick")
+
         // alert("brick collision " + brickID)        
         return (calculateBrickBounce(ballDOMRect, brickID, x, y))
     }
@@ -133,32 +142,41 @@ function bounce(ballDOMRect, x, y) {
     return [x, y];
 }
 
-let hueRotation = 60
+
 function alienBounce(alienID, x, y) {
     let aliens = document.querySelectorAll('.alien')
     // if there is a collision from the alien
     //change colour of alien
-    aliens[alienID].style.filter = 'hue-rotate(' + hueRotation + 'deg)'
+    hueChange(alienID)
     // remove alien if the ball moving upwards
     if (y > 0) {
         removeAlien(alienID)
+        score=calculateScore(score,brickHits,"alien")
     } else {
         sounds.alienShieldBounce.play()
     }
 
+    return ([x, -y])
+
+}
+
+let hueRotation = invaderSettings.hueRotationValue
+function hueChange(alienID) {
+    
+    let aliens = document.querySelectorAll('.alien')
+    aliens[alienID].style.filter = 'hue-rotate(' + hueRotation + 'deg)'
     if (hueRotation >= 360) {
         hueRotation = 0
     } else {
         hueRotation += 60
     }
-    return ([x, -y])
-
 }
 
 function laserBounce(ballDOMRect) {
     let laserID = checkLaserCollision(ballDOMRect);
     if (typeof laserID !== 'undefined') {
         sounds.bounceLaser.play()
+        score=calculateScore(score,brickHits,"laser")
         removeLaser(laserID)
     }
 }
