@@ -25,6 +25,11 @@
     position: absolute;
 }
 
+h1 {
+    text-align: center;
+    color: white;
+}
+
 /* add style to .btn class
 
 .btn{
