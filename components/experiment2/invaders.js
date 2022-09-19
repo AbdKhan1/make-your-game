@@ -116,14 +116,14 @@ function closestToEdges() {
 
     //finds the alien with the greatest "left" value which would be closest to the right wall
     for (let i = 0; i < invaders.length; i++) {
-        let invadersNum = invaders[i].style.left.replace('px', '')
+        let invadersNum = Number(invaders[i].style.left.replace('px', ''))
         if (closestLeftNum > invadersNum) {
             closestLeft = invaders[i];
         }
     }
     //finds the alien with the smallest "left" value which would be closest to the left wall
     for (let i = 0; i < invaders.length; i++) {
-        let invadersNum = invaders[i].style.left.replace('px', '')
+        let invadersNum = Number(invaders[i].style.left.replace('px', ''))
         if (furthestRightNum < invadersNum) {
             furthestRight = invaders[i];
         }
