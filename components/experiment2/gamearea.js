@@ -23,7 +23,7 @@ export function setupGameView() {
     }
 
     row.style.display = "flex"
-    row.style.backgroundColor = "white"
+    row.style.backgroundColor = "rgba(133, 125, 125, 0.24);"
     document.querySelector("body").appendChild(row);
 
     let leftColumn = document.querySelector(".left"),
