@@ -72,7 +72,7 @@ export function alienMovement(level) {
         return
     }
 
-    sounds.invadersMusic.play()
+    //sounds.invadersMusic.play()
 
     let aliencloseToBorder = closestToEdges()
 

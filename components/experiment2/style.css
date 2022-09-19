@@ -1,9 +1,8 @@
-
 body {
     /* margin: 0; */
     /* box-sizing: border-box; */
     background-color: rgba(133, 125, 125, 0.24);
-    font-family: Atarian-Regular;
+    font-family: PressStart2P-Regular;
 }
 
 .gameView {
@@ -20,13 +19,24 @@ body {
     position: absolute;
 }
 
-.time, .lives, .score, .currentLevel{
+.time,
+.lives,
+.score,
+.currentLevel {
     display: flex;
+
 }
-.scoreboard{
+
+.lives {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.scoreboard {
     display: flex;
-    justify-content: space-around;    
-    width: 600px;
+    justify-content: space-around;
+
 }
 
 .pause,
@@ -36,19 +46,25 @@ body {
     position: absolute;
 }
 
-h1, h2{
+h1,
+h2 {
     text-align: center;
     color: white;
 }
 
 
 #t1 {
-  -moz-tab-size: 4; /* Firefox */
-  tab-size: 4;
+    -moz-tab-size: 4;
+    /* Firefox  */
+    tab-size: 4;
 }
 
-@font-face { font-family: PressStart2P-Regular; 
-			 src: url('../../assets/Press_Start_2P/PressStart2P-Regular.ttf'); } 
+@font-face {
+    font-family: PressStart2P-Regular;
+    src: url('../../assets/Press_Start_2P/PressStart2P-Regular.ttf');
+}
 
-@font-face { font-family: Atarian-Regular; 
-src: url('../../assets/sf-atarian-system/Atarian/SF\ Atarian\ System.ttf'); } 
+@font-face {
+    font-family: Atarian-Regular;
+    src: url('../../assets/sf-atarian-system/Atarian/SF\ Atarian\ System.ttf');
+}

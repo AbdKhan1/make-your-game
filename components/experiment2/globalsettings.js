@@ -65,6 +65,7 @@ export const invaderSettings = {
     width: 30,
     height: 30,
     image: "./alien.gif", //path of file 
+    hueRotationValue: 60,
 }
 
 
@@ -101,6 +102,37 @@ export const sounds = {
     alienShieldBounce: new Audio("../../sounds/invader_hurt.wav"),
     alienpaddleHit: new Audio("../../sounds/player_explosion.wav"),
 
+}
+
+
+export const scoreSettings = {
+    brick: 100, //number of points
+    alien: 150,
+    laser: 50,
+    comboCount: 5,
+    multiplierPoints: 10,
+
+
+    /* 
+    So more aliens > greater the points 
+    example: 5 aliens means each brick is worth 5x
+
+    combo:
+    if the ball hits the combo count then the multiplier increases
+    without hitting the paddle..
+    (the combo resets to zero if paddle is hit)
+    
+    example : ball hits the combo then multiplier increase by 1 and the brick value increases by the multiplier value
+
+    */
+
+}
+
+export const livesSettings = {
+    defaultNoOfLives: 3,
+    width: 35,
+    height: 35,
+    image: "./heart.png"
 }
 
 setupGameView()

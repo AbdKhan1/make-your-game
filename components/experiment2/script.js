@@ -5,6 +5,10 @@ import { createBricks } from "./bricks.js"
 import { createAliens, alienMovement } from "./invaders.js";
 import { laserMovement } from "./lasers.js";
 import { currentLevel } from "./levels.js"
+import { countUpTimer } from "./scoreboard/timer.js"
+import "./scoreboard/lives.js"
+import { gameOver } from "./scoreboard/lives.js";
+
 
 
 createBricks(currentLevel);
@@ -12,12 +16,15 @@ createAliens(currentLevel);
 
 //https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
 
-let stop = false;
-let fps, fpsInterval, startTime, now, then, elapsed;
 
-fps = 60;
+
+
+
+let stop = false;
+let fps = 60, fpsInterval, startTime, now, then, elapsed;
 
 startAnimating(fps);
+
 
 function startAnimating(fps) {
   fpsInterval = 1000 / fps;
@@ -26,10 +33,16 @@ function startAnimating(fps) {
   animate();
 }
 
+let duration = 0
+
 function animate(newtime) {
   // stop
   if (stop) {
     return;
+  }
+
+  if (gameOver) {
+    return
   }
 
   // request another frame
@@ -52,10 +65,14 @@ function animate(newtime) {
 
     if (startBallMovement) {
       BallMovement();
+      countUpTimer(stop, duration)
+      duration++
     }
     alienMovement(currentLevel)
     PaddleMovement()
     laserMovement()
+
+
 
   }
 }
