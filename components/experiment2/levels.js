@@ -40,8 +40,8 @@ export let levels = {
         },
         aliens: {
             gapFromTop: ballSettings.size * 2,
-            numberOfAliens: 4,
-            numberOfRows: 2,
+            numberOfAliens: 6,
+            numberOfRows: 1,
             drop: 12,
             velocity: 1,
         },
@@ -52,6 +52,7 @@ export let levels = {
     },
     5: {
         bricks: {
+            gapFromTop: ballSettings.size * 3.5,
             numberOfRows: 11,
             brickWidth: 30,
             brickHeight: 15,

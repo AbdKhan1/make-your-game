@@ -62,8 +62,8 @@ export const paddleSettings = {
 /* Invaders */
 ////////////////////////////////////////////////
 export const invaderSettings = {
-    width: 35,
-    height: 35,
+    width: 30,
+    height: 30,
     image: "./alien.gif", //path of file 
 }
 
