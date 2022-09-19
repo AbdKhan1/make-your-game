@@ -31,7 +31,7 @@ function createLasers() {
     }
 }
 
-function drawLasers() {
+function moveLasers() {
     let laser = document.querySelectorAll('.laser')
     for (let i = 0; i < laser.length; i++) {
         laser[i].style.left = laserPositions[i][0] + 'px'
@@ -43,13 +43,12 @@ export function laserMovement() {
     //remove lasers when they are at the bottom of game view
     let laserArr = document.querySelectorAll('.laser')
     for (let i = 0; i < laserPositions.length; i++) {
-        laserPositions[i][1] += levels[currentLevel].aliens.laserSpeed
+        laserPositions[i][1] += levels[currentLevel].lasers.speed
         if (laserPositions[i][1] >= gameViewSettings.gameViewHeight - (laserSettings.height - gameViewSettings.borderWidth)) {
             laserArr[i].remove()
             laserPositions.splice(i, 1)
         }
     }
-
     //collision of lasers
     let paddleSizeAndPos = document.querySelector('.paddle').getBoundingClientRect()
     let laserID = checkLaserCollision(paddleSizeAndPos);
@@ -57,22 +56,21 @@ export function laserMovement() {
         sounds.alienpaddleHit.play()
         removeLaser(laserID)
     }
-
-    drawLasers()
+    moveLasers()
     updateLasers()
 }
+
 
 //the frequency of lasers shot by invaders
 function updateLasers() {
     if (laser_cooldown === 0) {
         createLasers()
-        drawLasers()
+        moveLasers()
         laser_cooldown = Math.floor(Math.random() * 100)
         return
     }
-    laser_cooldown -= 0.5
+    laser_cooldown -= levels[currentLevel].lasers.cooldown
 }
-
 export function removeLaser(id) {
     let lasers = document.querySelectorAll(".laser")
     lasers[id].remove()

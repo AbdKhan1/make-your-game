@@ -13,7 +13,6 @@ createAliens(currentLevel);
 //https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
 
 let stop = false;
-let frameCount = 0;
 let fps, fpsInterval, startTime, now, then, elapsed;
 
 fps = 60;
@@ -54,9 +53,9 @@ function animate(newtime) {
     if (startBallMovement) {
       BallMovement();
     }
-
     alienMovement(currentLevel)
     PaddleMovement()
     laserMovement()
+
   }
 }

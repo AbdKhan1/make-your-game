@@ -79,6 +79,8 @@ export function BallMovement() {
 
 }
 
+
+
 // Returns the new direction the ball should be bouncing
 function bounce(ballDOMRect, x, y) {
 
@@ -131,8 +133,12 @@ function bounce(ballDOMRect, x, y) {
     return [x, y];
 }
 
+let hueRotation = 60
 function alienBounce(alienID, x, y) {
-    // if there is a collision from the alien   
+    let aliens = document.querySelectorAll('.alien')
+    // if there is a collision from the alien
+    //change colour of alien
+    aliens[alienID].style.filter = 'hue-rotate(' + hueRotation + 'deg)'
     // remove alien if the ball moving upwards
     if (y > 0) {
         removeAlien(alienID)
@@ -140,6 +146,11 @@ function alienBounce(alienID, x, y) {
         sounds.alienShieldBounce.play()
     }
 
+    if (hueRotation >= 360) {
+        hueRotation = 0
+    } else {
+        hueRotation += 60
+    }
     return ([x, -y])
 
 }
@@ -152,59 +163,55 @@ function laserBounce(ballDOMRect) {
     }
 }
 
-function calculatePaddleBounce(b) {
-    let p = document.querySelector(".paddle").getBoundingClientRect(),
-        pws = p.width / 4,
+function calculatePaddleBounce(ball) {
+    let paddle = document.querySelector(".paddle").getBoundingClientRect(),
+        paddleWidthSplit = paddle.width / 4,
         bspeed = ballSettings.speed
 
     switch (true) {
         //if the ball hits the first quarter of the paddle
-        case ((b.x >= p.x && b.x <= p.x + pws) && b.y <= p.y):
+        case ((ball.x >= paddle.x && ball.x <= paddle.x + paddleWidthSplit) && ball.y <= paddle.y):
             return [-bspeed, bspeed]
 
         //if the ball hits the second quarter of the paddle
-        case (b.x > (p.x + pws) && b.x <= (p.x + (2 * pws))):
+        case (ball.x > (paddle.x + paddleWidthSplit) && ball.x <= (paddle.x + (2 * paddleWidthSplit))):
             return [-Math.ceil(bspeed / 2), bspeed]
 
         //if the ball hits the third quarter of the paddle
-        case (b.x > (p.x + (2 * pws)) && b.x <= (p.x + (3 * pws))):
+        case (ball.x > (paddle.x + (2 * paddleWidthSplit)) && ball.x <= (paddle.x + (3 * paddleWidthSplit))):
             return [Math.ceil(bspeed / 2), bspeed]
 
         //if the ball hits the fourth quarter of the paddle
-        case ((b.x > (p.x + (3 * pws))) && (b.x <= p.x + p.width) && b.y <= p.y):
+        case ((ball.x > (paddle.x + (3 * paddleWidthSplit))) && (ball.x <= paddle.x + paddle.width) && ball.y <= paddle.y):
             return [bspeed, bspeed]
 
         //if the ball hits the top left corner of the paddle
-        case b.y < p.y && b.x < p.x:
+        case ball.y < paddle.y && ball.x < paddle.x:
             return [-bspeed, bspeed];
 
         // if the ball hits the top right corner of the paddle
-        case b.y < p.y && b.x + b.width >= p.x + p.width:
+        case ball.y < paddle.y && ball.x + ball.width >= paddle.x + paddle.width:
             return [bspeed, bspeed]
 
-
         //if the ball hits the left edge quarter of the paddle
-        case b.x < p.x:
+        case ball.x < paddle.x:
             return [(-bspeed - Math.ceil(bspeed / 2)), (bspeed - Math.ceil(bspeed / 2))];
 
         // if the ball hits the bottom right of the paddle
-        case b.y + b.height > p.y + p.height && b.x + b.width >= p.x + p.width:
+        case ball.y + ball.height > paddle.y + paddle.height && ball.x + ball.width >= paddle.x + paddle.width:
             return [bspeed, -bspeed]
 
         //if the ball hits the bottom left
-        case b.y + b.height > p.y + p.height && b.x < p.x:
+        case ball.y + ball.height > paddle.y + paddle.height && ball.x < paddle.x:
             return [bspeed, -bspeed]
-
 
         //bottom of the paddle
-        case b.y + b.height > p.y + p.height:
+        case ball.y + ball.height > paddle.y + paddle.height:
             return [bspeed, -bspeed]
 
-
         //if the ball hits the right edge quarter of the paddle
-        case ((b.x > p.x + (3 * pws) && b.x <= p.x + (4 * pws)) && (b.y > p.y && b.y < p.y + p.height)):
+        case ((ball.x > paddle.x + (3 * paddleWidthSplit) && ball.x <= paddle.x + (4 * paddleWidthSplit)) && (ball.y > paddle.y && ball.y < paddle.y + paddle.height)):
             return [bspeed + Math.ceil(bspeed / 2), bspeed - Math.ceil(bspeed / 2)]
-
 
     }
 
@@ -221,7 +228,6 @@ function calculateBrickBounce(ball, brickID, xDirection, yDirection) {
         case ball.y + ball.height > brick.y + brick.height && ball.x + ball.width >= brick.x + brick.width:
             removeBrick(brickID)
             return [xDirection, -yDirection]
-
 
         //top right corner
         case ball.y < brick.y && ball.x + ball.width >= brick.x + brick.width:

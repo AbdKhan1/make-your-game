@@ -21,7 +21,10 @@ export let levels = {
             numberOfRows: 1,
             drop: 10, //speed of the aliens moving vertically
             velocity: 1, // speed of the aliens moving horizontally
-            laserSpeed: 4
+        },
+        lasers: {
+            speed: 4,
+            cooldown: 0.25
         }
     },
     1: {
@@ -41,7 +44,10 @@ export let levels = {
             numberOfRows: 2,
             drop: 12,
             velocity: 1,
-            laserSpeed: 4.5
+        },
+        lasers: {
+            speed: 4.5,
+            cooldown: 0.5
         }
     },
     5: {
@@ -54,11 +60,15 @@ export let levels = {
             brickRowColors: ["#75DDF9", "#fff", "#75DDF9", "#000", "#75FA9C", "#fff", "#75FA9C", "#000", "#75DDF9", "#fff", "#75FA9C"]
         },
         aliens: {
-            numberOfAliens: 3,
-            numberOfRows: 2,
+            gapFromTop: ballSettings.size,
+            numberOfAliens: 6,
+            numberOfRows: 3,
             drop: 20,
             velocity: 2,
-            laserSpeed: 5
+        },
+        lasers: {
+            speed: 5,
+            cooldown: 1
         }
     }
 }

@@ -4,6 +4,50 @@ import { gameViewSettings } from "./globalsettings.js"
 // Setup the game area view
 
 export function setupGameView() {
+    //creates two colums, 
+    //the left side will contain the game and the right,game information
+    let row = document.createElement("div");
+    row.classList.add("row")
+    for (let i = 0; i <= 1; i++) {
+        let column = document.createElement("div");
+        column.classList.add("column")
+        // column.style.position="relative"
+        column.style.flexWrap = "wrap"
+        column.style.flex = "50%"
+        if (i === 0) {
+            column.classList.add("left")
+        } else {
+            column.classList.add("right")
+        }
+        row.appendChild(column)
+    }
+
+    row.style.display = "flex"
+    row.style.backgroundColor = "white"
+    document.querySelector("body").appendChild(row);
+
+    let leftColumn = document.querySelector(".left"),
+        rightColumn = document.querySelector(".right")
+
+    leftColumn.style.width = gameViewSettings.gameViewWidth + "px"
+    leftColumn.style.height = gameViewSettings.gameViewHeight + "px"
+
+    rightColumn.style.width = (window.innerWidth - gameViewSettings.gameViewWidth) + "px"
+    rightColumn.style.height = (gameViewSettings.gameViewHeight - gameViewSettings.borderWidth) + "px"
+    rightColumn.style.backgroundColor = gameViewSettings.gameViewColor
+    rightColumn.style.borderStyle = "solid"
+    rightColumn.style.borderLeftWidth = gameViewSettings.borderWidth + "px"
+    rightColumn.style.borderTopWidth = gameViewSettings.borderWidth + "px"
+    rightColumn.style.borderRightWidth = gameViewSettings.borderWidth + "px"
+    rightColumn.style.borderBottomWidth = 0 + "px"
+    rightColumn.style.borderColor = gameViewSettings.borderColor
+
+    let information = `
+    <h1>Infomation Comes Here</h1>
+    `
+    rightColumn.innerHTML = information
+
+    //creates game view
     let gameView = document.createElement("div");
     gameView.classList.add("gameView");
     gameView.style.width = gameViewSettings.gameViewWidth + "px";
@@ -13,7 +57,7 @@ export function setupGameView() {
     // gameView.style.left = gameViewSettings.borderWidth + "px";
     // gameView.style.top = gameViewSettings.borderWidth + "px";
 
-    
+
     // create left wall
     let leftWall = document.createElement("div");
     leftWall.classList.add("leftWall");
@@ -25,8 +69,8 @@ export function setupGameView() {
     leftWall.style.top = gameViewSettings.borderWidth + "px";
     gameView.appendChild(leftWall);
 
-    
-    
+
+
     // create right wall
     let rightWall = document.createElement("div");
     rightWall.classList.add("rightWall");
@@ -42,7 +86,7 @@ export function setupGameView() {
     let topWall = document.createElement("div");
     topWall.classList.add("topWall");
     topWall.style.position = "absolute";
-    topWall.style.width = gameViewSettings.gameViewWidth - (gameViewSettings.borderWidth*2) + "px";
+    topWall.style.width = gameViewSettings.gameViewWidth - (gameViewSettings.borderWidth * 2) + "px";
     topWall.style.height = gameViewSettings.borderWidth + "px";
     topWall.style.backgroundColor = gameViewSettings.borderColor;
     topWall.style.left = gameViewSettings.borderWidth + "px";
@@ -60,7 +104,7 @@ export function setupGameView() {
     leftWallCorner.style.height = gameViewSettings.borderWidth + "px";
     leftWallCorner.style.backgroundColor = gameViewSettings.borderColor;
     leftWallCorner.style.left = 0 + "px";
-    leftWallCorner.style.top = 0 + "px";    
+    leftWallCorner.style.top = 0 + "px";
     gameView.appendChild(leftWallCorner);
 
     // create right wall corner square
@@ -76,6 +120,6 @@ export function setupGameView() {
 
 
 
-
-    document.querySelector("body").appendChild(gameView);
+    //document.querySelector("body").appendChild(gameView);
+    document.querySelector(".left").appendChild(gameView);
 }
