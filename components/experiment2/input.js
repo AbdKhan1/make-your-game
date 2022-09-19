@@ -4,6 +4,14 @@ import { sounds } from "./globalsettings.js"
 
 export let startBallMovement = false
 
+export function changeValue() {
+    if (!startBallMovement) {
+        startBallMovement = true
+    } else {
+        startBallMovement = false
+    }
+}
+
 // Start the ball movement
 addEventListener('keydown', (e) => {
     if (e.key === ' ') {

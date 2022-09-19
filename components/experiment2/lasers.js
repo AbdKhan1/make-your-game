@@ -2,6 +2,7 @@ import { laserSettings, gameViewSettings } from "./globalsettings.js"
 import { checkLaserCollision } from "./collision.js";
 import { levels, currentLevel } from "./levels.js"
 import { sounds } from "./globalsettings.js"
+import { lifeLost } from "./scoreboard/lives.js";
 
 let gameView = document.querySelector(".gameView");
 
@@ -55,6 +56,8 @@ export function laserMovement() {
     if (typeof laserID !== 'undefined') {
         sounds.alienpaddleHit.play()
         removeLaser(laserID)
+        //reset ball to be stcky on the paddle the ball 
+        lifeLost()
     }
     moveLasers()
     updateLasers()
@@ -71,6 +74,7 @@ function updateLasers() {
     }
     laser_cooldown -= levels[currentLevel].lasers.cooldown
 }
+
 export function removeLaser(id) {
     let lasers = document.querySelectorAll(".laser")
     lasers[id].remove()

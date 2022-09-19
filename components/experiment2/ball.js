@@ -1,9 +1,11 @@
-import { ballSettings, invaderSettings, sounds } from "./globalsettings.js"
+import { ballSettings, invaderSettings, sounds, paddleSettings, gameViewSettings } from "./globalsettings.js"
 import { checkBrickCollision, checkWallCollision, checkPaddleCollision, checkAlienCollision, checkLaserCollision } from "./collision.js";
 import { removeBrick } from "./bricks.js"
 import { removeAlien } from "./invaders.js"
 import { removeLaser } from "./lasers.js"
 import { calculateScore } from "./scoreboard/score.js"
+import { lifeLost } from "./scoreboard/lives.js"
+
 
 let gameView = document.querySelector(".gameView");
 
@@ -94,7 +96,7 @@ function bounce(ballDOMRect, x, y) {
         sounds.bouncePaddle.play()
         console.log("paddle collision")
         // reset
-        brickHits=0
+        brickHits = 0
 
         // check if the ball is hitting the paddle in different areas
         // and return the new direction accordingly
@@ -119,7 +121,9 @@ function bounce(ballDOMRect, x, y) {
             return [x, -y];
         case "bottom":
             // sounds.loseLife.play()
-            return [x, -y];
+            //reset ball to be stcky on the paddle the ball 
+            lifeLost()
+            return [ballSettings.speed, ballSettings.speed];
     }
 
 
@@ -127,7 +131,7 @@ function bounce(ballDOMRect, x, y) {
     if (typeof brickID !== 'undefined') {
         sounds.bounceBrick.play()
         brickHits++
-        score=calculateScore(score,brickHits,"brick")
+        score = calculateScore(score, brickHits, "brick")
 
         // alert("brick collision " + brickID)        
         return (calculateBrickBounce(ballDOMRect, brickID, x, y))
@@ -145,15 +149,15 @@ function bounce(ballDOMRect, x, y) {
 
 function alienBounce(alienID, x, y) {
     let aliens = document.querySelectorAll('.alien')
-    // if there is a collision from the alien
-    //change colour of alien
-    hueChange(alienID)
+    // if there is a collision from the alien    
     // remove alien if the ball moving upwards
     if (y > 0) {
         removeAlien(alienID)
-        score=calculateScore(score,brickHits,"alien")
+        score = calculateScore(score, brickHits, "alien")
     } else {
         sounds.alienShieldBounce.play()
+        //change colour of alien
+        hueChange(alienID)
     }
 
     return ([x, -y])
@@ -162,7 +166,7 @@ function alienBounce(alienID, x, y) {
 
 let hueRotation = invaderSettings.hueRotationValue
 function hueChange(alienID) {
-    
+
     let aliens = document.querySelectorAll('.alien')
     aliens[alienID].style.filter = 'hue-rotate(' + hueRotation + 'deg)'
     if (hueRotation >= 360) {
@@ -176,7 +180,7 @@ function laserBounce(ballDOMRect) {
     let laserID = checkLaserCollision(ballDOMRect);
     if (typeof laserID !== 'undefined') {
         sounds.bounceLaser.play()
-        score=calculateScore(score,brickHits,"laser")
+        score = calculateScore(score, brickHits, "laser")
         removeLaser(laserID)
     }
 }

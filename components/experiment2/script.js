@@ -6,6 +6,8 @@ import { createAliens, alienMovement } from "./invaders.js";
 import { laserMovement } from "./lasers.js";
 import { currentLevel } from "./levels.js"
 import { countUpTimer } from "./scoreboard/timer.js"
+import "./scoreboard/lives.js"
+import { gameOver } from "./scoreboard/lives.js";
 
 
 
@@ -19,10 +21,7 @@ createAliens(currentLevel);
 
 
 let stop = false;
-let fps, fpsInterval, startTime, now, then, elapsed;
-
-fps = 60;
-
+let fps = 60, fpsInterval, startTime, now, then, elapsed;
 
 startAnimating(fps);
 
@@ -40,6 +39,10 @@ function animate(newtime) {
   // stop
   if (stop) {
     return;
+  }
+
+  if (gameOver) {
+    return
   }
 
   // request another frame
@@ -68,8 +71,8 @@ function animate(newtime) {
     alienMovement(currentLevel)
     PaddleMovement()
     laserMovement()
-    
-    
-  
+
+
+
   }
 }

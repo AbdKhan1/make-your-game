@@ -65,7 +65,7 @@ export const invaderSettings = {
     width: 30,
     height: 30,
     image: "./alien.gif", //path of file 
-    hueRotationValue:60,
+    hueRotationValue: 60,
 }
 
 
@@ -110,7 +110,7 @@ export const scoreSettings = {
     alien: 150,
     laser: 50,
     comboCount: 5,
-    multiplierPoints : 10,
+    multiplierPoints: 10,
 
 
     /* 
@@ -124,13 +124,14 @@ export const scoreSettings = {
     
     example : ball hits the combo then multiplier increase by 1 and the brick value increases by the multiplier value
 
-    */ 
-    
+    */
+
 }
 
 export const livesSettings = {
-    width: 25,
-    height: 25,
+    defaultNoOfLives: 3,
+    width: 35,
+    height: 35,
     image: "./heart.png"
 }
 

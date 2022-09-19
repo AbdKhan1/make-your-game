@@ -12,8 +12,8 @@ export function setupGameView() {
         let column = document.createElement("div");
         column.classList.add("column")
         // column.style.position="relative"
+        //column.style.display="flex"
         column.style.flexWrap = "wrap"
-        column.style.flex = "50%"
         if (i === 0) {
             column.classList.add("left")
         } else {
@@ -36,7 +36,7 @@ export function setupGameView() {
     rightColumn.style.height = (gameViewSettings.gameViewHeight - gameViewSettings.borderWidth) + "px"
     rightColumn.style.backgroundColor = gameViewSettings.gameViewColor
     rightColumn.style.borderStyle = "solid"
-    rightColumn.style.borderLeftWidth = gameViewSettings.borderWidth + "px"
+    rightColumn.style.borderLeftWidth = 0 + "px"
     rightColumn.style.borderTopWidth = gameViewSettings.borderWidth + "px"
     rightColumn.style.borderRightWidth = gameViewSettings.borderWidth + "px"
     rightColumn.style.borderBottomWidth = 0 + "px"

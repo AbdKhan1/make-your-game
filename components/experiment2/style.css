@@ -24,12 +24,19 @@ body {
 .score,
 .currentLevel {
     display: flex;
+
+}
+
+.lives {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .scoreboard {
     display: flex;
     justify-content: space-around;
-    /* width: 600px; */
+
 }
 
 .pause,
@@ -48,7 +55,7 @@ h2 {
 
 #t1 {
     -moz-tab-size: 4;
-    /* Firefox */
+    /* Firefox  */
     tab-size: 4;
 }
 
