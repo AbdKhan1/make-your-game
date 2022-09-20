@@ -12,11 +12,8 @@ import { saveNewScore, retrieveLeaderboard, isTopScore } from "./scoreboard/lead
 
 retrieveLeaderboard()
 
-// saveNewScore("MAC", 2677)
-
 createBricks(currentLevel);
 createAliens(currentLevel);
-alert(await isTopScore(2670,5))
 
 //https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
 
@@ -75,8 +72,6 @@ function animate(newtime) {
     alienMovement(currentLevel)
     PaddleMovement()
     laserMovement()
-
-
 
   }
 }

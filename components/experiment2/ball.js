@@ -9,8 +9,9 @@ import { lifeLost } from "./scoreboard/lives.js"
 
 let gameView = document.querySelector(".gameView");
 
-let score = 0,
-    brickHits = 0
+export let score = 0
+
+   let brickHits = 0
 
 let balls = [],
     ballsDirection = []
