@@ -8,6 +8,9 @@ import { currentLevel } from "./levels.js"
 import { countUpTimer } from "./scoreboard/timer.js"
 import "./scoreboard/lives.js"
 import { gameOver } from "./scoreboard/lives.js";
+import { saveNewScore, retrieveLeaderboard } from "./scoreboard/leaderboard.js";
+
+retrieveLeaderboard()
 
 
 
