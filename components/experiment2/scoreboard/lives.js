@@ -1,5 +1,5 @@
-import { livesSettings } from "../globalsettings.js"
-import { changeValue } from "../input.js"
+import { livesSettings,ballSettings } from "../globalsettings.js"
+import { changeValue, startBallMovement } from "../input.js"
 
 export let gameOver = false
 
@@ -33,7 +33,9 @@ export function lifeLost() {
     updateLives()
     let ball = document.querySelector('.ball')
     let paddle = document.querySelector('.paddle').getBoundingClientRect()
-    ball.style.left = ((paddle.left + (paddle.width / 2)) - (ball.getBoundingClientRect().width / 2)) + "px"
+    ball.style.left = ((paddle.left + (paddle.width / 2)) - (ballSettings.size / 2)) + "px"
     ball.style.bottom = 70 + "px"
-    changeValue()
+    if (startBallMovement){
+        changeValue()
+    }
 }
