@@ -19,7 +19,7 @@ createAliens(currentLevel);
 
 
 
-export let frames =0
+
 let stop = false;
 let fps = 60, fpsInterval, startTime, now, then, elapsed;
 
@@ -36,7 +36,6 @@ function startAnimating(fps) {
 let duration = 0
 
 function animate(newtime) {
-  frames++
   // stop
   if (stop) {
     return;
