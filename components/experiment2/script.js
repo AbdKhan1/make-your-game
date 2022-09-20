@@ -8,14 +8,15 @@ import { currentLevel } from "./levels.js"
 import { countUpTimer } from "./scoreboard/timer.js"
 import "./scoreboard/lives.js"
 import { gameOver } from "./scoreboard/lives.js";
-import { saveNewScore, retrieveLeaderboard } from "./scoreboard/leaderboard.js";
+import { saveNewScore, retrieveLeaderboard, isTopScore } from "./scoreboard/leaderboard.js";
 
 retrieveLeaderboard()
 
-
+// saveNewScore("MAC", 2677)
 
 createBricks(currentLevel);
 createAliens(currentLevel);
+alert(await isTopScore(2670,5))
 
 //https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
 
