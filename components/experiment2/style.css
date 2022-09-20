@@ -1,0 +1,75 @@
+body {
+    /* margin: 0; */
+    /* box-sizing: border-box; */
+    background-color: rgba(133, 125, 125, 0.24);
+    font-family: PressStart2P-Regular;
+}
+
+.row{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.gameView {
+    position: absolute;
+}
+
+.ball {
+    position: absolute;
+    border-radius: 50px;
+    /*Turns a square into a circle     */
+}
+
+.brick {
+    position: absolute;
+}
+
+.time,
+.lives,
+.score,
+.currentLevel {
+    display: flex;
+
+}
+
+.lives {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.scoreboard {
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.pause,
+.gameOver {
+    display: none;
+    text-align: center;
+    position: absolute;
+}
+
+h1,
+h2 {
+    text-align: center;
+    color: white;
+}
+
+
+#t1 {
+    -moz-tab-size: 4;
+    /* Firefox  */
+    tab-size: 4;
+}
+
+@font-face {
+    font-family: PressStart2P-Regular;
+    src: url('../../assets/Press_Start_2P/PressStart2P-Regular.ttf');
+}
+
+@font-face {
+    font-family: Atarian-Regular;
+    src: url('../../assets/sf-atarian-system/Atarian/SF\ Atarian\ System.ttf');
+}

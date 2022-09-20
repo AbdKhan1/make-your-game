@@ -1,0 +1,79 @@
+import { BallMovement } from "./ball.js";
+import { PaddleMovement } from "./paddle.js";
+import { startBallMovement } from "./input.js";
+import { createBricks } from "./bricks.js"
+import { createAliens, alienMovement } from "./invaders.js";
+import { laserMovement } from "./lasers.js";
+import { currentLevel } from "./levels.js"
+import { countUpTimer } from "./scoreboard/timer.js"
+import "./scoreboard/lives.js"
+import { gameOver } from "./scoreboard/lives.js";
+
+
+
+createBricks(currentLevel);
+createAliens(currentLevel);
+
+//https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
+
+
+
+
+export let frames =0
+let stop = false;
+let fps = 60, fpsInterval, startTime, now, then, elapsed;
+
+startAnimating(fps);
+
+
+function startAnimating(fps) {
+  fpsInterval = 1000 / fps;
+  then = window.performance.now();
+  startTime = then;
+  animate();
+}
+
+let duration = 0
+
+function animate(newtime) {
+  frames++
+  // stop
+  if (stop) {
+    return;
+  }
+
+  if (gameOver) {
+    return
+  }
+
+  // request another frame
+
+  requestAnimationFrame(animate);
+
+  // calc elapsed time since last loop
+
+  now = newtime;
+  elapsed = now - then;
+
+  // if enough time has elapsed, draw the next frame
+
+  if (elapsed > fpsInterval) {
+    // Get ready for next frame by setting then=now, but...
+    // Also, adjust for fpsInterval not being multiple of 16.67
+    then = now - (elapsed % fpsInterval);
+
+    // draw stuff here
+
+    if (startBallMovement) {
+      BallMovement();
+      countUpTimer(stop, duration)
+      duration++
+    }
+    alienMovement(currentLevel)
+    PaddleMovement()
+    laserMovement()
+
+
+
+  }
+}

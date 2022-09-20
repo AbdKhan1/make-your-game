@@ -8,8 +8,8 @@ const ball = document.querySelector(".ball")
 const brickHeightAndSeparation = 20 + 5
 const brickNumberOfRows = 5
 const paddlePos = 70
-const alienWidth = 50
-const alienHeight = 50
+const alienWidth = 30
+const alienHeight = 25
 const numberOfRows = 1
 export const numberOfAliens = 6
 const space = (grid.offsetWidth - (numberOfAliens * alienWidth)) / numberOfAliens
@@ -100,8 +100,6 @@ export function moveAliens() {
     for (let i = 0; i < invaders.length; i++) {
         if (alienCoords[i][1] >= (grid.offsetHeight - paddlePos - alienHeight)) {
             //gameover
-            let numberOfLives = document.querySelector('#lives')
-            numberOfLives.innerText = 0
             alienCoords[i][1] = AlienStartY
         }
         alienCoords[i][0] = alienCoords[i][0] + velocity
@@ -133,14 +131,13 @@ export function createLasers() {
             laserCoords[0] = Number(alien.style.left.replace('px', '')) + (Number(alien.getBoundingClientRect().width / 2) - (laserWidth / 2))
             laserCoords[1] = Number(alien.getBoundingClientRect().top) + Number(alien.getBoundingClientRect().height)
             lasers.push([laserCoords[0], laserCoords[1]])
-
-
         }
     }
 }
 
-import { checkCollision } from "./collision.js"
+export let lives = 3
 
+import { checkCollision } from "./collision.js"
 export function moveLasers() {
     let laserArr = document.querySelectorAll('.laser')
     for (let i = 0; i < lasers.length; i++) {
@@ -157,11 +154,12 @@ export function moveLasers() {
     for (let i = 0; i < laserArr.length; i++) {
         let laserSizeAndPos = laserArr[i].getBoundingClientRect()
         if (checkCollision(laserSizeAndPos, paddleSizeAndPos)) {
-            let numberOfLives = document.querySelector('#lives')
-            numberOfLives.innerText--
-            if (numberOfLives.innerText == 2) {
+            lives--
+            const numberOfLives = document.querySelector('#lives')
+            numberOfLives.innerHTML = lives
+            if (lives === 2) {
                 paddle.style.backgroundColor = 'purple'
-            } else if (numberOfLives.innerText == 1) {
+            } else if (lives === 1) {
                 paddle.style.backgroundColor = 'red'
             }
             laserArr[i].remove()

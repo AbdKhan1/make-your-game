@@ -8,7 +8,6 @@ To do:
     - ~~space invader aliens~~ ✅
     - ~~"" shooting~~ ✅
 
-
 - state :
     - ~~score~~ ✅
     - lives

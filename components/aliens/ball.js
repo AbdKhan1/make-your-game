@@ -2,15 +2,14 @@ import { checkCollision } from "./collision.js";
 import { alienCoords } from "./alien.js";
 import { startMoveBall } from "./script.js";
 const grid = document.querySelector(".grid");
-const score = document.querySelector('#score')
-let numberOfLives = document.querySelector('#lives')
-let points = 0
-let pointsCombo = 0
+const score=document.querySelector('#score')
+let points=0
+let pointsCombo=0
 let comboCount = 0
 let multiplier = 1
+export let movingBall=true
 
 let ballSpeed = 4;
-
 let xDirection = ballSpeed;
 let yDirection = ballSpeed;
 
@@ -22,6 +21,14 @@ const ballStart = [(grid.offsetWidth / 2 - ball.offsetWidth / 2), 70];
 export let ballCurrentPosition = ballStart;
 drawBall();
 
+export function changeValue(){
+    if (startMoveBall){
+        movingBall=true
+    }else{
+        movingball=false
+    }
+}
+
 //draw Ball
 export function drawBall() {
     ball.style.left = ballCurrentPosition[0] + "px";
@@ -29,14 +36,15 @@ export function drawBall() {
 }
 //move ball
 export function moveBall() {
+
     //ball and paddle
     let ballSizeAndPos = ball.getBoundingClientRect();
     let paddleSizeAndPos = document.querySelector('.paddle').getBoundingClientRect();
 
     if (checkCollision(ballSizeAndPos, paddleSizeAndPos)) {
-        pointsCombo = 0
+        pointsCombo=0
         multiplier = 1
-        comboCount = 0
+        comboCount=0
         ballChangeDirection(ballSizeAndPos, paddleSizeAndPos);
     }
 
@@ -59,18 +67,18 @@ export function moveBall() {
 
     if (brickCollision) {
         comboCount++
-        if (comboCount % 5 == 0) {
+        if (comboCount%5==0){
             multiplier++
         }
-        if (alienArr.length != 0) {
-            points += (100 * alienArr.length)
-        } else {
-            points += 50
+        if (alienArr.length!=0){
+            points+=(100*alienArr.length)
+        }else{
+            points+=50
         }
-        points += pointsCombo
-        pointsCombo += 10 * multiplier
-
-        score.innerHTML = points
+        points+=pointsCombo
+        pointsCombo+=10*multiplier
+        
+        score.innerHTML=points
         brickArr[bricknum].style.backgroundColor = "white"
         brickChangeDirection(ballSizeAndPos, brickArr[bricknum].getBoundingClientRect())
         // the sweet time seems to be 10ms
@@ -92,48 +100,36 @@ export function moveBall() {
     }
 
     if (alienCollision) {
-        points += 150
-        score.innerHTML = points
+        points+=150
+        score.innerHTML=points
         alienChangeDirection(ballSizeAndPos, alienArr[alienNum].getBoundingClientRect())
         alienArr[alienNum].style.filter = 'hue-rotate(260deg)'
         setTimeout(function () {
             alienArr[alienNum].remove()
             alienCoords.splice(alienNum, 1)
+            console.log(alienCoords)
         }, 10)
     }
 
-    if (ballCurrentPosition[0] <= 0 || ballCurrentPosition[0] >= 600 - 35) {   
-        let borderHit = "rgb(" + 255 + "," + " " + 255 + "," + " " + 255 + ")"
-        grid.style.borderRightColor = borderHit
-        grid.style.borderLeftColor = borderHit
-        grid.style.borderTopColor = borderHit
+    if (ballCurrentPosition[0] <= 0 || ballCurrentPosition[0] >= 600 - 35) {
         xDirection = -xDirection;
-
     }
 
     if (ballCurrentPosition[1] >= window.innerHeight - 25) {
         yDirection = -yDirection;
     }
 
-
     if (ballCurrentPosition[1] <= 0) {
-        let paddle = document.querySelector('.paddle')
-        numberOfLives.innerText--
-        if (numberOfLives.innerText == 2) {
-            paddle.style.backgroundColor = 'purple'
-        } else if (numberOfLives.innerText == 1) {
-            paddle.style.backgroundColor = 'red'
-        }
         ballCurrentPosition = [(grid.offsetWidth / 2 - ball.offsetWidth / 2), 70]
-        xDirection = -ballSpeed;
-        yDirection = ballSpeed;
+        let resetPaddle=[(grid.offsetWidth / 2 - paddleSizeAndPos.width / 2), 50]
+        movingBall=false
         drawBall()
-        return
-
+        console.log(resetPaddle)
     }
 
     ballCurrentPosition[0] += xDirection;
     ballCurrentPosition[1] += yDirection;
+
     drawBall();
 }
 
