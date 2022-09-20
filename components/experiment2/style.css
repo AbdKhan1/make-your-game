@@ -5,6 +5,11 @@ body {
     font-family: PressStart2P-Regular;
 }
 
+.row{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
 .gameView {
     position: absolute;
 }

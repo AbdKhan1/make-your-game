@@ -11,8 +11,6 @@ export function setupGameView() {
     for (let i = 0; i <= 1; i++) {
         let column = document.createElement("div");
         column.classList.add("column")
-        // column.style.position="relative"
-        //column.style.display="flex"
         column.style.flexWrap = "wrap"
         if (i === 0) {
             column.classList.add("left")
@@ -22,7 +20,6 @@ export function setupGameView() {
         row.appendChild(column)
     }
 
-    row.style.display = "flex"
     row.style.backgroundColor = "rgba(133, 125, 125, 0.24);"
     document.querySelector("body").appendChild(row);
 
@@ -32,15 +29,18 @@ export function setupGameView() {
     leftColumn.style.width = gameViewSettings.gameViewWidth + "px"
     leftColumn.style.height = gameViewSettings.gameViewHeight + "px"
 
-    rightColumn.style.width = (window.innerWidth - gameViewSettings.gameViewWidth) + "px"
     rightColumn.style.height = (gameViewSettings.gameViewHeight - gameViewSettings.borderWidth) + "px"
     rightColumn.style.backgroundColor = gameViewSettings.gameViewColor
     rightColumn.style.borderStyle = "solid"
-    rightColumn.style.borderLeftWidth = 0 + "px"
     rightColumn.style.borderTopWidth = gameViewSettings.borderWidth + "px"
     rightColumn.style.borderRightWidth = gameViewSettings.borderWidth + "px"
     rightColumn.style.borderBottomWidth = 0 + "px"
     rightColumn.style.borderColor = gameViewSettings.borderColor
+
+    //adjusts display of columns depending on screen size.
+    var windowSize = window.matchMedia("(max-width:" + (2 * (window.innerWidth / 3)) + "px)")
+    columnView(windowSize)
+    windowSize.addListener(columnView)
 
     let information = `<h2>Leaderboard</h2>
     `
@@ -52,10 +52,6 @@ export function setupGameView() {
     gameView.style.width = gameViewSettings.gameViewWidth + "px";
     gameView.style.height = gameViewSettings.gameViewHeight + "px";
     gameView.style.backgroundColor = gameViewSettings.gameViewColor;
-
-    // gameView.style.left = gameViewSettings.borderWidth + "px";
-    // gameView.style.top = gameViewSettings.borderWidth + "px";
-
 
     // create left wall
     let leftWall = document.createElement("div");
@@ -117,8 +113,23 @@ export function setupGameView() {
     rightWallCorner.style.top = 0 + "px";
     gameView.appendChild(rightWallCorner);
 
-
-
-    //document.querySelector("body").appendChild(gameView);
     document.querySelector(".left").appendChild(gameView);
+}
+
+//https://www.w3schools.com/howto/howto_js_media_queries.asp
+//changes the positioning (grid style) and width of the right column,
+//depending on size of the screen
+function columnView(windowSize) {
+    let row = document.querySelector(".row")
+    let rightColumn = document.querySelector(".right")
+    // If media query matches
+    if (windowSize.matches) {
+        row.style.gridTemplateColumns = "repeat(1, 1fr)";
+        rightColumn.style.width = (gameViewSettings.gameViewWidth - (2 * gameViewSettings.borderWidth)) + "px"
+        rightColumn.style.borderLeftWidth = gameViewSettings.borderWidth + "px"
+    } else {
+        row.style.gridTemplateColumns = "repeat(2, 1fr)";
+        rightColumn.style.width = (800) + "px"
+        rightColumn.style.borderLeftWidth = 0 + "px"
+    }
 }

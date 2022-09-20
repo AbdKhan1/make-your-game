@@ -45,3 +45,11 @@ function keyUpHandler(e) {
         leftPressed = false;
     }
 }
+
+//https://stackoverflow.com/questions/8916620/disable-arrow-key-scrolling-in-users-browser
+//prevent arrows and space bar from moving the screen
+window.addEventListener("keydown", function stopCrolling(e) {
+    if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+        e.preventDefault();
+    }
+}, false);

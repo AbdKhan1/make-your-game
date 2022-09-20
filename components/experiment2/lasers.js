@@ -56,7 +56,7 @@ export function laserMovement() {
     if (typeof laserID !== 'undefined') {
         sounds.alienpaddleHit.play()
         removeLaser(laserID)
-        //reset ball to be stcky on the paddle the ball 
+        //reset ball to be sticky on the paddle the ball 
         lifeLost()
     }
     moveLasers()
