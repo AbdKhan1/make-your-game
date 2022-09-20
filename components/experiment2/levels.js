@@ -1,6 +1,6 @@
 import { ballSettings } from "./globalsettings.js"
 
-export let currentLevel = 0
+export let currentLevel = 1
 // object with all the levels
 export let levels = {
     // for development
@@ -40,8 +40,8 @@ export let levels = {
         },
         aliens: {
             gapFromTop: ballSettings.size * 2,
-            numberOfAliens: 6,
-            numberOfRows: 1,
+            numberOfAliens: 4,
+            numberOfRows: 2,
             drop: 12,
             velocity: 1,
         },
@@ -62,14 +62,14 @@ export let levels = {
         },
         aliens: {
             gapFromTop: ballSettings.size,
-            numberOfAliens: 6,
-            numberOfRows: 3,
-            drop: 20,
+            numberOfAliens: 5,
+            numberOfRows: 1,
+            drop: 15,
             velocity: 2,
         },
         lasers: {
             speed: 5,
-            cooldown: 1
+            cooldown: 0.5
         }
     }
 }

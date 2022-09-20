@@ -5,7 +5,7 @@ body {
     font-family: PressStart2P-Regular;
 }
 
-.row{
+.row {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
@@ -77,4 +77,95 @@ h2 {
 @font-face {
     font-family: Atarian-Regular;
     src: url('../../assets/sf-atarian-system/Atarian/SF\ Atarian\ System.ttf');
+}
+
+/* End of game pop-up container */
+.scoreEntry {
+    /* Hidden by default */
+    display: none;
+    /* Stay in place */
+    position: fixed;
+    /* Sit on top */
+    z-index: 1;
+    /* Location of the box */
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    /* Full width */
+    width: 100%;
+    /* Full height */
+    height: 100%;
+    /* Enable scroll if needed */
+    overflow: auto;
+    /* Fallback color */
+    background-color: rgb(0, 0, 0);
+    /* Black w/ opacity */
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* End of game pop-up */
+.userInput {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: red;
+    color: white;
+    margin: auto;
+    padding: 20px;
+    border: 10px solid gray;
+    width: 80%;
+}
+
+/* The Name Input box */
+#name {
+    align-self: center;
+    border-radius: 5px;
+    border-color: transparent;
+    width: 60%;
+    margin: 10px;
+}
+
+#nameLabel {
+    margin-top: 10px;
+}
+
+/* The save Score Button */
+#saveScore {
+    align-self: center;
+    border-radius: 5px;
+    border-color: transparent;
+    width: auto;
+    margin: 10px;
+}
+
+#saveScore:hover {
+    background-color: rgb(189, 1, 1);
+    color: white;
+}
+
+#saveScore:active {
+    background-color: darkred;
+    color: white;
+}
+
+/* The Close Button */
+.close {
+    align-items: center;
+    color: #aaaaaa;
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+    background-color: rgb(189, 1, 1);
+    margin: auto;
+    padding-left: 3px;
+    padding-top: 3px;
+    border-radius: 100px;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: darkred;
 }

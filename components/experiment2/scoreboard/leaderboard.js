@@ -51,8 +51,7 @@ export async function retrieveLeaderboard() {
             row.insertCell(1).innerHTML = object.get('score');
         }
           
-          let header = table.createTHead();
-          
+          let header = table.createTHead();     
           let headerRow = header.insertRow(0);
           for (let i = 0; i < headers.length; i++) {
             headerRow.insertCell(i).outerHTML = `<th>${headers[i]}</th>`;
@@ -61,11 +60,30 @@ export async function retrieveLeaderboard() {
           }
           table.style.color = 'white';
           
-          
           document.querySelector(".right").appendChild(table);
-
        
         return leaderboard
+
+    } catch (error) {
+        alert(`Failed to retrieve the object, with error code: ${error.message}`);
+    }
+
+}
+
+export async function isTopScore(userscore, limit) {
+    const query = new Parse.Query("Leaderboard");
+    query.descending('score');
+    query.limit(limit);
+
+    try {
+        const results = await query.find();
+
+        // check if the userscore is greater than the lowest score in the leaderboard
+        if (userscore > results[results.length - 1].get('score')) {
+            return true
+        } 
+       
+        return false
 
     } catch (error) {
         alert(`Failed to retrieve the object, with error code: ${error.message}`);

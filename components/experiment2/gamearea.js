@@ -32,6 +32,7 @@ export function setupGameView() {
     rightColumn.style.height = (gameViewSettings.gameViewHeight - gameViewSettings.borderWidth) + "px"
     rightColumn.style.backgroundColor = gameViewSettings.gameViewColor
     rightColumn.style.borderStyle = "solid"
+    rightColumn.style.borderLeftWidth = gameViewSettings.borderWidth + "px"
     rightColumn.style.borderTopWidth = gameViewSettings.borderWidth + "px"
     rightColumn.style.borderRightWidth = gameViewSettings.borderWidth + "px"
     rightColumn.style.borderBottomWidth = 0 + "px"
@@ -126,10 +127,8 @@ function columnView(windowSize) {
     if (windowSize.matches) {
         row.style.gridTemplateColumns = "repeat(1, 1fr)";
         rightColumn.style.width = (gameViewSettings.gameViewWidth - (2 * gameViewSettings.borderWidth)) + "px"
-        rightColumn.style.borderLeftWidth = gameViewSettings.borderWidth + "px"
     } else {
         row.style.gridTemplateColumns = "repeat(2, 1fr)";
         rightColumn.style.width = (800) + "px"
-        rightColumn.style.borderLeftWidth = 0 + "px"
     }
 }
