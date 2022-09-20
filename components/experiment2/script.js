@@ -8,6 +8,9 @@ import { currentLevel } from "./levels.js"
 import { countUpTimer } from "./scoreboard/timer.js"
 import "./scoreboard/lives.js"
 import { gameOver } from "./scoreboard/lives.js";
+import { saveNewScore, retrieveLeaderboard } from "./scoreboard/leaderboard.js";
+
+retrieveLeaderboard()
 
 
 
@@ -19,7 +22,7 @@ createAliens(currentLevel);
 
 
 
-export let frames =0
+
 let stop = false;
 let fps = 60, fpsInterval, startTime, now, then, elapsed;
 
@@ -36,7 +39,6 @@ function startAnimating(fps) {
 let duration = 0
 
 function animate(newtime) {
-  frames++
   // stop
   if (stop) {
     return;
