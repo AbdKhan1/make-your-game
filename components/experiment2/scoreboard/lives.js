@@ -1,4 +1,4 @@
-import { livesSettings,ballSettings } from "../globalsettings.js"
+import { livesSettings,ballSettings,paddleSettings } from "../globalsettings.js"
 import { changeValue, startBallMovement } from "../input.js"
 
 export let gameOver = false
@@ -19,6 +19,7 @@ export function createHearts() {
 
 createHearts()
 
+//removes heart
 function updateLives() {
     let hearts = document.querySelectorAll('.heart')
     if (hearts.length != 1) {
@@ -29,11 +30,12 @@ function updateLives() {
     }
 }
 
+//resets ball to the center of the paddle
 export function lifeLost() {
     updateLives()
     let ball = document.querySelector('.ball')
-    let paddle = document.querySelector('.paddle').getBoundingClientRect()
-    ball.style.left = ((paddle.left + (paddle.width / 2)) - (ballSettings.size / 2)) + "px"
+    let paddle = document.querySelector('.paddle')
+    ball.style.left = ((Number(paddle.style.left.replace("px","") )+ (paddleSettings.width / 2)) - (ballSettings.size / 2)) + "px"
     ball.style.bottom = 70 + "px"
     if (startBallMovement){
         changeValue()
