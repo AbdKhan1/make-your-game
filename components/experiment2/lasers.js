@@ -48,8 +48,7 @@ export function laserMovement() {
     for (let i = 0; i < laserPositions.length; i++) {
         laserPositions[i][1] += levels[currentLevel].lasers.speed
         if (laserPositions[i][1] >= gameViewSettings.gameViewHeight - (laserSettings.height - gameViewSettings.borderWidth)) {
-            laserArr[i].remove()
-            laserPositions.splice(i, 1)
+            removeLaser(i)
         }
     }
     //collision of lasers

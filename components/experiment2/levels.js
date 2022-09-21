@@ -6,7 +6,7 @@ export let levels = {
     0: {
         bricks: {
             gapFromTop: ballSettings.size * 4,
-            numberOfRows: 3,
+            numberOfRows: 0,
             brickWidth: 60,
             brickHeight: 20,
             // marginFromWall: 0,            
@@ -16,7 +16,7 @@ export let levels = {
         },
         aliens: {
             gapFromTop: ballSettings.size * 2,
-            numberOfAliens: 3,
+            numberOfAliens: 1,
             numberOfRows: 1,
             drop: 10, //speed of the aliens moving vertically
             velocity: 1, // speed of the aliens moving horizontally

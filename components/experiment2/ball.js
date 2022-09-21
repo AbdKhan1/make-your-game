@@ -1,4 +1,4 @@
-import { ballSettings, invaderSettings, sounds } from "./globalsettings.js"
+import { ballSettings, gameViewSettings, invaderSettings, sounds } from "./globalsettings.js"
 import { checkBrickCollision, checkWallCollision, checkPaddleCollision, checkAlienCollision, checkLaserCollision } from "./collision.js";
 import { removeBrick } from "./bricks.js"
 import { removeAlien } from "./invaders.js"
@@ -11,6 +11,7 @@ import { isTopScore } from "./scoreboard/leaderboard.js"
 
 
 let gameView = document.querySelector(".gameView");
+let ballSpeedIncrement = 0.1
 
 export let score = 0
 
@@ -61,8 +62,18 @@ export function moveBall(id, xDirection, yDirection) {
         currentBottom = parseInt(balls[id].style.bottom),
         newLeft = currentLeft + xDirection,
         newBottom = currentBottom + yDirection
+        //Edge case hitting the left wall
+        if (newLeft<0){
+            newLeft=20+ xDirection
+        //edge case hitting the right wall
+        }else if(newLeft>gameViewSettings.gameViewWidth-(2*gameViewSettings.borderWidth)){
+            newLeft=gameViewSettings.gameViewWidth-(2*gameViewSettings.borderWidth)+ xDirection
+        //edge collision with top
+        }else if(newBottom<(2*gameViewSettings.borderWidth)){
+            newBottom+yDirection
+        }
 
-    balls[id].style.left = newLeft + "px";
+     balls[id].style.left = newLeft + "px";
     balls[id].style.bottom = newBottom + "px";
 
 }
@@ -186,10 +197,11 @@ function laserBounce(ballDOMRect) {
     }
 }
 
+let bspeed = ballSettings.speed
 function calculatePaddleBounce(ball) {
     let paddle = document.querySelector(".paddle").getBoundingClientRect(),
-        paddleWidthSplit = paddle.width / 4,
-        bspeed = ballSettings.speed
+        paddleWidthSplit = paddle.width / 4
+        bspeed += 0.5
 
     switch (true) {
         //if the ball hits the first quarter of the paddle
@@ -240,10 +252,15 @@ function calculatePaddleBounce(ball) {
 
 }
 
+function checkDirection(x, y, increment) {
+    (x < 0) ? x -= increment : x += increment;
+    (y < 0) ? y -= increment : y += increment;
+    return [x, y]
+}
+
 function calculateBrickBounce(ball, brickID, xDirection, yDirection) {
     let bricks = document.querySelectorAll(".brick"),
         brick = bricks[brickID].getBoundingClientRect()
-
 
 
     switch (true) {
@@ -318,6 +335,6 @@ function nextLevelCheck() {
     })
 }
 
-export function resetBallDirection(){
-    ballsDirection[0]=[ballSettings.speed, ballSettings.speed]
+export function resetBallDirection() {
+    ballsDirection[0] = [ballSettings.speed, ballSettings.speed]
 }

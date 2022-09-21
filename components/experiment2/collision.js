@@ -29,17 +29,17 @@ export function checkWallCollision(ballDOMRect) {
     // check collision with walls
     // with left wall
     let leftW = document.querySelector(".leftWall")
-    if (checkCollision(ballDOMRect, leftW.getBoundingClientRect())) {
+    if (ballDOMRect.x <= (2*gameViewSettings.borderWidth)) {
         return "left"
     }
     // with right wall
     let rightW = document.querySelector(".rightWall")
-    if (checkCollision(ballDOMRect, rightW.getBoundingClientRect())) {
+    if (ballDOMRect.x>=gameViewSettings.gameViewWidth-(2*gameViewSettings.borderWidth)) {
         return "right"
     }
     // with top wall
     let topW = document.querySelector(".topWall")
-    if (checkCollision(ballDOMRect, topW.getBoundingClientRect())) {
+    if (ballDOMRect.y<=(topW.getBoundingClientRect().y+topW.getBoundingClientRect().height)) {
         return "top"
     }
     // with bottom wall
