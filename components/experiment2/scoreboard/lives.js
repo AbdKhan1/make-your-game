@@ -2,6 +2,7 @@ import { livesSettings, ballSettings, paddleSettings } from "../globalsettings.j
 import { changeValue, startBallMovement } from "../input.js"
 import { score } from "../ball.js";
 import { isTopScore } from "./leaderboard.js"
+import { currentLevel } from "../script.js";
 
 export let gameOver = false
 
@@ -33,9 +34,9 @@ function updateLives() {
         let entry = document.getElementById("myScoreEntry");
         entry.style.display = "block"
 
-        console.log(score )
+        console.log(score, currentLevel )
         // check if the score is a top score
-        isTopScore(score, 5).then((result) => {
+        isTopScore(score, currentLevel, 5).then((result) => {
             if (result) {
                 // if it is, allow the user to enter their name
                 let input = document.querySelector(".new-hiscore");
