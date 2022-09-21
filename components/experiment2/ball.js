@@ -121,7 +121,7 @@ function bounce(ballDOMRect, x, y) {
             sounds.bounceWallLTop.play()
             return [x, -y];
         case "bottom":
-            // sounds.loseLife.play()
+            sounds.loseLife.play()
             //reset ball to be stcky on the paddle the ball 
             lifeLost()
             return [ballSettings.speed, ballSettings.speed];
@@ -158,7 +158,7 @@ function alienBounce(alienID, x, y) {
     } else {
         sounds.alienShieldBounce.play()
         //change colour of alien
-        hueChange(alienID)
+        // hueChange(alienID)
     }
 
     return ([x, -y])
