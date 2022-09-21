@@ -71,9 +71,6 @@ function animate(newtime) {
     laserMovement()
 
   }
-<<<<<<< HEAD
-}
-=======
 }
 
 
@@ -87,4 +84,3 @@ function onLoad(){
   createAliens(currentLevel);
   retrieveLeaderboard(currentLevel)
 }
->>>>>>> 26def6c7321d89ad4fca50c00cc7806c28170653
