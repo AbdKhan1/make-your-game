@@ -6,13 +6,21 @@ import { changeGameOverValue } from "./scoreboard/lives.js"
 
 // For keyboard input
 
-export let startBallMovement = false
+export let startBallMovement = false,
+paddleMoved = false;
 
 export function changeStartBallMovementValue() {
     if (!startBallMovement) {
         startBallMovement = true
     } else {
         startBallMovement = false
+    }
+}
+export function changePaddleMovedValue() {
+    if (!paddleMoved) {
+        paddleMoved = true
+    } else {
+        paddleMoved = false
     }
 }
 
@@ -23,7 +31,7 @@ addEventListener('keydown', (e) => {
         startBallMovement = true
     }
     //pause the game using shift
-    if (e.keyCode === 7) {
+    if (e.keyCode === 27) {
         let pause = document.querySelector('.pause')
         if (pause.style.display === "none" || pause.style.display === undefined || pause.style.display === '') {
             pause.style.display = "block"
@@ -51,9 +59,11 @@ document.addEventListener("keyup", keyUpHandler, false);
 function keyDownHandler(e) {
     if (e.key == "Right" || e.key == "ArrowRight") {
         rightPressed = true;
+        paddleMoved = true;
     }
     else if (e.key == "Left" || e.key == "ArrowLeft") {
         leftPressed = true;
+        paddleMoved = true;
     }
 }
 
