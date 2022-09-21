@@ -317,3 +317,7 @@ function nextLevelCheck() {
         gameover()
     })
 }
+
+export function resetBallDirection(){
+    ballsDirection[0]=[ballSettings.speed, ballSettings.speed]
+}
