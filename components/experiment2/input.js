@@ -33,10 +33,13 @@ addEventListener('keydown', (e) => {
     //pause the game using shift
     if (e.keyCode === 27) {
         let pause = document.querySelector('.pause')
-        if (pause.style.display === "none" || pause.style.display === undefined || pause.style.display === '') {
-            pause.style.display = "block"
-        } else {
-            pause.style.display = "none"
+        let gameOverPopUp=document.getElementById("myScoreEntry");
+        if (gameOverPopUp.style.display!=="block"){
+            if (pause.style.display === "none" || pause.style.display === undefined || pause.style.display === '') {
+                pause.style.display = "block"
+            } else {
+                pause.style.display = "none"
+            }
         }
         changeStopValue()
     }
