@@ -1,5 +1,8 @@
 import { livesSettings, ballSettings, paddleSettings } from "../globalsettings.js"
 import { changeValue, startBallMovement } from "../input.js"
+import { score } from "../ball.js";
+import { isTopScore } from "./leaderboard.js"
+import { currentLevel } from "../script.js";
 
 export let gameOver = false
 
@@ -30,6 +33,18 @@ function updateLives() {
         // reveal pop allowing user to enter score
         let entry = document.getElementById("myScoreEntry");
         entry.style.display = "block"
+
+        console.log(score, currentLevel )
+        // check if the score is a top score
+        isTopScore(score, currentLevel, 5).then((result) => {
+            if (result) {
+                // if it is, allow the user to enter their name
+                let input = document.querySelector(".new-hiscore");
+                input.style.display = "block"
+            }
+        })
+
+
         // Get the <span> element that closes the pop up
         let span = document.getElementsByClassName("close")[0];
         // When the user clicks on <span> (x), close the modal

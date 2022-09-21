@@ -1,6 +1,7 @@
 import { laserSettings, gameViewSettings } from "./globalsettings.js"
 import { checkLaserCollision } from "./collision.js";
-import { levels, currentLevel } from "./levels.js"
+import { currentLevel } from "./script.js";
+import { levels } from "./levels.js"
 import { sounds } from "./globalsettings.js"
 import { lifeLost } from "./scoreboard/lives.js";
 

@@ -9,8 +9,9 @@ import { lifeLost } from "./scoreboard/lives.js"
 
 let gameView = document.querySelector(".gameView");
 
-let score = 0,
-    brickHits = 0
+export let score = 0
+
+   let brickHits = 0
 
 let balls = [],
     ballsDirection = []
@@ -120,7 +121,7 @@ function bounce(ballDOMRect, x, y) {
             sounds.bounceWallLTop.play()
             return [x, -y];
         case "bottom":
-            // sounds.loseLife.play()
+            sounds.loseLife.play()
             //reset ball to be stcky on the paddle the ball 
             lifeLost()
             return [ballSettings.speed, ballSettings.speed];
@@ -157,7 +158,7 @@ function alienBounce(alienID, x, y) {
     } else {
         sounds.alienShieldBounce.play()
         //change colour of alien
-        hueChange(alienID)
+        // hueChange(alienID)
     }
 
     return ([x, -y])
