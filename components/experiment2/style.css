@@ -205,12 +205,12 @@ h2 {
     justify-content: space-around;
 }
 
-#continue:hover {
-    color: #75eb93;
+#continue-game:hover {
+    color: #beef;
 }
 
-#continue:active {
-    color: #49945c;
+#continue-game:active {
+    color: rgb(148, 189, 189);
 }
 
 #exit:hover {
@@ -296,6 +296,7 @@ a{
     color: white;
 }
 
+/* hyperlinks */
 a:hover{
     color: #aaaaaa;
 }
@@ -303,3 +304,4 @@ a:hover{
 a:focus {
     color: #000;
 }
+
