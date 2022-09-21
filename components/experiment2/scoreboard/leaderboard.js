@@ -6,22 +6,22 @@ let JS_KEY = "PXq9bu0TALOcNbOO6PrLOgNiLjU3HP0H2YPA8Pry";
 Parse.initialize(APP_ID, JS_KEY);
 Parse.serverURL = "https://parseapi.back4app.com/";
 
-export async function saveNewScore(name, score) {
-  const leaderboard = new Parse.Object("Leaderboard");
+export async function saveNewScore(name, score,level) {
+  const leaderboard = new Parse.Object("Leaderboard"+level);
 
   leaderboard.set("name", name);
   leaderboard.set("score", score);
   try {
     let result = await leaderboard.save();
-    alert("New object created with objectId: " + result.id);
+    // alert("New object created with objectId: " + result.id);
   } catch (error) {
-    alert("Failed to create new object, with error code: " + error.message);
+    // alert("Failed to create new object, with error code: " + error.message);
   }
 }
 
-export async function retrieveLeaderboard() {
+export async function retrieveLeaderboard(level) {
   //Create your Parse Query, and define the class it will be searched
-  const query = new Parse.Query("Leaderboard");
+  const query = new Parse.Query("Leaderboard"+level);
   query.descending("score");
   query.limit(5);
 
@@ -58,12 +58,12 @@ export async function retrieveLeaderboard() {
 
     document.querySelector(".right").appendChild(table);
   } catch (error) {
-    alert(`Failed to retrieve the object, with error code: ${error.message}`);
+    // alert(`Failed to retrieve the object, with error code: ${error.message}`);
   }
 }
 
-export async function isTopScore(userscore, limit) {
-  const query = new Parse.Query("Leaderboard");
+export async function isTopScore(userscore, level, limit) {
+  const query = new Parse.Query("Leaderboard"+level);
   query.descending("score");
   query.limit(limit);
 
@@ -77,18 +77,28 @@ export async function isTopScore(userscore, limit) {
 
     return false;
   } catch (error) {
-    alert(`Failed to retrieve the object, with error code: ${error.message}`);
+    // alert(`Failed to retrieve the object, with error code: ${error.message}`);
   }
 }
 
 document.getElementById("saveScore").addEventListener("click", function (e) {
-  var input = document.getElementById("name"),
+  let input = document.getElementById("name"),
     val = input.value.trim();
   if (val === "") {
     alert("Please fill in name");
     input.focus();
   } else {
     console.log("submitting score for", val);
-    saveNewScore(val, score);
+    let level = document.getElementById("level").innerHTML
+    saveNewScore(val, score, level);
   }
 });
+
+
+async function randomScoreGen(amount){
+  for (let i = 0; i < amount; i++) {
+    //create a new row
+    let r = (Math.random() + 1).toString(36).substring(9);
+    await saveNewScore(r.toUpperCase(),Math.floor(Math.random()*(999-100+1)+100),amount)
+  }
+}

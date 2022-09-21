@@ -1,10 +1,12 @@
-import { levels, currentLevel } from "./levels.js";
+import { levels } from "./levels.js";
 import { invaderSettings } from "./globalsettings.js"
 import { startBallMovement } from "./input.js";
 import { sounds } from "./globalsettings.js"
 
 let gameView = document.querySelector(".gameView");
 let alienPositions = []
+
+let currentLevel = document.getElementById("level").innerHTML || 1
 
 //this is the speed at which the aliens move.
 let velocity = levels[currentLevel].aliens.velocity
@@ -72,7 +74,7 @@ export function alienMovement(level) {
         return
     }
 
-    //sounds.invadersMusic.play()
+    // sounds.invadersMusic.play()
 
     let aliencloseToBorder = closestToEdges()
 
