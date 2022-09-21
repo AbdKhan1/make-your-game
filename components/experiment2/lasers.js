@@ -56,9 +56,12 @@ export function laserMovement() {
     let laserID = checkLaserCollision(paddleSizeAndPos);
     if (typeof laserID !== 'undefined') {
         sounds.alienpaddleHit.play()
-        removeLaser(laserID)
+        for (let i = 0; i < laserArr.length; i++) {
+            laserArr[i].remove()
+        }
+        laserPositions = []
         //reset ball to be sticky on the paddle the ball 
-        lifeLost(laserPositions)
+        lifeLost()
     }
     moveLasers()
     updateLasers()

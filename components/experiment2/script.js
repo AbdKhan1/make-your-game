@@ -1,7 +1,7 @@
 
 import { BallMovement } from "./ball.js";
 import { PaddleMovement } from "./paddle.js";
-import { startBallMovement } from "./input.js";
+import { startBallMovement, paddleMoved } from "./input.js";
 import { createBricks } from "./bricks.js"
 import { createAliens, alienMovement } from "./invaders.js";
 import { laserMovement } from "./lasers.js";
@@ -64,10 +64,13 @@ function animate(newtime) {
     if (startBallMovement) {
       BallMovement();
       countUpTimer(stop, duration)
-      laserMovement()
+
       duration++
     }
     alienMovement(currentLevel)
+    if (startBallMovement || paddleMoved) {
+      laserMovement()
+    }
     PaddleMovement()
 
   }

@@ -1,5 +1,5 @@
 import { livesSettings, ballSettings, paddleSettings } from "../globalsettings.js"
-import { changeStartBallMovementValue, gameover, startBallMovement } from "../input.js"
+import { changeStartBallMovementValue, changePaddleMovedValue, gameover, startBallMovement } from "../input.js"
 
 export let gameOver = false
 
@@ -31,22 +31,16 @@ function updateLives() {
 }
 
 //resets ball to the center of the paddle
-export function lifeLost(array) {
+export function lifeLost() {
     updateLives()
-    if (array !== "undefined") {
-        let lasers = document.querySelectorAll('.laser')
 
-        for (let i = 0; i < lasers.length; i++) {
-            lasers[i].remove()
-        }
-        array = []
-    }
     let ball = document.querySelector('.ball')
     let paddle = document.querySelector('.paddle')
     ball.style.left = ((Number(paddle.style.left.replace("px", "")) + (paddleSettings.width / 2)) - (ballSettings.size / 2)) + "px"
     ball.style.bottom = 70 + "px"
     if (startBallMovement) {
         changeStartBallMovementValue()
+        changePaddleMovedValue()
     }
 }
 
