@@ -109,6 +109,7 @@ export function gameover() {
     // When the user clicks on <span> (x), close the modal
     span.onclick = function () {
         entry.style.display = "none";
+        
     }
     changeGameOverValue(true)
 }
