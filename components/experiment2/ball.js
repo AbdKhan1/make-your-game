@@ -1,22 +1,23 @@
-import { ballSettings, invaderSettings, sounds, paddleSettings, gameViewSettings } from "./globalsettings.js"
+import { ballSettings, invaderSettings, sounds } from "./globalsettings.js"
 import { checkBrickCollision, checkWallCollision, checkPaddleCollision, checkAlienCollision, checkLaserCollision } from "./collision.js";
 import { removeBrick } from "./bricks.js"
 import { removeAlien } from "./invaders.js"
 import { removeLaser } from "./lasers.js"
 import { calculateScore } from "./scoreboard/score.js"
 import { lifeLost } from "./scoreboard/lives.js"
+import { changeStopValue, currentLevel } from "./script.js";
+import { gameover } from "./input.js";
+import { isTopScore } from "./scoreboard/leaderboard.js"
 
 
 let gameView = document.querySelector(".gameView");
 
 export let score = 0
 
-   let brickHits = 0
+let brickHits = 0
 
 let balls = [],
     ballsDirection = []
-
-// let AudioContect = new()
 
 
 // initialize and setup the ball(s)
@@ -76,9 +77,10 @@ export function BallMovement() {
 
         let ballDOMRect = balls[i].getBoundingClientRect();
 
-        // retrieving the new           direction and updating the direction of the ball for the next frame
+        // retrieving the new direction and updating the direction of the ball for the next frame
         ballsDirection[i] = bounce(ballDOMRect, xDirection, yDirection);
 
+        nextLevelCheck()
 
         moveBall(i, ballsDirection[i][0], ballsDirection[i][1]);
     }
@@ -105,8 +107,6 @@ function bounce(ballDOMRect, x, y) {
         let newDirection = calculatePaddleBounce(ballDOMRect)
         return newDirection || [x, y]   // catching any undefined values before returning
 
-        // y = -y;
-        // return [x, y]
     }
 
     switch (checkWallCollision(ballDOMRect)) {
@@ -287,4 +287,33 @@ function calculateBrickBounce(ball, brickID, xDirection, yDirection) {
             removeBrick(brickID)
             return [-xDirection, yDirection]
     }
+}
+
+function nextLevelCheck() {
+    let bricks = document.querySelectorAll('.brick')
+    let aliens = document.querySelectorAll('.alien')
+
+    if (bricks.length === 0 && aliens.length === 0) {
+        changeStopValue()
+        let nextLevelPopUp = document.querySelector('.nextLevel')
+        nextLevelPopUp.style.display = 'block'
+        let newCurrentLevel = currentLevel
+        let newLevel = Number(newCurrentLevel) + 1
+        isTopScore(score, currentLevel, 5).then((result) => {
+            if (result) {
+                // if it is, allow the user to enter their name
+                let input = document.querySelector(".new-hiscore-completed");
+                input.style.display = "block"
+            }
+        })
+        document.querySelector('#yes').addEventListener("click", (e) => {
+            nextLevelPopUp.style.display = 'none'
+            document.querySelector('.nextLevelLink').href = "http://localhost:5500/components/experiment2/?lvl=" + newLevel
+        })
+    }
+
+    document.querySelector('#no').addEventListener("click", (e) => {
+        nextLevelPopUp.style.display = 'none'
+        gameover()
+    })
 }
