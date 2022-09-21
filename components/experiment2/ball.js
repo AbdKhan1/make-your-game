@@ -6,7 +6,7 @@ import { removeLaser } from "./lasers.js"
 import { calculateScore } from "./scoreboard/score.js"
 import { lifeLost } from "./scoreboard/lives.js"
 import { changeStopValue, currentLevel } from "./script.js";
-import { gameover } from "./input.js";
+import { gameover, startBallMovement } from "./input.js";
 import { isTopScore } from "./scoreboard/leaderboard.js"
 
 
@@ -200,8 +200,8 @@ function laserBounce(ballDOMRect) {
 let bspeed = ballSettings.speed
 function calculatePaddleBounce(ball) {
     let paddle = document.querySelector(".paddle").getBoundingClientRect(),
-        paddleWidthSplit = paddle.width / 4
-        bspeed += 0.5
+    paddleWidthSplit = paddle.width / 4
+    bspeed += 3
 
     switch (true) {
         //if the ball hits the first quarter of the paddle
@@ -250,12 +250,6 @@ function calculatePaddleBounce(ball) {
 
     }
 
-}
-
-function checkDirection(x, y, increment) {
-    (x < 0) ? x -= increment : x += increment;
-    (y < 0) ? y -= increment : y += increment;
-    return [x, y]
 }
 
 function calculateBrickBounce(ball, brickID, xDirection, yDirection) {
@@ -337,4 +331,8 @@ function nextLevelCheck() {
 
 export function resetBallDirection() {
     ballsDirection[0] = [ballSettings.speed, ballSettings.speed]
+}
+
+export function resetBallSpeed() {
+    bspeed = ballSettings.speed
 }
