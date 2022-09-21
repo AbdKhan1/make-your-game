@@ -62,18 +62,18 @@ export function moveBall(id, xDirection, yDirection) {
         currentBottom = parseInt(balls[id].style.bottom),
         newLeft = currentLeft + xDirection,
         newBottom = currentBottom + yDirection
-        //Edge case hitting the left wall
-        if (newLeft<0){
-            newLeft=20+ xDirection
+    //Edge case hitting the left wall
+    if (newLeft < 5) {
+        newLeft = 20 + xDirection
         //edge case hitting the right wall
-        }else if(newLeft>gameViewSettings.gameViewWidth-(2*gameViewSettings.borderWidth)){
-            newLeft=gameViewSettings.gameViewWidth-(2*gameViewSettings.borderWidth)+ xDirection
+    } else if (newLeft > gameViewSettings.gameViewWidth - (2 * gameViewSettings.borderWidth) - 5) {
+        newLeft = gameViewSettings.gameViewWidth - (2 * gameViewSettings.borderWidth) + xDirection
         //edge collision with top
-        }else if(newBottom<(2*gameViewSettings.borderWidth)){
-            newBottom+yDirection
-        }
+    } else if (newBottom < (2 * gameViewSettings.borderWidth)) {
+        newBottom + yDirection
+    }
 
-     balls[id].style.left = newLeft + "px";
+    balls[id].style.left = newLeft + "px";
     balls[id].style.bottom = newBottom + "px";
 
 }
@@ -91,6 +91,7 @@ export function BallMovement() {
         // retrieving the new direction and updating the direction of the ball for the next frame
         ballsDirection[i] = bounce(ballDOMRect, xDirection, yDirection);
 
+        //check if the all the bricks and aliens are destroyed
         nextLevelCheck()
 
         moveBall(i, ballsDirection[i][0], ballsDirection[i][1]);
@@ -163,14 +164,23 @@ function alienBounce(alienID, x, y) {
     let aliens = document.querySelectorAll('.alien')
     // if there is a collision from the alien    
     // remove alien if the ball moving upwards
-    if (y > 0) {
+    if (y < 0) {
+        sounds.alienShieldBounce.play()
+    } else {
+        console.log('gotcha', y)
         removeAlien(alienID)
         score = calculateScore(score, brickHits, "alien")
-    } else {
-        sounds.alienShieldBounce.play()
-        //change colour of alien
-        // hueChange(alienID)
+
     }
+    // if (y > 0) {
+    //     console.log('gotcha',y)
+    //     removeAlien(alienID)
+    //     score = calculateScore(score, brickHits, "alien")
+    // } else {
+    //     sounds.alienShieldBounce.play()
+    //     //change colour of alien
+    //     // hueChange(alienID)
+    // }
 
     return ([x, -y])
 
@@ -200,8 +210,8 @@ function laserBounce(ballDOMRect) {
 let bspeed = ballSettings.speed
 function calculatePaddleBounce(ball) {
     let paddle = document.querySelector(".paddle").getBoundingClientRect(),
-    paddleWidthSplit = paddle.width / 4
-    bspeed += 3
+        paddleWidthSplit = paddle.width / 4
+    bspeed += 0.2
 
     switch (true) {
         //if the ball hits the first quarter of the paddle
@@ -321,12 +331,12 @@ function nextLevelCheck() {
             nextLevelPopUp.style.display = 'none'
             document.querySelector('.nextLevelLink').href = "http://localhost:5500/components/experiment2/?lvl=" + newLevel
         })
+        document.querySelector('#no').addEventListener("click", (e) => {
+            nextLevelPopUp.style.display = 'none'
+            gameover()
+        })
     }
 
-    document.querySelector('#no').addEventListener("click", (e) => {
-        nextLevelPopUp.style.display = 'none'
-        gameover()
-    })
 }
 
 export function resetBallDirection() {

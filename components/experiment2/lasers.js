@@ -86,6 +86,9 @@ function updateLasers() {
 
 export function removeLaser(id) {
     let lasers = document.querySelectorAll(".laser")
+    if (lasers.length === 0) {
+        return
+    }
     lasers[id].remove()
     laserPositions.splice(id, 1)
 }
