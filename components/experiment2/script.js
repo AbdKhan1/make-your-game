@@ -64,17 +64,17 @@ function animate(newtime) {
     if (startBallMovement) {
       BallMovement();
       countUpTimer(stop, duration)
+      laserMovement()
       duration++
     }
     alienMovement(currentLevel)
     PaddleMovement()
-    laserMovement()
 
   }
 }
 
 
-function onLoad(){
+function onLoad() {
   const QueryString = window.location.search;
   const urlParams = new URLSearchParams(QueryString);
   currentLevel = urlParams.get("lvl") || 0;
@@ -83,4 +83,17 @@ function onLoad(){
   createBricks(currentLevel);
   createAliens(currentLevel);
   retrieveLeaderboard(currentLevel)
+}
+
+export function changeStopValue() {
+  if (stop) {
+    stop = false
+  } else {
+    stop = true
+  }
+  startAnimating(fps)
+}
+
+export function changeCurrentLevelValue(newLevel) {
+  currentLevel = newLevel
 }

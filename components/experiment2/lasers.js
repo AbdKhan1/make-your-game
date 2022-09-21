@@ -58,7 +58,7 @@ export function laserMovement() {
         sounds.alienpaddleHit.play()
         removeLaser(laserID)
         //reset ball to be sticky on the paddle the ball 
-        lifeLost()
+        lifeLost(laserPositions)
     }
     moveLasers()
     updateLasers()

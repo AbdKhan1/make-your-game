@@ -6,8 +6,8 @@ let JS_KEY = "PXq9bu0TALOcNbOO6PrLOgNiLjU3HP0H2YPA8Pry";
 Parse.initialize(APP_ID, JS_KEY);
 Parse.serverURL = "https://parseapi.back4app.com/";
 
-export async function saveNewScore(name, score,level) {
-  const leaderboard = new Parse.Object("Leaderboard"+level);
+export async function saveNewScore(name, score, level) {
+  const leaderboard = new Parse.Object("Leaderboard" + level);
 
   leaderboard.set("name", name);
   leaderboard.set("score", score);
@@ -21,7 +21,7 @@ export async function saveNewScore(name, score,level) {
 
 export async function retrieveLeaderboard(level) {
   //Create your Parse Query, and define the class it will be searched
-  const query = new Parse.Query("Leaderboard"+level);
+  const query = new Parse.Query("Leaderboard" + level);
   query.descending("score");
   query.limit(5);
 
@@ -35,13 +35,6 @@ export async function retrieveLeaderboard(level) {
     // log the ids of the objects
     for (let i = 0; i < results.length; i++) {
       let object = results[i];
-      // console.log(object.get('name'), object.get('score'));
-      // leaderboard[object.get('name')] = object.get('score')
-      //make json object
-      // leaderboard = {
-      //     ...leaderboard,
-      //     [object.get('name')]: object.get('score')
-      // }
       let row = table.insertRow();
       row.insertCell(0).innerHTML = object.get("name");
       row.insertCell(1).innerHTML = object.get("score");
@@ -63,7 +56,7 @@ export async function retrieveLeaderboard(level) {
 }
 
 export async function isTopScore(userscore, level, limit) {
-  const query = new Parse.Query("Leaderboard"+level);
+  const query = new Parse.Query("Leaderboard" + level);
   query.descending("score");
   query.limit(limit);
 
@@ -92,13 +85,29 @@ document.getElementById("saveScore").addEventListener("click", function (e) {
     let level = document.getElementById("level").innerHTML
     saveNewScore(val, score, level);
   }
+  let hiscoreDisplay = document.querySelector(".new-hiscore");
+  hiscoreDisplay.style.display = "none"
 });
 
+document.getElementById("saveScore-completed").addEventListener("click", function (e) {
+  let input = document.getElementById("name-completed"),
+    val = input.value.trim();
+  if (val === "") {
+    alert("Please fill in name");
+    input.focus();
+  } else {
+    console.log("submitting score for", val);
+    let level = document.getElementById("level").innerHTML
+    saveNewScore(val, score, level);
+  }
+  let hiscoreDisplay = document.querySelector(".new-hiscore-completed");
+  hiscoreDisplay.style.display = "none"
+});
 
-async function randomScoreGen(amount){
+async function randomScoreGen(amount) {
   for (let i = 0; i < amount; i++) {
     //create a new row
     let r = (Math.random() + 1).toString(36).substring(9);
-    await saveNewScore(r.toUpperCase(),Math.floor(Math.random()*(999-100+1)+100),amount)
+    await saveNewScore(r.toUpperCase(), Math.floor(Math.random() * (999 - 100 + 1) + 100), amount)
   }
 }
