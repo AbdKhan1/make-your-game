@@ -104,10 +104,9 @@ document.getElementById("saveScore-completed").addEventListener("click", functio
   hiscoreDisplay.style.display = "none"
 });
 
-async function randomScoreGen(amount) {
+export async function randomScoreGen(amount, level) {
   for (let i = 0; i < amount; i++) {
-    //create a new row
     let r = (Math.random() + 1).toString(36).substring(9);
-    await saveNewScore(r.toUpperCase(), Math.floor(Math.random() * (999 - 100 + 1) + 100), amount)
+    await saveNewScore(r.toUpperCase(), Math.floor(Math.random() * (999 - 100 + 1) + 100), level)
   }
 }
