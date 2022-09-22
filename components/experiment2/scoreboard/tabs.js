@@ -24,13 +24,13 @@ export function addTabsToScoreboard() {
 <div id="authors" class="tabcontent">
   <h3>Built using Vanilla JS, CSS, HTML</h3>
   <p>Using no canvas, maintaining 60 fps using request animation frame</p>
-  <p>By authors:</p>
+  <p>2022 September, by authors: </p>
    <ul>
   <li>Abdul</li>
   <li>Jason</li>
   <li>Nik - <a href='google.com'> Link</a></li>
 </ul> 
-<p>September 2022</p>
+
 </div>
 `;
 
@@ -61,5 +61,5 @@ function openTab(tabName) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
   document.getElementById(tabName).style.display = "block";
-  document.getElementById("tab-"+tabName).classList.add("active");
+  document.getElementById("tab-" + tabName).classList.add("active");
 }
