@@ -41,8 +41,8 @@ export function lifeLost() {
     ball.style.left = ((Number(paddle.style.left.replace("px", "")) + (paddleSettings.width / 2)) - (ballSettings.size / 2)) + "px"
     ball.style.bottom = 70 + "px"
     if (startBallMovement) {
-        changeStartBallMovementValue()
         removeAllLasers()
+        changeStartBallMovementValue()
         changePaddleMovedValue()
         resetBallSpeed()
     }
