@@ -67,7 +67,6 @@ export function moveBall(id, xDirection, yDirection) {
         newLeft = 20 + xDirection
         //edge case hitting the right wall
     } else if (newLeft > 580) {
-        console.log('right wall colli')
         newLeft = 575 + xDirection
         //edge collision with top
     } else if (newBottom > 660) {
@@ -144,7 +143,12 @@ function bounce(ballDOMRect, x, y) {
 
     let brickID = checkBrickCollision(ballDOMRect);
     if (typeof brickID !== 'undefined') {
-        sounds.bounceBrick.play()
+        if (brickHits>0){
+            sounds.comboBounce.play()
+        }else{
+
+            sounds.bounceBrick.play()
+        }
         brickHits++
         score = calculateScore(score, brickHits, "brick")
 
