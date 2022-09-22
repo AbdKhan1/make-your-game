@@ -5,17 +5,17 @@ export let levels = {
     // for development
     0: {
         bricks: {
-            gapFromTop: ballSettings.size * 4,
-            numberOfRows: 0,
-            brickWidth: 60,
-            brickHeight: 20,
-            padding: 1,
-            brickRowColors: ["#fff", "#fff", "#fff", "#fff", "#fff"]
+            gapFromTop: ballSettings.size * 6,
+            numberOfRows: 1,
+            brickWidth: 90,
+            brickHeight: 25,
+            padding: 0,
+            brickRowColors: ["#beef"]
 
         },
         aliens: {
             gapFromTop: ballSettings.size * 2,
-            numberOfAliens: 3,
+            numberOfAliens: 0,
             numberOfRows: 1,
             drop: 10, //speed of the aliens moving vertically
             velocity: 1, // speed of the aliens moving horizontally
@@ -26,6 +26,28 @@ export let levels = {
         }
     },
     1: {
+        bricks: {
+            gapFromTop: ballSettings.size * 4,
+            numberOfRows: 0,
+            brickWidth: 60,
+            brickHeight: 20,
+            padding: 1,
+            brickRowColors: ["#fff", "#fff", "#fff", "#fff", "#fff"]
+
+        },
+        aliens: {
+            gapFromTop: ballSettings.size * 2,
+            numberOfAliens: 1,
+            numberOfRows: 1,
+            drop: 15, //speed of the aliens moving vertically
+            velocity: 2, // speed of the aliens moving horizontally
+        },
+        lasers: {
+            speed: 6,
+            cooldown: 0.25
+        }
+    },
+    2: {
         bricks: {
             gapFromTop: ballSettings.size * 4,
             numberOfRows: 3,
@@ -47,7 +69,7 @@ export let levels = {
             cooldown: 0.25
         }
     },
-    2: {
+    3: {
         bricks: {
             gapFromTop: ballSettings.size * 3.5,
             numberOfRows: 5,
@@ -70,11 +92,11 @@ export let levels = {
             cooldown: 0.5
         }
     },
-    3: {
+    4: {
         bricks: {
             gapFromTop: ballSettings.size * 3.5,
             numberOfRows: 11,
-            brickWidth: 30,
+            brickWidth: 50,
             brickHeight: 15,
             // marginFromWall: 0,            
             padding: 5,
