@@ -61,5 +61,5 @@ function openTab(tabName) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
   document.getElementById(tabName).style.display = "block";
-  document.getElementById.className += " active";
+  document.getElementById("tab-"+tabName).classList.add("active");
 }
