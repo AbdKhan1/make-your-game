@@ -1,4 +1,6 @@
-const time=document.querySelector('#time')
+const time = document.querySelector('#time')
+
+export let timeplayed 
 
 export function countUpTimer(stop, framePerSecond) {
   if (stop) {
@@ -7,6 +9,7 @@ export function countUpTimer(stop, framePerSecond) {
   framePerSecond++;
   if (framePerSecond % 60 === 0) {
     let counterSec = framePerSecond / 60
+    timeplayed = counterSec
     let hour = Math.floor(counterSec / 3600);
     let minute = Math.floor((counterSec - hour * 3600) / 60);
     let seconds = (counterSec - (hour * 3600 + minute * 60));

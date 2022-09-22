@@ -9,12 +9,12 @@ import { countUpTimer } from "./scoreboard/timer.js"
 import "./scoreboard/lives.js"
 import { updateLevel } from "./scoreboard/level.js"
 import { gameOver } from "./scoreboard/lives.js";
-import { retrieveLeaderboard } from "./scoreboard/leaderboard.js";
+import { retrieveLeaderboard, randomScoreGen } from "./scoreboard/leaderboard.js";
 import { addTabsToScoreboard } from "./scoreboard/tabs.js";
 
 export let currentLevel;
-onLoad()
 
+onLoad()
 
 //https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
 
