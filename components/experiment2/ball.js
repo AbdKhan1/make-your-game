@@ -63,15 +63,17 @@ export function moveBall(id, xDirection, yDirection) {
         newLeft = currentLeft + xDirection,
         newBottom = currentBottom + yDirection
     //Edge case hitting the left wall
-    if (newLeft < 20) {
+    if (newLeft < 25) {
         newLeft = 20 + xDirection
         //edge case hitting the right wall
-    } else if (newLeft > 585) {
-        newLeft = 580 + xDirection
+    } else if (newLeft > 580) {
+        console.log('right wall colli')
+        newLeft = 575 + xDirection
         //edge collision with top
-    } else if (newBottom > 675) {
-        newBottom = 670 + yDirection
+    } else if (newBottom > 660) {
+        newBottom = 655 + yDirection
     }
+
 
     balls[id].style.left = newLeft + "px";
     balls[id].style.bottom = newBottom + "px";

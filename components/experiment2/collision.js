@@ -34,12 +34,13 @@ export function checkWallCollision(ballDOMRect) {
     }
     // with right wall
     let rightW = document.querySelector(".rightWall")
-    if (ballDOMRect.x >= 580) {
+    if (ballDOMRect.x >= 575) {
         return "right"
     }
     // with top wall
     let topW = document.querySelector(".topWall")
-    if (ballDOMRect.y <= 70) {
+    console.log(topW.getBoundingClientRect().y + topW.getBoundingClientRect().height)
+    if ((ballDOMRect.y <= Math.round((topW.getBoundingClientRect().y + topW.getBoundingClientRect().height)))) {
         return "top"
     }
     // with bottom wall
