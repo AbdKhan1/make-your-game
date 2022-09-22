@@ -10,6 +10,7 @@ import "./scoreboard/lives.js"
 import { updateLevel } from "./scoreboard/level.js"
 import { gameOver } from "./scoreboard/lives.js";
 import { retrieveLeaderboard } from "./scoreboard/leaderboard.js";
+import { addTabsToScoreboard } from "./scoreboard/tabs.js";
 
 export let currentLevel;
 onLoad()
@@ -77,7 +78,7 @@ function animate(newtime) {
 }
 
 
-function onLoad() {
+async function onLoad() {
   const QueryString = window.location.search;
   const urlParams = new URLSearchParams(QueryString);
   currentLevel = urlParams.get("lvl") || 0;
@@ -85,7 +86,8 @@ function onLoad() {
   updateLevel(currentLevel)
   createBricks(currentLevel);
   createAliens(currentLevel);
-  retrieveLeaderboard(currentLevel)
+  await retrieveLeaderboard(currentLevel)
+  addTabsToScoreboard()
 }
 
 export function changeStopValue() {
