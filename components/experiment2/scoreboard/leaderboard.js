@@ -94,7 +94,7 @@ document.getElementById("saveScore").addEventListener("click", async function (e
     console.log("submitting score for", val, timeplayed);
     let level = document.getElementById("level").innerHTML
     saveNewScore(val, score, timeplayed, level);
-  
+
     let hiscoreDisplay = document.querySelector(".new-hiscore");
     hiscoreDisplay.style.display = "none"
   }
@@ -115,7 +115,7 @@ document.getElementById("saveScore-completed").addEventListener("click", async f
     console.log("submitting score for", val);
     let level = document.getElementById("level").innerHTML
     saveNewScore(val, score, timeplayed, level);
-  
+
     let hiscoreDisplay = document.querySelector(".new-hiscore-completed");
     hiscoreDisplay.style.display = "none"
   }
@@ -150,4 +150,16 @@ function convertTime(time) {
   let seconds = time % 60;
   //return string of minutes and seconds
   return `${minutes}m ${seconds}s`;
+}
+
+//function get number of entries in leaderboard
+export async function getLeaderboardSize(level) {
+  const query = new Parse.Query("Leaderboard" + level);
+  try {
+    const results = await query.find();
+    console.log(results.length);
+    return results.length;
+  } catch (error) {
+    // alert(`Failed to retrieve the object, with error code: ${error.message}`);
+  }
 }

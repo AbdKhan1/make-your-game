@@ -7,6 +7,7 @@ import { laserMovement } from "./lasers.js";
 import { countUpTimer } from "./scoreboard/timer.js"
 import "./scoreboard/lives.js"
 import { updateLevel } from "./scoreboard/level.js"
+import { updateGamesPlayed } from "./scoreboard/gamesplayed.js"
 import { gameOver } from "./scoreboard/lives.js";
 import { retrieveLeaderboard } from "./scoreboard/leaderboard.js";
 import { addTabsToScoreboard } from "./scoreboard/tabs.js";
@@ -87,6 +88,7 @@ async function onLoad() {
   createAliens(currentLevel);
   await retrieveLeaderboard(currentLevel)
   addTabsToScoreboard()
+  await updateGamesPlayed(currentLevel)
 }
 
 export function changeStopValue() {
