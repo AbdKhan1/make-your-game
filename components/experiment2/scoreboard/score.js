@@ -1,4 +1,4 @@
-import { scoreSettings } from "../globalsettings.js"
+import { scoreSettings, sounds } from "../globalsettings.js"
 
 const score = document.querySelector('#score')
 
