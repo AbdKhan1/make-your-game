@@ -25,7 +25,7 @@ export const ballSettings = {
     size: 15,
     speed: 4,
     balls: 1,
-    color: 'hotpink'
+    color: 'white'
 }
 
 
@@ -39,7 +39,7 @@ export const paddleSettings = {
     velocity: 6,
     width: 100,
     height: 15,
-    color: "white" //'darkorange' 
+    color: "darkorange" //'darkorange' 
 }
 
 
