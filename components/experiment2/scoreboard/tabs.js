@@ -1,3 +1,5 @@
+import { levels } from '../levels.js';
+
 export function addTabsToScoreboard() {
   var tabs = document.createElement("div");
   tabs.className = "tabs";
@@ -7,6 +9,7 @@ export function addTabsToScoreboard() {
   <button class="tablinks" id="tab-how-to-play" onclick="openTab(event, 'how-to-play')">How To Play</button>
   <button class="tablinks" id="tab-about" onclick="openTab(event, 'about')">About</button>
   <button class="tablinks" id="tab-authors">Authors</button>
+  <button class="tablinks" id="tab-levels">Levels</button>
 </div>
 
 <div id="how-to-play" class="tabcontent">
@@ -30,6 +33,12 @@ export function addTabsToScoreboard() {
   <li>Jason</li>
   <li>Nik - <a href='google.com'> Link</a></li>
 </ul> 
+</div>
+
+<div id="levels" class="tabcontent">
+  <h3>Select Level</h3>
+ <ul><li><a href="?lvl=0">Level 0</a></li><li><a href="?lvl=1">Level 1</a></li><li><a href="?lvl=2">Level 2</a></li><li><a href="?lvl=3">Level 3</a></li><li><a href="?lvl=4">Level 4</a></li></ul>
+  </div>
 
 </div>
 `;
@@ -48,6 +57,10 @@ export function addTabsToScoreboard() {
   document.querySelector("#tab-authors").addEventListener("click", () => {
     openTab("authors");
   });
+  document.querySelector("#tab-levels").addEventListener("click", () => {
+    openTab("levels");
+  });
+
 }
 
 function openTab(tabName) {
@@ -62,4 +75,23 @@ function openTab(tabName) {
   }
   document.getElementById(tabName).style.display = "block";
   document.getElementById("tab-" + tabName).classList.add("active");
+}
+
+
+// create links to all levels
+function createLevelLinks() {
+
+  // length of Object
+  var levelsLength = Object.keys(levels).length;
+  console.log(levelsLength);
+
+  var levelLinks = document.createElement("div");
+  levelLinks.className = "level-links";
+  var levelLinksHTML = "<ul>";
+  for (var i = 0; i < levelsLength; i++) {
+    levelLinksHTML += `<li><a href="?lvl=${i}">Level ${i}</a></li>`;
+  }
+  levelLinksHTML += "</ul>";
+
+  console.log(levelLinksHTML);
 }
