@@ -34,12 +34,13 @@ export function checkWallCollision(ballDOMRect) {
     }
     // with right wall
     let rightW = document.querySelector(".rightWall")
-    if (ballDOMRect.x >= gameViewSettings.gameViewWidth - (2 * gameViewSettings.borderWidth) - 5) {
+    if (ballDOMRect.x >= 575) {
         return "right"
     }
     // with top wall
     let topW = document.querySelector(".topWall")
-    if (ballDOMRect.y <= (topW.getBoundingClientRect().y + topW.getBoundingClientRect().height)) {
+    console.log(topW.getBoundingClientRect().y + topW.getBoundingClientRect().height)
+    if ((ballDOMRect.y <= Math.round((topW.getBoundingClientRect().y + topW.getBoundingClientRect().height)))) {
         return "top"
     }
     // with bottom wall

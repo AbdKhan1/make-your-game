@@ -63,15 +63,17 @@ export function moveBall(id, xDirection, yDirection) {
         newLeft = currentLeft + xDirection,
         newBottom = currentBottom + yDirection
     //Edge case hitting the left wall
-    if (newLeft < 5) {
+    if (newLeft < 25) {
         newLeft = 20 + xDirection
         //edge case hitting the right wall
-    } else if (newLeft > gameViewSettings.gameViewWidth - (2 * gameViewSettings.borderWidth) - 5) {
-        newLeft = gameViewSettings.gameViewWidth - (2 * gameViewSettings.borderWidth) + xDirection
+    } else if (newLeft > 580) {
+        console.log('right wall colli')
+        newLeft = 575 + xDirection
         //edge collision with top
-    } else if (newBottom < (2 * gameViewSettings.borderWidth)) {
-        newBottom + yDirection
+    } else if (newBottom > 660) {
+        newBottom = 655 + yDirection
     }
+
 
     balls[id].style.left = newLeft + "px";
     balls[id].style.bottom = newBottom + "px";
