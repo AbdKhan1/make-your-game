@@ -6,10 +6,9 @@ export let levels = {
     0: {
         bricks: {
             gapFromTop: ballSettings.size * 4,
-            numberOfRows: 3,
+            numberOfRows: 0,
             brickWidth: 60,
             brickHeight: 20,
-            // marginFromWall: 0,            
             padding: 1,
             brickRowColors: ["#fff", "#fff", "#fff", "#fff", "#fff"]
 
@@ -28,6 +27,28 @@ export let levels = {
     },
     1: {
         bricks: {
+            gapFromTop: ballSettings.size * 4,
+            numberOfRows: 3,
+            brickWidth: 60,
+            brickHeight: 20,
+            padding: 1,
+            brickRowColors: ["#fff", "#fff", "#fff", "#fff", "#fff"]
+
+        },
+        aliens: {
+            gapFromTop: ballSettings.size * 2,
+            numberOfAliens: 2,
+            numberOfRows: 1,
+            drop: 10, //speed of the aliens moving vertically
+            velocity: 1, // speed of the aliens moving horizontally
+        },
+        lasers: {
+            speed: 4,
+            cooldown: 0.25
+        }
+    },
+    2: {
+        bricks: {
             gapFromTop: ballSettings.size * 3.5,
             numberOfRows: 5,
             brickWidth: 60,
@@ -41,7 +62,7 @@ export let levels = {
             gapFromTop: ballSettings.size * 2,
             numberOfAliens: 4,
             numberOfRows: 2,
-            drop: 12,
+            drop: 9,
             velocity: 1,
         },
         lasers: {
@@ -49,7 +70,7 @@ export let levels = {
             cooldown: 0.5
         }
     },
-    5: {
+    3: {
         bricks: {
             gapFromTop: ballSettings.size * 3.5,
             numberOfRows: 11,

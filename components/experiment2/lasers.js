@@ -4,6 +4,7 @@ import { currentLevel } from "./script.js";
 import { levels } from "./levels.js"
 import { sounds } from "./globalsettings.js"
 import { lifeLost } from "./scoreboard/lives.js";
+import { resetBallDirection } from "./ball.js";
 
 let gameView = document.querySelector(".gameView");
 
@@ -47,8 +48,7 @@ export function laserMovement() {
     for (let i = 0; i < laserPositions.length; i++) {
         laserPositions[i][1] += levels[currentLevel].lasers.speed
         if (laserPositions[i][1] >= gameViewSettings.gameViewHeight - (laserSettings.height - gameViewSettings.borderWidth)) {
-            laserArr[i].remove()
-            laserPositions.splice(i, 1)
+            removeLaser(i)
         }
     }
     //collision of lasers
@@ -56,17 +56,22 @@ export function laserMovement() {
     let laserID = checkLaserCollision(paddleSizeAndPos);
     if (typeof laserID !== 'undefined') {
         sounds.alienpaddleHit.play()
-        for (let i = 0; i < laserArr.length; i++) {
-            laserArr[i].remove()
-        }
-        laserPositions = []
-        //reset ball to be sticky on the paddle the ball 
+        removeAllLasers()
         lifeLost()
+        //reset ball to be sticky on the paddle the ball 
+        resetBallDirection()
     }
     moveLasers()
     updateLasers()
 }
 
+export function removeAllLasers() {
+    let lasers = document.querySelectorAll('.laser')
+    for (let i = 0; i < lasers.length; i++) {
+        lasers[i].remove()
+        laserPositions.splice(i, 1)
+    }
+}
 
 //the frequency of lasers shot by invaders
 function updateLasers() {
@@ -81,6 +86,9 @@ function updateLasers() {
 
 export function removeLaser(id) {
     let lasers = document.querySelectorAll(".laser")
+    if (lasers.length === 0) {
+        return
+    }
     lasers[id].remove()
     laserPositions.splice(id, 1)
 }

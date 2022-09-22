@@ -1,5 +1,7 @@
+import { resetBallSpeed } from "../ball.js"
 import { livesSettings, ballSettings, paddleSettings } from "../globalsettings.js"
 import { changeStartBallMovementValue, changePaddleMovedValue, gameover, startBallMovement } from "../input.js"
+import { removeAllLasers } from "../lasers.js"
 
 export let gameOver = false
 
@@ -40,7 +42,9 @@ export function lifeLost() {
     ball.style.bottom = 70 + "px"
     if (startBallMovement) {
         changeStartBallMovementValue()
+        removeAllLasers()
         changePaddleMovedValue()
+        resetBallSpeed()
     }
 }
 

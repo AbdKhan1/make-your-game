@@ -30,13 +30,16 @@ addEventListener('keydown', (e) => {
         if (startBallMovement === false) { sounds.launchBall.play() }
         startBallMovement = true
     }
-    //pause the game using shift
+    //pause the game using ESC
     if (e.keyCode === 27) {
         let pause = document.querySelector('.pause')
-        if (pause.style.display === "none" || pause.style.display === undefined || pause.style.display === '') {
-            pause.style.display = "block"
-        } else {
-            pause.style.display = "none"
+        let gameOverPopUp=document.getElementById("myScoreEntry");
+        if (gameOverPopUp.style.display!=="block"){
+            if (pause.style.display === "none" || pause.style.display === undefined || pause.style.display === '') {
+                pause.style.display = "block"
+            } else {
+                pause.style.display = "none"
+            }
         }
         changeStopValue()
     }
@@ -47,6 +50,12 @@ document.querySelector('#exit').addEventListener("click", (e) => {
     let pause = document.querySelector('.pause')
     pause.style.display = "none"
     gameover()
+})
+
+document.querySelector('#continue-game').addEventListener("click", (e) => {
+    let pause = document.querySelector('.pause')
+    pause.style.display = "none"
+    changeStopValue()
 })
 
 // For paddle movement
@@ -106,6 +115,7 @@ export function gameover() {
     // When the user clicks on <span> (x), close the modal
     span.onclick = function () {
         entry.style.display = "none";
+
     }
     changeGameOverValue(true)
 }

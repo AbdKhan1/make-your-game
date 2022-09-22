@@ -202,15 +202,15 @@ h2 {
 
 .continue {
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
 }
 
-#continue:hover {
-    color: #75eb93;
+#continue-game:hover {
+    color: #beef;
 }
 
-#continue:active {
-    color: #49945c;
+#continue-game:active {
+    color: rgb(148, 189, 189);
 }
 
 #exit:hover {
@@ -290,3 +290,18 @@ h2 {
 #no:active {
     color: #9e3030;
 }
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+/* hyperlinks */
+a:hover{
+    color: #aaaaaa;
+}
+
+a:focus {
+    color: #000;
+}
+
