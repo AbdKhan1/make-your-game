@@ -92,11 +92,10 @@ export const sounds = {
     bounceWallLeft: new Audio("../../sounds/bounce-wall-left.mp3"),
     bounceWallRight: new Audio("../../sounds/bounce-wall.mp3"),
     bounceWallLTop: new Audio("../../sounds/bounce-wall.mp3"),
+    comboBounce: new Audio("../../sounds/combo.mp3"),
     loseLife: new Audio("../../sounds/lose-life.mp3"),
     invadersMusic: new Audio("../../sounds/spaceInvaders.mp3"),
-
     bounceLaser: new Audio("../../sounds/cover_explosion.wav"),
-
     alienExplode: new Audio("../../sounds/alien-explosion-sfx.wav"),
     alienShoot: new Audio("../../sounds/alien-bullet-sfx.wav"),
     alienShieldBounce: new Audio("../../sounds/invader_hurt.wav"),
