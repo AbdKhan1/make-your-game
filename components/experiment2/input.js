@@ -1,7 +1,7 @@
 import { sounds } from "./globalsettings.js"
 import { changeStopValue, currentLevel } from "./script.js"
 import { score } from "./ball.js";
-import { isTopScore } from "./scoreboard/leaderboard.js"
+import { isTopScore, saveNewScore } from "./scoreboard/leaderboard.js"
 import { changeGameOverValue } from "./scoreboard/lives.js"
 
 // For keyboard input
@@ -102,10 +102,13 @@ export function gameover() {
     console.log(score, currentLevel)
     // check if the score is a top score
     isTopScore(score, currentLevel, 5).then((result) => {
+        console.log(result + " is a top score")
         if (result) {
             // if it is, allow the user to enter their name
             let input = document.querySelector(".new-hiscore");
             input.style.display = "block"
+        }else{
+            saveNewScore("Anonymous", score, 99, currentLevel)
         }
     })
 

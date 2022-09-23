@@ -12,9 +12,10 @@ import { gameOver } from "./scoreboard/lives.js";
 import { retrieveLeaderboard } from "./scoreboard/leaderboard.js";
 import { addTabsToScoreboard } from "./scoreboard/tabs.js";
 
-export let currentLevel;
 
+export let currentLevel;
 onLoad()
+
 
 //https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
 
@@ -89,6 +90,7 @@ async function onLoad() {
   await retrieveLeaderboard(currentLevel)
   addTabsToScoreboard()
   await updateGamesPlayed(currentLevel)
+
 }
 
 export function changeStopValue() {
