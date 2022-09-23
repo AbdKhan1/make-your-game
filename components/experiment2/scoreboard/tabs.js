@@ -14,7 +14,7 @@ export function addTabsToScoreboard() {
 
 <div id="how-to-play" class="tabcontent">
   <h3>Get Bricked!</h3>
-  <p>Spacebar <kbd>Space</kbd> to start!</p>
+  <p><kbd>Space</kbd> to start and launch ball! Left <kbd>&#8592</kbd> and Right <kbd>&#8594</kbd> to move paddle.</p>
   <p>Escape <kbd>Esc</kbd> to pause/continue</p>
 </div>
 
