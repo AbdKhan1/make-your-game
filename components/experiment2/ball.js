@@ -11,7 +11,7 @@ import { isTopScore } from "./scoreboard/leaderboard.js"
 
 
 let gameView = document.querySelector(".gameView");
-let ballSpeedIncrement = 0.1
+let ballSpeedIncrement = 0.2
 
 export let score = 0
 
@@ -217,7 +217,11 @@ let bspeed = ballSettings.speed
 function calculatePaddleBounce(ball) {
     let paddle = document.querySelector(".paddle").getBoundingClientRect(),
         paddleWidthSplit = paddle.width / 4
-    bspeed += 0.2
+
+        //max speed of the ball, do not increment the speed if it is already at max
+        if (bspeed < 8) {
+            bspeed += ballSpeedIncrement
+        }
 
     switch (true) {
         //if the ball hits the first quarter of the paddle
@@ -331,6 +335,8 @@ function nextLevelCheck() {
                 // if it is, allow the user to enter their name
                 let input = document.querySelector(".new-hiscore-completed");
                 input.style.display = "block"
+            }else{
+                saveNewScore("Anonymous", score, 9, currentLevel)
             }
         })
         document.querySelector('#yes').addEventListener("click", (e) => {
