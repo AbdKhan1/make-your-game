@@ -108,7 +108,7 @@ export function gameover() {
             let input = document.querySelector(".new-hiscore");
             input.style.display = "block"
         }else{
-            saveNewScore("Anonymous", score, 9, currentLevel)
+            saveNewScore("Anonymous", score, 99, currentLevel)
         }
     })
 

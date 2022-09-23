@@ -5,7 +5,7 @@ import { removeAlien } from "./invaders.js"
 import { removeLaser } from "./lasers.js"
 import { calculateScore } from "./scoreboard/score.js"
 import { lifeLost } from "./scoreboard/lives.js"
-import { changeStopValue, currentLevel } from "./script.js";
+import { changeStopValue } from "./script.js";
 import { gameover, startBallMovement } from "./input.js";
 import { isTopScore } from "./scoreboard/leaderboard.js"
 
@@ -28,9 +28,17 @@ function initBall() {
         console.log("ball created")
     }
 
-    /* setTimeout(function () {
-        createBall(-1,1);
-    }, 0) */
+    const QueryString = window.location.search;
+    const urlParams = new URLSearchParams(QueryString);
+    // + is the unary operator to convert string to number
+    let currentLevel = +(urlParams.get("lvl")) || 0;
+
+    console.log("current level", currentLevel)
+    if (currentLevel === 5) {
+        setTimeout(function () {
+            createBall(-ballSettings.speed,ballSettings.speed);
+        }, 0)
+    }
 
 }
 
@@ -39,7 +47,7 @@ initBall()
 
 // this function creates a ball and adds it to the gameView
 // takes in the x and y direction of the ball
-function createBall(x, y) {
+export function createBall(x, y) {
     let ball = document.createElement("div"),
         // set the ball position from the left and from the bottom.. in this case
         // in the middle and 70 pixels from the bottom
@@ -90,7 +98,7 @@ export function BallMovement() {
         let ballDOMRect = balls[i].getBoundingClientRect();
 
         // retrieving the new direction and updating the direction of the ball for the next frame
-        ballsDirection[i] = bounce(ballDOMRect, xDirection, yDirection);
+        ballsDirection[i] = bounce(ballDOMRect, xDirection, yDirection, i);
 
         //check if the all the bricks and aliens are destroyed
         nextLevelCheck()
@@ -104,7 +112,7 @@ export function BallMovement() {
 
 
 // Returns the new direction the ball should be bouncing
-function bounce(ballDOMRect, x, y) {
+function bounce(ballDOMRect, x, y, ball_id) {
 
     laserBounce(ballDOMRect)
 
@@ -134,10 +142,19 @@ function bounce(ballDOMRect, x, y) {
             sounds.bounceWallLTop.play()
             return [x, -y];
         case "bottom":
-            sounds.loseLife.play()
-            //reset ball to be stcky on the paddle the ball 
-            lifeLost()
-            return [ballSettings.speed, ballSettings.speed];
+
+            // if there are more than one balls, remove the ball that hit the bottom
+            if (balls.length > 1) {
+                balls.splice(ball_id, 1)
+                ballsDirection.splice(ball_id, 1)
+                document.querySelectorAll(".ball")[ball_id].remove()
+                console.log("ball id", ball_id, b )
+            }else{
+                sounds.loseLife.play()
+                //reset ball to be stcky on the paddle the ball 
+                lifeLost()
+                return [ballSettings.speed, ballSettings.speed];
+            }
     }
 
 
@@ -336,7 +353,7 @@ function nextLevelCheck() {
                 let input = document.querySelector(".new-hiscore-completed");
                 input.style.display = "block"
             }else{
-                saveNewScore("Anonymous", score, 9, currentLevel)
+                saveNewScore("Anonymous", score, 99, currentLevel)
             }
         })
         document.querySelector('#yes').addEventListener("click", (e) => {
@@ -363,3 +380,4 @@ export function resetBallSpeed() {
 export function resetScore() {
     score = 0
 }
+
