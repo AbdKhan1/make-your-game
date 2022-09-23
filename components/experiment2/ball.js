@@ -352,3 +352,8 @@ export function resetBallDirection() {
 export function resetBallSpeed() {
     bspeed = ballSettings.speed
 }
+
+
+export function resetScore() {
+    score = 0
+}

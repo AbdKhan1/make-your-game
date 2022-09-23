@@ -1,4 +1,4 @@
-import { score } from "../ball.js";
+import { score, resetScore } from "../ball.js";
 import { timeplayed } from "./timer.js"
 
 let APP_ID = "o5IcLhGkOogJO1LXYFMQcdlQUnk19Tx9dqme620P";
@@ -87,14 +87,21 @@ document.getElementById("saveScore").addEventListener("click", async function (e
     alert("Please fill in name");
     input.focus();
   }
-  if (await checkProfanity(val)) {
+  //set max length of name to 5 characters
+  if (val.length > 5) {
+    alert("Please enter a name with less than 5 characters");
+    input.focus();
+  }
+
+  if (val.length < 6 && (await checkProfanity(val))) {
     alert("Please do not use profanity in your name");
     input.focus();
   } else {
     console.log("submitting score for", val, timeplayed);
     let level = document.getElementById("level").innerHTML
-    saveNewScore(val, score, timeplayed, level);
-
+    saveNewScore(val, score, timeplayed, level);    
+    resetScore()
+    
     let hiscoreDisplay = document.querySelector(".new-hiscore");
     hiscoreDisplay.style.display = "none"
   }
@@ -103,18 +110,25 @@ document.getElementById("saveScore").addEventListener("click", async function (e
 document.getElementById("saveScore-completed").addEventListener("click", async function (e) {
   let input = document.getElementById("name-completed"),
     val = input.value.trim();
+
   if (val === "") {
     alert("Please fill in name");
     input.focus();
   }
+  //set max length of name to 5 characters
+  if (val.length > 5) {
+    alert("Please enter a name with less than 5 characters");
+    input.focus();
+  }
 
-  if (await checkProfanity(val)) {
+  if (val.length < 6 && (await checkProfanity(val))) {
     alert("Please do not use profanity in your name");
     input.focus();
   } else {
     console.log("submitting score for", val);
     let level = document.getElementById("level").innerHTML
     saveNewScore(val, score, timeplayed, level);
+    resetScore()
 
     let hiscoreDisplay = document.querySelector(".new-hiscore-completed");
     hiscoreDisplay.style.display = "none"
