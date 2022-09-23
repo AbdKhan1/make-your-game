@@ -1,4 +1,3 @@
-
 import { BallMovement } from "./ball.js";
 import { PaddleMovement } from "./paddle.js";
 import { startBallMovement, paddleMoved } from "./input.js";
@@ -8,12 +7,14 @@ import { laserMovement } from "./lasers.js";
 import { countUpTimer } from "./scoreboard/timer.js"
 import "./scoreboard/lives.js"
 import { updateLevel } from "./scoreboard/level.js"
+import { updateGamesPlayed } from "./scoreboard/gamesplayed.js"
 import { gameOver } from "./scoreboard/lives.js";
 import { retrieveLeaderboard } from "./scoreboard/leaderboard.js";
+import { addTabsToScoreboard } from "./scoreboard/tabs.js";
 
 export let currentLevel;
-onLoad()
 
+onLoad()
 
 //https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
 
@@ -77,7 +78,7 @@ function animate(newtime) {
 }
 
 
-function onLoad() {
+async function onLoad() {
   const QueryString = window.location.search;
   const urlParams = new URLSearchParams(QueryString);
   currentLevel = urlParams.get("lvl") || 0;
@@ -85,7 +86,9 @@ function onLoad() {
   updateLevel(currentLevel)
   createBricks(currentLevel);
   createAliens(currentLevel);
-  retrieveLeaderboard(currentLevel)
+  await retrieveLeaderboard(currentLevel)
+  addTabsToScoreboard()
+  await updateGamesPlayed(currentLevel)
 }
 
 export function changeStopValue() {

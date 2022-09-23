@@ -40,11 +40,27 @@ export function createBricks(level) {
 
     }
 
-
+    removeBricksByColor("rgb(0, 0, 0)")
 }
 
 export function removeBrick(id) {
     let bricks = document.querySelectorAll(".brick")
     bricks[id].remove()
 
+}
+
+// remove all bricks with a certain color
+function removeBricksByColor(color) {
+    // let arr = Array.from(document.querySelectorAll('.brick'))
+    // arr.filter(b => {
+    //     let bg = b.style.backgroundColor;
+    //     console.log(bg)
+    //   });
+    let bricks = document.querySelectorAll(".brick")
+
+    for (let i = 0; i < bricks.length; i++) {
+        if (bricks[i].style.backgroundColor == color) {
+            bricks[i].remove()
+        }
+    }
 }
