@@ -10,6 +10,7 @@ export function addTabsToScoreboard() {
   <button class="tablinks" id="tab-about" onclick="openTab(event, 'about')">About</button>
   <button class="tablinks" id="tab-authors">Authors</button>
   <button class="tablinks" id="tab-levels">Levels</button>
+  <button class="tablinks" id="tab-customize">Customize</button>
 </div>
 
 <div id="how-to-play" class="tabcontent">
@@ -37,7 +38,24 @@ export function addTabsToScoreboard() {
 
 <div id="levels" class="tabcontent">
   <h3>Select Level</h3>
- <ul><li><a href="?lvl=0">Level 0</a></li><li><a href="?lvl=1">Level 1</a></li><li><a href="?lvl=2">Level 2</a></li><li><a href="?lvl=3">Level 3</a></li><li><a href="?lvl=4">Level 4</a></li></ul>
+ <ul><li><a href="?lvl=0">Level 0</a></li><li><a href="?lvl=1">Level 1</a></li><li><a href="?lvl=2">Level 2</a></li><li><a href="?lvl=3">Level 3</a></li><li><a href="?lvl=4">Level 4</a></li><li><a href="?lvl=5">Level 5</a></li></ul>
+  </div>
+
+</div>
+
+<div id="customize" class="tabcontent">
+  <h3>Choose your custom colours:</h3>
+
+  <div>
+      <input type="color" id="ball-colour-id" name="ball-colour"
+            value="#e66465">
+      <label for="ball-colour">Ball Colour</label>
+  </div>
+
+  <div>
+      <input type="color" id="paddle-colour-id" name="paddle-colour"
+              value="#f6b73c">
+      <label for="paddle-colour">Paddle Colour</label>
   </div>
 
 </div>
@@ -60,8 +78,33 @@ export function addTabsToScoreboard() {
   document.querySelector("#tab-levels").addEventListener("click", () => {
     openTab("levels");
   });
+  document.querySelector("#tab-customize").addEventListener("click", () => {
+    openTab("customize");
+  });
+
+  let ballColorPicker = document.querySelector("#ball-colour-id");
+  ballColorPicker.addEventListener("input", updateBall, false);
+
+  let paddleColorPicker = document.querySelector("#paddle-colour-id");
+  paddleColorPicker.addEventListener("input", updatePaddle, false);
 
 }
+
+function updateBall(event) {
+  // console.log('chosen color', event.target.value);
+  const p = document.querySelector(".ball");
+  if (p) {
+    p.style.backgroundColor = event.target.value;
+  }
+}
+function updatePaddle(event) {
+  // console.log('chosen color', event.target.value);
+  const p = document.querySelector(".paddle");
+  if (p) {
+    p.style.backgroundColor = event.target.value;
+  }
+}
+
 
 function openTab(tabName) {
   var i, tabcontent, tablinks;
