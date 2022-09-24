@@ -7,7 +7,7 @@ export let levels = {
         bricks: {
             gapFromTop: ballSettings.size * 6,
             numberOfRows: 1,
-            brickWidth: 90,
+            brickWidth: 150,
             brickHeight: 25,
             padding: 0,
             brickRowColors: ['#beef']
@@ -145,8 +145,8 @@ export let levels = {
     },
     5: {
         bricks: {
-            gapFromTop: ballSettings.size * 3.5,
-            numberOfRows: 6,
+            gapFromTop: ballSettings.size * 3,
+            numberOfRows: 5,
             brickWidth: 30,
             brickHeight: 15,
             // marginFromWall: 0,
@@ -160,7 +160,7 @@ export let levels = {
             ]
         },
         aliens: {
-            gapFromTop: 0,
+            gapFromTop: ballSettings.size,
             numberOfAliens: 6,
             numberOfRows: 3,
             drop: 4,
