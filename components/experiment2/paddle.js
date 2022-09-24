@@ -94,3 +94,15 @@ function stickyPaddleMovement() {
 
     movePaddle();
 }
+
+// add touch event listener to paddle
+paddle.addEventListener('touchmove', handleTouchMove, false);
+
+function handleTouchMove(e) {
+    e.preventDefault();
+    console.log('touchmove');
+    // move paddle
+    if (startBallMovement) {
+        paddleCurrentPos[0] = e.touches[0].clientX;
+    }
+}

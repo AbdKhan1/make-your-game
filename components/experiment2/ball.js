@@ -17,7 +17,7 @@ import { removeLaser } from './lasers.js';
 import { calculateScore } from './scoreboard/score.js';
 import { lifeLost } from './scoreboard/lives.js';
 import { changeStopValue, currentLevel } from './script.js';
-import { gameover, startBallMovement } from './input.js';
+import { gameover, startBallMovement, addTouchListeners} from './input.js';
 import { isTopScore, saveNewScore} from './scoreboard/leaderboard.js';
 import { timeplayed } from './scoreboard/timer.js';
 
@@ -52,6 +52,8 @@ function initBall() {
 }
 
 initBall();
+addTouchListeners();
+
 
 // this function creates a ball and adds it to the gameView
 // takes in the x and y direction of the ball
@@ -398,3 +400,5 @@ export function resetBallSpeed() {
 export function resetScore() {
     score = 0;
 }
+
+

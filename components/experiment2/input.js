@@ -138,15 +138,13 @@ export function gameover() {
         delayedRefresh();
         entry.style.display = 'none';
     };
-    
+
     changeGameOverValue(true);
 }
-
 
 // function delayed refresh after game over pop up and save score to leaderboard
 export function delayedRefresh() {
     setTimeout(function () {
-        
         location.reload();
     }, 3000);
 
@@ -154,4 +152,19 @@ export function delayedRefresh() {
         saveNewScore('AN0N', score, timeplayed, currentLevel);
         resetScore();
     }
+}
+
+export function addTouchListeners() {
+    // add touch event listener to ball
+    let ball = document.querySelector('.ball');
+    ball.addEventListener('touchstart', handleBallTouchStart, false);
+}
+
+function handleBallTouchStart(e) {
+    e.preventDefault();
+    // console.log('ball touch');
+    if (startBallMovement === false) {
+        sounds.launchBall.play();
+    }
+    startBallMovement = true;
 }
