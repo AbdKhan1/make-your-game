@@ -92,10 +92,11 @@ export function addTabsToScoreboard() {
 
 function updateBall(event) {
     // console.log('chosen color', event.target.value);
-    const p = document.querySelector('.ball');
-    if (p) {
-        p.style.backgroundColor = event.target.value;
-    }
+    const p = document.querySelectorAll('.ball');
+    // iterate over p and set the color if defined
+    p.forEach((ball) => {
+        if (p) { ball.style.backgroundColor = event.target.value; }
+    });
 }
 function updatePaddle(event) {
     // console.log('chosen color', event.target.value);
