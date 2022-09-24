@@ -29,10 +29,11 @@ export function addTabsToScoreboard() {
   <h3>Built using Vanilla JS, CSS, HTML</h3>
   <p>Using no canvas, maintaining 60 fps using request animation frame</p>
   <p>2022 September, by authors: </p>
-   <ul>
-  <li>Abdul</li>
-  <li>Jason</li>
-  <li>Nik - <a href='google.com'> Link</a></li>
+    <ul>
+  <li>Abdul Raheem- <a target=”_blank” href='https://www.linkedin.com/in/abd-al-raheem-khan-898a21246'>LinkedIn</a></li>
+  <li>Jason Asante - <a target=”_blank” href='https://www.linkedin.com/in/jason-asante'> LinkedIn</a></li>
+  <li>Nik Don - <a target=”_blank” href='https://www.linkedin.com/in/nikdon'> LinkedIn,</a> 
+  <a target=”_blank” href='https://github.com/nik-don'> GitHub</a></li>
 </ul> 
 </div>
 
