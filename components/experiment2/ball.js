@@ -17,8 +17,8 @@ import { removeLaser } from './lasers.js';
 import { calculateScore } from './scoreboard/score.js';
 import { lifeLost } from './scoreboard/lives.js';
 import { changeStopValue, currentLevel } from './script.js';
-import { gameover, startBallMovement, addTouchListeners} from './input.js';
-import { isTopScore, saveNewScore} from './scoreboard/leaderboard.js';
+import { gameover, startBallMovement, addTouchListeners } from './input.js';
+import { isTopScore, saveNewScore } from './scoreboard/leaderboard.js';
 import { timeplayed } from './scoreboard/timer.js';
 
 let gameView = document.querySelector('.gameView');
@@ -53,7 +53,6 @@ function initBall() {
 
 initBall();
 addTouchListeners();
-
 
 // this function creates a ball and adds it to the gameView
 // takes in the x and y direction of the ball
@@ -368,16 +367,17 @@ function nextLevelCheck() {
                 resetScore();
             }
         });
-        document.querySelector('#yes').addEventListener('click', (e) => {
-            nextLevelPopUp.style.display = 'none';
-            document.querySelector('.nextLevelLink').href =
-                '?lvl=' + newLevel;
-        });
+        if (newLevel !== 6) {
+            document.querySelector('#yes').addEventListener('click', (e) => {
+                nextLevelPopUp.style.display = 'none';
+                document.querySelector('.nextLevelLink').href =
+                    '?lvl=' + newLevel;
+            });
+        }
         document.querySelector('#no').addEventListener('click', (e) => {
-            
-            if (score > 0) { 
+            if (score > 0) {
                 console.log('score is greater than 0');
-                saveNewScore('AN0N', score, timeplayed, currentLevel) 
+                saveNewScore('AN0N', score, timeplayed, currentLevel);
             }
             console.log('resetting score');
             resetScore();
@@ -400,5 +400,3 @@ export function resetBallSpeed() {
 export function resetScore() {
     score = 0;
 }
-
-
