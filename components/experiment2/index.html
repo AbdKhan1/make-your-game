@@ -1,95 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Get Bricked</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
-</body>
+  <body></body>
 
-<!-- Score Entry -->
-<div class="scoreboard">
+  <!-- Score Entry -->
+  <div class="scoreboard">
     <div class="time">
-        <p>Time:</p>
-        <pre id="t1">  </pre>
-        <p id="time">0m:0s</p>
+      <p>Time:</p>
+      <pre id="t1"></pre>
+      <p id="time">0m:0s</p>
     </div>
     <div class="score">
-        <p>Score:</p>
-        <pre id="t1">  </pre>
-        <p id="score">0</p>
+      <p>Score:</p>
+      <pre id="t1"></pre>
+      <p id="score">0</p>
     </div>
     <div class="lives">
-        <p>Lives:</p>
-        <pre id="t1">  </pre>
+      <p>Lives:</p>
+      <pre id="t1"></pre>
     </div>
     <div class="currentLevel">
-        <p>Level:</p>
-        <pre id="t1">  </pre>
-        <p id="level"></p>
+      <p>Level:</p>
+      <pre id="t1"></pre>
+      <p id="level"></p>
     </div>
     <!-- <div class="gamesPlayed">
         <p>Games Played:</p>
         <pre id="t1">  </pre>
         <p id="games-played"></p>
     </div> -->
-</div>
+  </div>
 
-<!-- Score Entry -->
-<div id="myScoreEntry" class="scoreEntry">
-
+  <!-- Score Entry -->
+  <div id="myScoreEntry" class="scoreEntry">
     <div class="userInput">
-        <div class="closeButton"><span class="close"><a href="">&times;</a></span></div>
+      <div class="closeButton">
+        <span class="close"><a href="">&times;</a></span>
+      </div>
 
-        <h1>GAME OVER</h1>
+      <h1>GAME OVER</h1>
 
-        <div class="new-hiscore">
-            <p>NEW HI-SCORE!!</p>
-            <label for="name" id="nameLabel">Name (5 Letters): </label>
-            <input type="text" name="name" id="name" maxlength="5">
-            <button type="submit" id="saveScore">Save My Score Please!</button>
-        </div>
+      <div class="new-hiscore">
+        <p>NEW HI-SCORE!!</p>
+        <label for="name" id="nameLabel">Name (5 Letters): </label>
+        <input type="text" name="name" id="name" maxlength="5" />
+        <button type="submit" id="saveScore">Save My Score Please!</button>
+      </div>
     </div>
+  </div>
 
-</div>
-
-<!-- Pause Pop Up -->
-<div class="pause">
+  <!-- Pause Pop Up -->
+  <div class="pause">
     <div class="pauseMenu">
-        <h1>PAUSE</h1>
-        <p>To continue press ESC</p>
-        <div class="continue">
-            <h2><a class="restart" href="">Restart</a></h2>
-            <h2 id="continue-game">Continue</h2>
-            <h2 id="exit">End Game</h2>
-        </div>
+      <h1>PAUSE</h1>
+      <p>To continue press ESC</p>
+      <div class="continue">
+        <h2><a class="restart" href="">Restart</a></h2>
+        <h2 id="continue-game">Continue</h2>
+        <h2 id="exit">End Game</h2>
+      </div>
     </div>
-</div>
+  </div>
 
-<!-- Next Level Pop Up -->
-<div class="nextLevel">
+  <!-- Next Level Pop Up -->
+  <div class="nextLevel">
     <div class="nextLevelMenu">
-        <h1>Congrats! </h1>
-        <div class="new-hiscore-completed">
-            <p>NEW HI-SCORE!!</p>
-            <label for="name" id="nameLabel">Name (5 Letters): </label>
-            <input type="text" name="name-completed" id="name-completed" maxlength="5">
-            <button type="submit" id="saveScore-completed">Save My Score Please!</button>
-        </div>
-        <p>Would You Like To Proceed To The Next Level</p>
-        <div class="continueNextLevel">
-            <h2 id="yes"><a class="nextLevelLink" href="">Yes</a></h2>
-            <h2 id="no">No</h2>
-        </div>
+      <h1>Congrats!</h1>
+      <div class="new-hiscore-completed">
+        <p>NEW HI-SCORE!!</p>
+        <label for="name" id="nameLabel">Name (5 Letters): </label>
+        <input
+          type="text"
+          name="name-completed"
+          id="name-completed"
+          maxlength="5"
+        />
+        <button type="submit" id="saveScore-completed">
+          Save My Score Please!
+        </button>
+      </div>
+      <p>Would You Like To Proceed To The Next Level</p>
+      <div class="continueNextLevel">
+        <h2 id="yes"><a class="nextLevelLink" href="">Yes</a></h2>
+        <h2 id="no">No</h2>
+      </div>
     </div>
-</div>
+  </div>
 
-<script type="module" src="script.js"></script>
-<script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
-
+  <script type="module" src="script.js"></script>
+  <script
+    type="text/javascript"
+    src="https://npmcdn.com/parse/dist/parse.min.js"
+  ></script>
 </html>

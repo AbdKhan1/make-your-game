@@ -1,4 +1,4 @@
-import { levels } from '../levels.js';
+import { levels } from "../levels.js";
 
 export function addTabsToScoreboard() {
   var tabs = document.createElement("div");
@@ -88,7 +88,6 @@ export function addTabsToScoreboard() {
 
   let paddleColorPicker = document.querySelector("#paddle-colour-id");
   paddleColorPicker.addEventListener("input", updatePaddle, false);
-
 }
 
 function updateBall(event) {
@@ -106,7 +105,6 @@ function updatePaddle(event) {
   }
 }
 
-
 function openTab(tabName) {
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
@@ -121,10 +119,8 @@ function openTab(tabName) {
   document.getElementById("tab-" + tabName).classList.add("active");
 }
 
-
 // create links to all levels
 function createLevelLinks() {
-
   // length of Object
   var levelsLength = Object.keys(levels).length;
   console.log(levelsLength);

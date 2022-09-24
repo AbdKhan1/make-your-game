@@ -1,5 +1,5 @@
 import { score, resetScore } from "../ball.js";
-import { timeplayed } from "./timer.js"
+import { timeplayed } from "./timer.js";
 
 let APP_ID = "o5IcLhGkOogJO1LXYFMQcdlQUnk19Tx9dqme620P";
 let JS_KEY = "PXq9bu0TALOcNbOO6PrLOgNiLjU3HP0H2YPA8Pry";
@@ -80,65 +80,74 @@ export async function isTopScore(userscore, level, limit) {
   }
 }
 
-document.getElementById("saveScore").addEventListener("click", async function (e) {
-  let input = document.getElementById("name"),
-    val = input.value.trim();
-  if (val === "") {
-    alert("Please fill in name");
-    input.focus();
-  }
-  //set max length of name to 5 characters
-  if (val.length > 5) {
-    alert("Please enter a name with less than 5 characters");
-    input.focus();
-  }
+document
+  .getElementById("saveScore")
+  .addEventListener("click", async function (e) {
+    let input = document.getElementById("name"),
+      val = input.value.trim();
+    if (val === "") {
+      alert("Please fill in name");
+      input.focus();
+    }
+    //set max length of name to 5 characters
+    if (val.length > 5) {
+      alert("Please enter a name with less than 5 characters");
+      input.focus();
+    }
 
-  if (val.length < 6 && (await checkProfanity(val))) {
-    alert("Please do not use profanity in your name");
-    input.focus();
-  } else {
-    console.log("submitting score for", val, timeplayed);
-    let level = document.getElementById("level").innerHTML
-    saveNewScore(val, score, timeplayed, level);    
-    resetScore()
-    
-    let hiscoreDisplay = document.querySelector(".new-hiscore");
-    hiscoreDisplay.style.display = "none"
-  }
-});
+    if (val.length < 6 && (await checkProfanity(val))) {
+      alert("Please do not use profanity in your name");
+      input.focus();
+    } else {
+      console.log("submitting score for", val, timeplayed);
+      let level = document.getElementById("level").innerHTML;
+      saveNewScore(val, score, timeplayed, level);
+      resetScore();
 
-document.getElementById("saveScore-completed").addEventListener("click", async function (e) {
-  let input = document.getElementById("name-completed"),
-    val = input.value.trim();
+      let hiscoreDisplay = document.querySelector(".new-hiscore");
+      hiscoreDisplay.style.display = "none";
+    }
+  });
 
-  if (val === "") {
-    alert("Please fill in name");
-    input.focus();
-  }
-  //set max length of name to 5 characters
-  if (val.length > 5) {
-    alert("Please enter a name with less than 5 characters");
-    input.focus();
-  }
+document
+  .getElementById("saveScore-completed")
+  .addEventListener("click", async function (e) {
+    let input = document.getElementById("name-completed"),
+      val = input.value.trim();
 
-  if (val.length < 6 && (await checkProfanity(val))) {
-    alert("Please do not use profanity in your name");
-    input.focus();
-  } else {
-    console.log("submitting score for", val);
-    let level = document.getElementById("level").innerHTML
-    saveNewScore(val, score, timeplayed, level);
-    resetScore()
+    if (val === "") {
+      alert("Please fill in name");
+      input.focus();
+    }
+    //set max length of name to 5 characters
+    if (val.length > 5) {
+      alert("Please enter a name with less than 5 characters");
+      input.focus();
+    }
 
-    let hiscoreDisplay = document.querySelector(".new-hiscore-completed");
-    hiscoreDisplay.style.display = "none"
-  }
-});
+    if (val.length < 6 && (await checkProfanity(val))) {
+      alert("Please do not use profanity in your name");
+      input.focus();
+    } else {
+      console.log("submitting score for", val);
+      let level = document.getElementById("level").innerHTML;
+      saveNewScore(val, score, timeplayed, level);
+      resetScore();
+
+      let hiscoreDisplay = document.querySelector(".new-hiscore-completed");
+      hiscoreDisplay.style.display = "none";
+    }
+  });
 
 export async function randomScoreGen(amount, level) {
   for (let i = 0; i < amount; i++) {
     let r = (Math.random() + 1).toString(36).substring(9);
-    await saveNewScore(r.toUpperCase(), Math.floor(Math.random() * (999 - 100 + 1) + 100), Math.floor(Math.random() * (360 - 100 + 1) + 100), level)
+    await saveNewScore(
+      r.toUpperCase(),
+      Math.floor(Math.random() * (999 - 100 + 1) + 100),
+      Math.floor(Math.random() * (360 - 100 + 1) + 100),
+      level
+    );
   }
 }
 
@@ -147,7 +156,9 @@ async function checkProfanity(name) {
   let profanity = false;
 
   // send to reqest to the profanity api
-  let response = await fetch("https://www.purgomalum.com/service/containsprofanity?text=" + name);
+  let response = await fetch(
+    "https://www.purgomalum.com/service/containsprofanity?text=" + name
+  );
   let data = await response.json();
 
   // if the response is true, then the name contains profanity

@@ -8,45 +8,42 @@ var frameCount = 0;
 // var $results = $("#results");
 var fps, fpsInterval, startTime, now, then, elapsed;
 
-fps = 60
+fps = 60;
 startAnimating(fps);
 
 function startAnimating(fps) {
-    fpsInterval = 1000 / fps;
-    then = window.performance.now();
-    startTime = then;
-    //console.log(startTime);
-    animate();
+  fpsInterval = 1000 / fps;
+  then = window.performance.now();
+  startTime = then;
+  //console.log(startTime);
+  animate();
 }
 
-
 function animate(newtime) {
+  // stop
+  if (stop) {
+    return;
+  }
 
-    // stop
-    if (stop) {
-        return;
-    }
+  // request another frame
 
-    // request another frame
+  requestAnimationFrame(animate);
 
-    requestAnimationFrame(animate);
+  // calc elapsed time since last loop
 
-    // calc elapsed time since last loop
+  now = newtime;
+  elapsed = now - then;
 
-    now = newtime;
-    elapsed = now - then;
+  // if enough time has elapsed, draw the next frame
 
-    // if enough time has elapsed, draw the next frame
+  if (elapsed > fpsInterval) {
+    // Get ready for next frame by setting then=now, but...
+    // Also, adjust for fpsInterval not being multiple of 16.67
+    then = now - (elapsed % fpsInterval);
 
-    if (elapsed > fpsInterval) {
+    // draw stuff here
 
-        // Get ready for next frame by setting then=now, but...
-        // Also, adjust for fpsInterval not being multiple of 16.67
-        then = now - (elapsed % fpsInterval);
-
-        // draw stuff here
-       
-        moveBall()
-        movePaddle()
-    }
+    moveBall();
+    movePaddle();
+  }
 }

@@ -1,51 +1,54 @@
-.time, .lives, .score, .currentLevel{
-    display: flex;
+.time,
+.lives,
+.score,
+.currentLevel {
+  display: flex;
 }
-.scoreboard{
-    display: flex;
-    justify-content: space-around;
-    margin-left: 50%;
-    width: 600px;
-}
-
-.grid{
-    position: absolute;
-    width:600px;
-    height:100%;
-    background-color: black;
-    border-top:solid gray 10px;
-    border-left: solid gray 10px;
-    border-right:solid gray 10px;
+.scoreboard {
+  display: flex;
+  justify-content: space-around;
+  margin-left: 50%;
+  width: 600px;
 }
 
-*{
-    margin: 0;
-    box-sizing: border-box;
+.grid {
+  position: absolute;
+  width: 600px;
+  height: 100%;
+  background-color: black;
+  border-top: solid gray 10px;
+  border-left: solid gray 10px;
+  border-right: solid gray 10px;
 }
 
-.ball{
-    position:absolute;
-    width:15px;
-    height:15px;
-    border-radius: 100px;
-    background-color: white;
+* {
+  margin: 0;
+  box-sizing: border-box;
 }
 
-.paddle{
-    position: absolute;
-    width: 100px;
-    height: 15px;
-    background-color: darkorange;
+.ball {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 100px;
+  background-color: white;
 }
 
-.brick{
-    position: absolute;
+.paddle {
+  position: absolute;
+  width: 100px;
+  height: 15px;
+  background-color: darkorange;
 }
 
-.alien{
-    position: absolute;
+.brick {
+  position: absolute;
 }
 
-.laser{
-    position: absolute;
+.alien {
+  position: absolute;
+}
+
+.laser {
+  position: absolute;
 }

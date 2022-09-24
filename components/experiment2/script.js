@@ -1,30 +1,31 @@
 import { BallMovement } from "./ball.js";
 import { PaddleMovement } from "./paddle.js";
 import { startBallMovement, paddleMoved } from "./input.js";
-import { createBricks } from "./bricks.js"
+import { createBricks } from "./bricks.js";
 import { createAliens, alienMovement } from "./invaders.js";
 import { laserMovement } from "./lasers.js";
-import { countUpTimer } from "./scoreboard/timer.js"
-import "./scoreboard/lives.js"
-import { updateLevel } from "./scoreboard/level.js"
-import { updateGamesPlayed } from "./scoreboard/gamesplayed.js"
+import { countUpTimer } from "./scoreboard/timer.js";
+import "./scoreboard/lives.js";
+import { updateLevel } from "./scoreboard/level.js";
+import { updateGamesPlayed } from "./scoreboard/gamesplayed.js";
 import { gameOver } from "./scoreboard/lives.js";
 import { retrieveLeaderboard } from "./scoreboard/leaderboard.js";
 import { addTabsToScoreboard } from "./scoreboard/tabs.js";
 
-
 export let currentLevel;
-onLoad()
-
+onLoad();
 
 //https://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe
 
-
 let stop = false;
-let fps = 60, fpsInterval, startTime, now, then, elapsed;
+let fps = 60,
+  fpsInterval,
+  startTime,
+  now,
+  then,
+  elapsed;
 
 startAnimating(fps);
-
 
 function startAnimating(fps) {
   fpsInterval = 1000 / fps;
@@ -33,7 +34,7 @@ function startAnimating(fps) {
   animate();
 }
 
-let duration = 0
+let duration = 0;
 
 function animate(newtime) {
   // stop
@@ -42,7 +43,7 @@ function animate(newtime) {
   }
 
   if (gameOver) {
-    return
+    return;
   }
 
   // request another frame
@@ -65,43 +66,40 @@ function animate(newtime) {
 
     if (startBallMovement) {
       BallMovement();
-      countUpTimer(stop, duration)
+      countUpTimer(stop, duration);
 
-      duration++
+      duration++;
     }
-    alienMovement(currentLevel)
+    alienMovement(currentLevel);
     if (startBallMovement || paddleMoved) {
-      laserMovement()
+      laserMovement();
     }
-    PaddleMovement()
-
+    PaddleMovement();
   }
 }
-
 
 async function onLoad() {
   const QueryString = window.location.search;
   const urlParams = new URLSearchParams(QueryString);
   currentLevel = urlParams.get("lvl") || 0;
 
-  updateLevel(currentLevel)
+  updateLevel(currentLevel);
   createBricks(currentLevel);
   createAliens(currentLevel);
-  await retrieveLeaderboard(currentLevel)
-  addTabsToScoreboard()
-  await updateGamesPlayed(currentLevel)
-
+  await retrieveLeaderboard(currentLevel);
+  addTabsToScoreboard();
+  await updateGamesPlayed(currentLevel);
 }
 
 export function changeStopValue() {
   if (stop) {
-    stop = false
+    stop = false;
   } else {
-    stop = true
+    stop = true;
   }
-  startAnimating(fps)
+  startAnimating(fps);
 }
 
 export function changeCurrentLevelValue(newLevel) {
-  currentLevel = newLevel
+  currentLevel = newLevel;
 }
