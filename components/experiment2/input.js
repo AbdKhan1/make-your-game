@@ -1,8 +1,9 @@
 import { sounds } from './globalsettings.js';
 import { changeStopValue, currentLevel } from './script.js';
-import { score } from './ball.js';
+import { resetScore, score } from './ball.js';
 import { isTopScore, saveNewScore } from './scoreboard/leaderboard.js';
 import { changeGameOverValue } from './scoreboard/lives.js';
+import { timeplayed } from './scoreboard/timer.js';
 
 // For keyboard input
 
@@ -123,7 +124,10 @@ export function gameover() {
             let input = document.querySelector('.new-hiscore');
             input.style.display = 'block';
         } else {
-            saveNewScore('Anonymous', score, 99, currentLevel);
+            if (score > 0) {
+                saveNewScore('AN0N', score, timeplayed, currentLevel);
+                resetScore();
+            }
         }
     });
 
@@ -131,7 +135,23 @@ export function gameover() {
     let span = document.getElementsByClassName('close')[0];
     // When the user clicks on <span> (x), close the modal
     span.onclick = function () {
+        delayedRefresh();
         entry.style.display = 'none';
     };
+    
     changeGameOverValue(true);
+}
+
+
+// function delayed refresh after game over pop up and save score to leaderboard
+export function delayedRefresh() {
+    setTimeout(function () {
+        
+        location.reload();
+    }, 3000);
+
+    if (score > 0) {
+        saveNewScore('AN0N', score, timeplayed, currentLevel);
+        resetScore();
+    }
 }

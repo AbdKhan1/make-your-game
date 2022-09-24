@@ -16,9 +16,10 @@ import { removeAlien } from './invaders.js';
 import { removeLaser } from './lasers.js';
 import { calculateScore } from './scoreboard/score.js';
 import { lifeLost } from './scoreboard/lives.js';
-import { changeStopValue } from './script.js';
+import { changeStopValue, currentLevel } from './script.js';
 import { gameover, startBallMovement } from './input.js';
-import { isTopScore } from './scoreboard/leaderboard.js';
+import { isTopScore, saveNewScore} from './scoreboard/leaderboard.js';
+import { timeplayed } from './scoreboard/timer.js';
 
 let gameView = document.querySelector('.gameView');
 let ballSpeedIncrement = 0.2;
@@ -361,17 +362,27 @@ function nextLevelCheck() {
                 let input = document.querySelector('.new-hiscore-completed');
                 input.style.display = 'block';
             } else {
-                saveNewScore('Anonymous', score, 99, currentLevel);
+                saveNewScore('AN0N', score, timeplayed, currentLevel);
+                resetScore();
             }
         });
         document.querySelector('#yes').addEventListener('click', (e) => {
             nextLevelPopUp.style.display = 'none';
             document.querySelector('.nextLevelLink').href =
-                'http://localhost:5500/components/experiment2/?lvl=' + newLevel;
+                '?lvl=' + newLevel;
         });
         document.querySelector('#no').addEventListener('click', (e) => {
-            nextLevelPopUp.style.display = 'none';
+            
+            if (score > 0) { 
+                console.log('score is greater than 0');
+                saveNewScore('AN0N', score, timeplayed, currentLevel) 
+            }
+            console.log('resetting score');
+            resetScore();
+            console.log('game over');
             gameover();
+
+            nextLevelPopUp.style.display = 'none';
         });
     }
 }
