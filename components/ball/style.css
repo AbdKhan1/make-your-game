@@ -1,19 +1,19 @@
 .grid {
-  position: absolute;
-  width: 600px;
-  height: 100%;
-  background-color: black;
+    position: absolute;
+    width: 600px;
+    height: 100%;
+    background-color: black;
 }
 
 .ball {
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  border-radius: 100px;
-  background-color: white;
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 100px;
+    background-color: white;
 }
 
 * {
-  margin: 0;
-  box-sizing: border-box;
+    margin: 0;
+    box-sizing: border-box;
 }

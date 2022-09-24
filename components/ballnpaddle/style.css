@@ -1,29 +1,29 @@
 .grid {
-  position: absolute;
-  width: 600px;
-  height: 100%;
-  background-color: black;
-  border-top: solid gray 10px;
-  border-left: solid gray 10px;
-  border-right: solid gray 10px;
+    position: absolute;
+    width: 600px;
+    height: 100%;
+    background-color: black;
+    border-top: solid gray 10px;
+    border-left: solid gray 10px;
+    border-right: solid gray 10px;
 }
 
 * {
-  margin: 0;
-  box-sizing: border-box;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 .ball {
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  border-radius: 100px;
-  background-color: white;
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 100px;
+    background-color: white;
 }
 
 .paddle {
-  position: absolute;
-  width: 100px;
-  height: 15px;
-  background-color: darkorange;
+    position: absolute;
+    width: 100px;
+    height: 15px;
+    background-color: darkorange;
 }

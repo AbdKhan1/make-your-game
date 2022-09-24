@@ -1,10 +1,10 @@
-import { levels } from "../levels.js";
+import { levels } from '../levels.js';
 
 export function addTabsToScoreboard() {
-  var tabs = document.createElement("div");
-  tabs.className = "tabs";
+    var tabs = document.createElement('div');
+    tabs.className = 'tabs';
 
-  var tabsHTML = `
+    var tabsHTML = `
   <div class="tab">
   <button class="tablinks" id="tab-how-to-play" onclick="openTab(event, 'how-to-play')">How To Play</button>
   <button class="tablinks" id="tab-about" onclick="openTab(event, 'about')">About</button>
@@ -62,76 +62,76 @@ export function addTabsToScoreboard() {
 </div>
 `;
 
-  tabs.innerHTML = tabsHTML;
-  document.querySelector(".right").appendChild(tabs);
+    tabs.innerHTML = tabsHTML;
+    document.querySelector('.right').appendChild(tabs);
 
-  openTab("how-to-play");
+    openTab('how-to-play');
 
-  document.querySelector("#tab-how-to-play").addEventListener("click", () => {
-    openTab("how-to-play");
-  });
-  document.querySelector("#tab-about").addEventListener("click", () => {
-    openTab("about");
-  });
-  document.querySelector("#tab-authors").addEventListener("click", () => {
-    openTab("authors");
-  });
-  document.querySelector("#tab-levels").addEventListener("click", () => {
-    openTab("levels");
-  });
-  document.querySelector("#tab-customize").addEventListener("click", () => {
-    openTab("customize");
-  });
+    document.querySelector('#tab-how-to-play').addEventListener('click', () => {
+        openTab('how-to-play');
+    });
+    document.querySelector('#tab-about').addEventListener('click', () => {
+        openTab('about');
+    });
+    document.querySelector('#tab-authors').addEventListener('click', () => {
+        openTab('authors');
+    });
+    document.querySelector('#tab-levels').addEventListener('click', () => {
+        openTab('levels');
+    });
+    document.querySelector('#tab-customize').addEventListener('click', () => {
+        openTab('customize');
+    });
 
-  let ballColorPicker = document.querySelector("#ball-colour-id");
-  ballColorPicker.addEventListener("input", updateBall, false);
+    let ballColorPicker = document.querySelector('#ball-colour-id');
+    ballColorPicker.addEventListener('input', updateBall, false);
 
-  let paddleColorPicker = document.querySelector("#paddle-colour-id");
-  paddleColorPicker.addEventListener("input", updatePaddle, false);
+    let paddleColorPicker = document.querySelector('#paddle-colour-id');
+    paddleColorPicker.addEventListener('input', updatePaddle, false);
 }
 
 function updateBall(event) {
-  // console.log('chosen color', event.target.value);
-  const p = document.querySelector(".ball");
-  if (p) {
-    p.style.backgroundColor = event.target.value;
-  }
+    // console.log('chosen color', event.target.value);
+    const p = document.querySelector('.ball');
+    if (p) {
+        p.style.backgroundColor = event.target.value;
+    }
 }
 function updatePaddle(event) {
-  // console.log('chosen color', event.target.value);
-  const p = document.querySelector(".paddle");
-  if (p) {
-    p.style.backgroundColor = event.target.value;
-  }
+    // console.log('chosen color', event.target.value);
+    const p = document.querySelector('.paddle');
+    if (p) {
+        p.style.backgroundColor = event.target.value;
+    }
 }
 
 function openTab(tabName) {
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-  document.getElementById(tabName).style.display = "block";
-  document.getElementById("tab-" + tabName).classList.add("active");
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName('tabcontent');
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = 'none';
+    }
+    tablinks = document.getElementsByClassName('tablinks');
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(' active', '');
+    }
+    document.getElementById(tabName).style.display = 'block';
+    document.getElementById('tab-' + tabName).classList.add('active');
 }
 
 // create links to all levels
 function createLevelLinks() {
-  // length of Object
-  var levelsLength = Object.keys(levels).length;
-  console.log(levelsLength);
+    // length of Object
+    var levelsLength = Object.keys(levels).length;
+    console.log(levelsLength);
 
-  var levelLinks = document.createElement("div");
-  levelLinks.className = "level-links";
-  var levelLinksHTML = "<ul>";
-  for (var i = 0; i < levelsLength; i++) {
-    levelLinksHTML += `<li><a href="?lvl=${i}">Level ${i}</a></li>`;
-  }
-  levelLinksHTML += "</ul>";
+    var levelLinks = document.createElement('div');
+    levelLinks.className = 'level-links';
+    var levelLinksHTML = '<ul>';
+    for (var i = 0; i < levelsLength; i++) {
+        levelLinksHTML += `<li><a href="?lvl=${i}">Level ${i}</a></li>`;
+    }
+    levelLinksHTML += '</ul>';
 
-  console.log(levelLinksHTML);
+    console.log(levelLinksHTML);
 }
