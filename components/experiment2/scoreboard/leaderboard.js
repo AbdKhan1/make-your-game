@@ -66,6 +66,7 @@ export async function retrieveLeaderboard(level) {
 export async function isTopScore(userscore, level, limit) {
     const query = new Parse.Query('Leaderboard' + level);
     query.descending('score');
+    query.addAscending('time');
     query.limit(limit);
 
     try {
