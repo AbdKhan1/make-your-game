@@ -39,7 +39,14 @@ export function addTabsToScoreboard() {
 
 <div id="levels" class="tabcontent">
   <h3>Select Level</h3>
- <ul><li><a href="?lvl=0">Level 0</a></li><li><a href="?lvl=1">Level 1</a></li><li><a href="?lvl=2">Level 2</a></li><li><a href="?lvl=3">Level 3</a></li><li><a href="?lvl=4">Level 4</a></li><li><a href="?lvl=5">Level 5</a></li></ul>
+ <ul>
+ <li><a href="?lvl=0">Level 0 - Training</a></li>
+ <li><a href="?lvl=1">Level 1 - Try and get me!</a></li>
+ <li><a href="?lvl=2">Level 2 - Easy does it!</a></li>
+ <li><a href="?lvl=3">Level 3 - Veteran</a></li>
+ <li><a href="?lvl=4">Level 4 - Bring it on!</a></li>
+ <li><a href="?lvl=5">Level 5 - Thou art a ball-meister</a></li>
+ </ul>
   </div>
 
 </div>
