@@ -113,7 +113,7 @@ export let levels = {
             brickWidth: 50,
             brickHeight: 15,
             // marginFromWall: 0,
-            padding: 5,
+            padding: ballSettings.size,
             brickRowColors: [
                 '#75DDF9',
                 '#fff',
