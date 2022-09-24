@@ -9,6 +9,8 @@ Parse.serverURL = 'https://parseapi.back4app.com/';
 
 export async function saveNewScore(name, score, time, level) {
     const leaderboard = new Parse.Object('Leaderboard' + level);
+    // trim the length of the name to 5 characters
+    name = name.substring(0, 5);
 
     leaderboard.set('name', name);
     leaderboard.set('score', score);
