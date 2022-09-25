@@ -33,6 +33,17 @@ export function createBricks(level) {
             brick.style.height = levels[level].bricks.brickHeight + 'px';
             brick.style.backgroundColor =
                 levels[level].bricks.brickRowColors[row];
+
+            //adding bonus content to the bricks
+            if (level === "6" ){
+               
+                brick.innerHTML = levels[level].bricks.brickText[row][i];
+                brick.style.textAlign = "center";
+                brick.style.lineHeight = levels[level].bricks.brickHeight + 'px';
+                brick.style.fontSize = "0.8em";
+            }
+            
+
             brick.style.left = brickPosition[0] + 'px';
             brick.style.top = brickPosition[1] + 'px';
             gameView.appendChild(brick);

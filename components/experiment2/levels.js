@@ -173,5 +173,45 @@ export let levels = {
         balls: {
             numberOfBalls: 2
         }
+    },
+    6: {
+        bricks: {
+            gapFromTop: ballSettings.size * 3,
+            numberOfRows: 6,
+            brickWidth: 130,
+            brickHeight: 35,
+            // marginFromWall: 0,
+            padding: 5,
+            brickRowColors: [
+                '#b6a3e4',
+                '#d7a3e4',
+                '#e4a3d1',
+                '#a3e4d7',
+                '#a3d0e4',
+                '#5dc9e2',
+            ],
+            brickText: [
+                ['BOMBERMAN','DOM','JUNIOR DEV '],
+                ['SOCIAL','NETWORK','FRAMEWORK'],
+                ['GAME','REAL-TIME','GRAPH QL'],
+                ['FORUM','PISCINE JS','COLLAB'],
+                ['GROUPIE','CHECKPOINT','LEM-IN'],
+                ['PISCINE GO','RELOADED','ASCII ART'],
+            ]
+        },
+        aliens: {
+            gapFromTop: ballSettings.size,
+            numberOfAliens: 5,
+            numberOfRows: 1,
+            drop: 4,
+            velocity: 0.1
+        },
+        lasers: {
+            speed: 0.5,
+            cooldown: 1
+        },
+        balls: {
+            numberOfBalls: 2
+        }
     }
 };

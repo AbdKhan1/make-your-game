@@ -42,7 +42,12 @@ export function createAliens(level) {
         for (let a = 1; a <= levels[level].aliens.numberOfAliens; a++) {
             const alien = document.createElement('img');
             alien.classList.add('alien');
-            alien.src = invaderSettings.image;
+            // bonus level
+            if (level === '6') {
+                alien.src = 'alien-01.png';
+            } else {
+                alien.src = invaderSettings.image;
+            }
             gameView.appendChild(alien);
             alien.style.position = 'absolute';
             alien.style.width = invaderSettings.width + 'px';

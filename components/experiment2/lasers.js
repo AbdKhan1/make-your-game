@@ -20,10 +20,21 @@ function createLasers() {
             let alien = aliens[i];
             const laser = document.createElement('img');
             laser.classList.add('laser');
-            laser.src = laserSettings.image;
+
+            // bonus content
+            if (currentLevel === '6') {
+                laser.src = 'laser-audit.png';
+                laser.style.width = 35 + 'px';
+                laser.style.height = 65 + 'px';
+
+            }else{
+              laser.src = laserSettings.image;  
+              laser.style.width = laserSettings.width + 'px';
+              laser.style.height = laserSettings.height + 'px';
+            }
+            
             gameView.appendChild(laser);
-            laser.style.width = laserSettings.width + 'px';
-            laser.style.height = laserSettings.height + 'px';
+           
             laser.style.position = 'absolute';
             laserStartingPosition[0] =
                 parseInt(alien.style.left) +
